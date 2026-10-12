@@ -130,14 +130,14 @@
     
     if (badge) {
       if (isActivated) {
-        badge.innerHTML = `<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
-          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
-          Full Access Verified (${escapeHtml(state.userSession?.name || 'Student')})
+        badge.innerHTML = `<span class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-xl text-[11px] sm:text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 whitespace-nowrap">
+          <svg class="w-3.5 h-3.5 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+          <span class="hidden sm:inline">Full Access • </span><span>Verified</span>
         </span>`;
       } else {
-        badge.innerHTML = `<button onclick="window.APP.openPaywallModal()" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 hover:bg-amber-500/20 transition-colors">
-          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-          Trial Mode • Unlock Full (300 ETB)
+        badge.innerHTML = `<button onclick="window.APP.openPaywallModal()" class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-xl text-[11px] sm:text-xs font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 hover:bg-amber-500/20 transition-colors whitespace-nowrap">
+          <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+          <span class="hidden sm:inline">Trial • </span><span>Unlock (300 ETB)</span>
         </button>`;
       }
     }
@@ -148,6 +148,9 @@
   }
 
   // TAB NAVIGATION: EXAMS VS NOTES
+  const TAB_ACTIVE_CLS = "w-full sm:w-auto px-3 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-sky-600 text-white shadow-sm flex items-center justify-center gap-1.5 transition-all";
+  const TAB_INACTIVE_CLS = "w-full sm:w-auto px-3 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-1.5";
+
   function showExamsTab() {
     state.currentTab = 'exams';
     document.getElementById('dashboard-view')?.classList.remove('hidden');
@@ -156,12 +159,8 @@
 
     const tabExams = document.getElementById('nav-tab-exams');
     const tabNotes = document.getElementById('nav-tab-notes');
-    if (tabExams) {
-      tabExams.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-sky-600 text-white shadow-sm flex items-center gap-2";
-    }
-    if (tabNotes) {
-      tabNotes.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-2";
-    }
+    if (tabExams) tabExams.className = TAB_ACTIVE_CLS;
+    if (tabNotes) tabNotes.className = TAB_INACTIVE_CLS;
   }
 
   function showNotesTab() {
@@ -172,12 +171,8 @@
 
     const tabExams = document.getElementById('nav-tab-exams');
     const tabNotes = document.getElementById('nav-tab-notes');
-    if (tabExams) {
-      tabExams.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-2";
-    }
-    if (tabNotes) {
-      tabNotes.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-sky-600 text-white shadow-sm flex items-center gap-2";
-    }
+    if (tabExams) tabExams.className = TAB_INACTIVE_CLS;
+    if (tabNotes) tabNotes.className = TAB_ACTIVE_CLS;
 
     renderNotesPills();
     renderNotesContent();
@@ -925,20 +920,13 @@
     const input = document.getElementById('admin-pin-input');
     const pin = input?.value?.trim();
 
-    // STRICT REJECTION: 3000 is permanently revoked
-    if (pin === '3000' || pin === 'admin') {
-      audioContext.playIncorrect();
-      showToast("❌ '3000' is invalid. Use your password: 12030215", "danger");
-      return;
-    }
-
     if (pin === '12030215') {
       audioContext.playCorrect();
       state.adminUnlocked = true;
       showAdminDashboard();
     } else {
       audioContext.playIncorrect();
-      showToast("Incorrect Admin Password", "danger");
+      showToast("❌ Incorrect Admin Password", "danger");
     }
   }
 
