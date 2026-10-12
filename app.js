@@ -830,14 +830,53 @@
     const display = document.getElementById('paywall-student-id-display');
     if (display) display.textContent = id;
 
-    // Update Telegram Link with pre-filled message
+    // Update Telegram Link with pre-filled message draft
     const settings = AMT_AUTH.getSettings();
     const tgBtn = document.getElementById('paywall-tg-link');
     if (tgBtn) {
-      const msg = encodeURIComponent(`Hi Dagi! I made the ${settings.priceBirr} Birr payment for the AMT Exam App.\nMy Name: ${name}\nMy Student ID: ${id}\nHere is my receipt screenshot:`);
-      const cleanUsername = settings.telegramUsername.replace('@', '');
-      tgBtn.href = `https://t.me/${cleanUsername}?text=${msg}`;
+      const draftMessage = `Hi Dagi! I made the ${settings.priceBirr} ETB payment for the Ethiopian Airlines AMT Exam App.\n\n👤 Name / Username: ${name}\n🆔 Student ID: ${id}\n\nHere is my payment receipt screenshot:`;
+      const cleanUsername = (settings.telegramUsername || 'Mountxhua').replace('@', '').trim();
+      tgBtn.href = `https://t.me/${cleanUsername}?text=${encodeURIComponent(draftMessage)}`;
     }
+  }
+
+  // Copy username & Student ID specifically to clipboard
+  function copyStudentDetails() {
+    const nameInput = document.getElementById('paywall-input-name');
+    const name = nameInput?.value?.trim() || 'Student';
+    const id = AMT_AUTH.generateStudentId(name);
+    const settings = AMT_AUTH.getSettings();
+    const textToCopy = `👤 Name / Username: ${name}\n🆔 Student ID: ${id}\n💰 Payment: ${settings.priceBirr} ETB`;
+    copyText(textToCopy, "Username & Student ID");
+  }
+
+  // When clicking Telegram account link: copies username & ID to clipboard and drafts message in DM
+  function handleTelegramPaymentClick(e) {
+    const nameInput = document.getElementById('paywall-input-name');
+    let name = nameInput?.value?.trim();
+    if (!name) {
+      name = 'Student';
+      if (nameInput) nameInput.value = name;
+    }
+    const id = AMT_AUTH.generateStudentId(name);
+    const settings = AMT_AUTH.getSettings();
+    const cleanUsername = (settings.telegramUsername || 'Mountxhua').replace('@', '').trim();
+
+    // Full draft message with username & student ID
+    const draftMessage = `Hi Dagi! I made the ${settings.priceBirr} ETB payment for the Ethiopian Airlines AMT Exam App.\n\n👤 Name / Username: ${name}\n🆔 Student ID: ${id}\n\nHere is my payment receipt screenshot:`;
+
+    // 1. Copy immediately to clipboard
+    copyText(draftMessage, `Username (${name}) & Student ID (${id})`);
+
+    // 2. Prepare pre-filled draft URL
+    const encoded = encodeURIComponent(draftMessage);
+    const webUrl = `https://t.me/${cleanUsername}?text=${encoded}`;
+    const tgBtn = document.getElementById('paywall-tg-link');
+    if (tgBtn) {
+      tgBtn.href = webUrl;
+    }
+
+    showToast(`📋 Copied "${id}" to clipboard! Opening Telegram DM with @${cleanUsername}...`, "success");
   }
 
   let codeAttempts = 0;
@@ -1324,7 +1363,9 @@
     closeDownloadModal,
     downloadOfflineFile,
     shareApp,
-    shareScoreOnTelegram
+    shareScoreOnTelegram,
+    copyStudentDetails,
+    handleTelegramPaymentClick
   };
 
   document.addEventListener('DOMContentLoaded', () => {
