@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>AMT Exam Master - Aviation Maintenance Technician Prep</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="style.css">
+  <!-- Load Offline Exam Data & Study Notes -->
+  <script src="public/data/exams-data.js"></script>
+  <script src="public/data/notes-data.js"></script>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-sky-500 selection:text-white">
+
+  <!-- APP HEADER -->
+  <header class="sticky top-0 z-40 w-full glass-panel border-b border-slate-200/80 dark:border-slate-800/80 transition-colors">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <!-- Brand & Home -->
+      <div class="flex items-center gap-3 cursor-pointer" onclick="window.APP.returnToDashboard()">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-cyan-500 text-white flex items-center justify-center shadow-md shadow-sky-500/20">
+          <svg class="w-6 h-6 transform -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+        </div>
+        <div>
+          <h1 class="text-base sm:text-lg font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
+            AMT EXAM <span class="text-sky-600 dark:text-sky-400">MASTER</span>
+          </h1>
+          <p class="text-[10px] uppercase font-bold tracking-wider text-slate-400 dark:text-slate-500">Aviation Maintenance Technician</p>
+        </div>
+      </div>
+
+      <!-- Header Actions -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Auth Status Badge -->
+        <div id="user-auth-badge"></div>
+
+        <!-- Sound Toggle -->
+        <button id="sound-toggle-btn" onclick="window.APP.toggleSound()" class="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="Toggle Sound">
+          <svg class="w-5 h-5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z"></path></svg>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button onclick="window.APP.toggleTheme()" class="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="Toggle Dark/Light Mode">
+          <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.03 9.03 0 008.354-5.646z"></path></svg>
+          <svg class="w-5 h-5 hidden dark:block text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+        </button>
+
+        <!-- Admin Portal Trigger -->
+        <button onclick="window.APP.openAdminModal()" class="px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-300/80 dark:border-slate-700 flex items-center gap-1.5 transition-colors" title="Admin Control Portal">
+          <svg class="w-3.5 h-3.5 text-sky-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+          Admin
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN WRAPPER -->
+  <main class="flex-1 max-w-5xl w-full mx-auto p-4 sm:p-6 lg:p-8">
+
+    <!-- TOP NAVIGATION TABS (EXAMS VS STUDY NOTES) -->
+    <nav class="flex items-center gap-2 border-b border-slate-200 dark:border-slate-800 mb-6 pb-2">
+      <button id="nav-tab-exams" onclick="window.APP.showExamsTab()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-sky-600 text-white shadow-sm flex items-center gap-2">
+        <span>📝 Official Exam Sets</span>
+        <span class="text-xs px-2 py-0.5 rounded-full bg-white/20">4 Exams • 220+ Qs</span>
+      </button>
+      <button id="nav-tab-notes" onclick="window.APP.showNotesTab()" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center gap-2">
+        <span>📘 Preparation Notes & Formulas</span>
+        <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">9 Parts</span>
+      </button>
+    </nav>
+
+    <!-- DASHBOARD VIEW -->
+    <div id="dashboard-view" class="space-y-8 animate-fadeIn">
+      <!-- Hero Banner -->
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-sky-950 to-slate-900 text-white p-6 sm:p-10 border border-sky-500/20 shadow-2xl">
+        <div class="absolute -right-12 -bottom-12 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="max-w-2xl relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-400/30 mb-4">
+            <span>✈️ Ethiopian Aviation Preparation</span>
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight mb-3 leading-tight">
+            Master the AMT Examination
+          </h2>
+          <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
+            Comprehensive practice questions covering Aviation Mathematics, Technical English, Mechanical Fundamentals, and Model Exams with step-by-step derivations.
+          </p>
+
+          <div class="flex flex-wrap items-center gap-3">
+            <button onclick="window.APP.openPaywallModal()" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-400 hover:to-cyan-400 text-white shadow-lg shadow-sky-500/25 transition-all flex items-center gap-2">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+              Unlock Full Access (300 Birr)
+            </button>
+            <button onclick="window.APP.showNotesTab()" class="px-4 py-2.5 rounded-xl text-sm font-semibold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center gap-1.5">
+              <span>Read Study Notes</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- WHAT'S INCLUDED IN THE APP SECTION -->
+      <section class="space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20 mb-1">
+              <span>✨ Complete Syllabus & Exam Bank</span>
+            </div>
+            <h3 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+              What's Included in the App
+            </h3>
+          </div>
+          <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm">
+            4 official exam papers with interactive solutions, plus all 9 comprehensive study note modules.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+          <!-- 1. Official Practice Exams Card -->
+          <div class="glass-panel rounded-3xl p-6 border shadow-sm flex flex-col justify-between hover:border-sky-500/40 transition-all">
+            <div>
+              <div class="flex items-center justify-between pb-4 border-b border-slate-200/80 dark:border-slate-800 mb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 flex items-center justify-center font-bold text-lg border border-sky-500/20 shadow-sm">
+                    📝
+                  </div>
+                  <div>
+                    <h4 class="text-base font-extrabold text-slate-900 dark:text-white">
+                      1. Official Practice Exams
+                    </h4>
+                    <span class="text-xs font-semibold text-sky-600 dark:text-sky-400">220+ Questions Total</span>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
+                  4 Full Sets
+                </span>
+              </div>
+
+              <!-- List of 4 Exams -->
+              <div class="space-y-2.5 text-xs sm:text-sm">
+                <div onclick="window.APP.selectExam('exam1', true)" class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 flex items-center justify-between hover:bg-sky-500/5 hover:border-sky-500/30 transition-all cursor-pointer group">
+                  <div class="flex items-center gap-2.5">
+                    <span class="text-sky-500 font-bold text-base">🔹</span>
+                    <div>
+                      <span class="font-bold text-slate-800 dark:text-slate-100 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">AMT Exam 1: Mathematics & Fundamentals</span>
+                      <p class="text-[11px] text-slate-500">Arithmetic, fractions, percentages, work rate & algebra</p>
+                    </div>
+                  </div>
+                  <span class="font-mono text-xs font-bold text-sky-600 dark:text-sky-400 px-2.5 py-1 rounded-lg bg-sky-500/10 whitespace-nowrap">58 Questions</span>
+                </div>
+
+                <div onclick="window.APP.selectExam('model', true)" class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 flex items-center justify-between hover:bg-emerald-500/5 hover:border-emerald-500/30 transition-all cursor-pointer group">
+                  <div class="flex items-center gap-2.5">
+                    <span class="text-emerald-500 font-bold text-base">🔹</span>
+                    <div>
+                      <span class="font-bold text-slate-800 dark:text-slate-100 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">AMT Model Exam: Full Comprehensive Simulation</span>
+                      <p class="text-[11px] text-slate-500">Aviation maintenance technician full model test</p>
+                    </div>
+                  </div>
+                  <span class="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400 px-2.5 py-1 rounded-lg bg-emerald-500/10 whitespace-nowrap">50 Questions</span>
+                </div>
+
+                <div onclick="window.APP.selectExam('exam3', true)" class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 flex items-center justify-between hover:bg-amber-500/5 hover:border-amber-500/30 transition-all cursor-pointer group">
+                  <div class="flex items-center gap-2.5">
+                    <span class="text-amber-500 font-bold text-base">🔹</span>
+                    <div>
+                      <span class="font-bold text-slate-800 dark:text-slate-100 group-hover:text-amber-600 dark:group-hover:text-amber-400 transition-colors">AMT Exam 3: Aviation Reading, English & Logic</span>
+                      <p class="text-[11px] text-slate-500">Passage analysis, vocabulary in context & logical deductions</p>
+                    </div>
+                  </div>
+                  <span class="font-mono text-xs font-bold text-amber-600 dark:text-amber-400 px-2.5 py-1 rounded-lg bg-amber-500/10 whitespace-nowrap">60 Questions</span>
+                </div>
+
+                <div onclick="window.APP.selectExam('practice', true)" class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 flex items-center justify-between hover:bg-purple-500/5 hover:border-purple-500/30 transition-all cursor-pointer group">
+                  <div class="flex items-center gap-2.5">
+                    <span class="text-purple-500 font-bold text-base">🔹</span>
+                    <div>
+                      <span class="font-bold text-slate-800 dark:text-slate-100 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">AMT Practice Exam: Grammar, Mechanics & Acoustics</span>
+                      <p class="text-[11px] text-slate-500">Grammar rules, mechanics, pulleys, levers & acoustics</p>
+                    </div>
+                  </div>
+                  <span class="font-mono text-xs font-bold text-purple-600 dark:text-purple-400 px-2.5 py-1 rounded-lg bg-purple-500/10 whitespace-nowrap">52 Questions</span>
+                </div>
+              </div>
+
+              <!-- Interactive Explanations Feature Callout -->
+              <div class="mt-4 p-3.5 rounded-2xl bg-sky-500/10 border border-sky-500/25 flex items-start gap-3">
+                <span class="text-xl leading-none mt-0.5">🔽</span>
+                <div class="text-xs leading-relaxed text-slate-700 dark:text-slate-300">
+                  <strong class="text-sky-700 dark:text-sky-300 font-bold block mb-0.5">Interactive Explanations:</strong>
+                  Explanations pop out only after choosing an answer and clicking the down arrow <span class="font-bold text-sky-600 dark:text-sky-400">🔽</span>. This guarantees active recall and testing integrity before revealing the verified steps.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Complete Study Notes & Formulas Card -->
+          <div class="glass-panel rounded-3xl p-6 border shadow-sm flex flex-col justify-between hover:border-emerald-500/40 transition-all">
+            <div>
+              <div class="flex items-center justify-between pb-4 border-b border-slate-200/80 dark:border-slate-800 mb-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold text-lg border border-emerald-500/20 shadow-sm">
+                    📘
+                  </div>
+                  <div>
+                    <h4 class="text-base font-extrabold text-slate-900 dark:text-white">
+                      2. Complete Study Notes & Formulas
+                    </h4>
+                    <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400">All 9 Parts Included</span>
+                  </div>
+                </div>
+                <button onclick="window.APP.showNotesTab()" class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors">
+                  Open Hub ➔
+                </button>
+              </div>
+
+              <!-- All 9 Parts List -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                <button onclick="window.APP.selectNotePartAndTab('part1')" class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 text-left hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all flex items-start gap-2">
+                  <span class="text-emerald-500 font-bold">🔹</span>
+                  <div>
+                    <strong class="font-bold text-slate-800 dark:text-slate-200 block">Part 1: Reading Strategies</strong>
+                    <span class="text-[11px] text-slate-500">Strategies 1–10 & inference clues</span>
+                  </div>
+                </button>
+
+                <button onclick="window.APP.selectNotePartAndTab('part2')" class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 text-left hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all flex items-start gap-2">
+                  <span class="text-emerald-500 font-bold">🔹</span>
+                  <div>
+                    <strong class="font-bold text-slate-800 dark:text-slate-200 block">Part 2: Grammar & Rules</strong>
+                    <span class="text-[11px] text-slate-500">Tenses, conditionals, prepositions</span>
+                  </div>
+                </button>
+
+                <button onclick="window.APP.selectNotePartAndTab('part3')" class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 text-left hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all flex items-start gap-2">
+                  <span class="text-emerald-500 font-bold">🔹</span>
+                  <div>
+                    <strong class="font-bold text-slate-800 dark:text-slate-200 block">Part 3: Vocabulary Bank</strong>
+                    <span class="text-[11px] text-slate-500">Synonyms, antonyms & spelling</span>
+                  </div>
+                </button>
+
+                <button onclick="window.APP.selectNotePartAndTab('part4')" class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 text-left hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all flex items-start gap-2">
+                  <span class="text-emerald-500 font-bold">🔹</span>
+                  <div>
+                    <strong class="font-bold text-slate-800 dark:text-slate-200 block">Part 4: Verbal Reasoning</strong>
+                    <span class="text-[11px] text-slate-500">Analogies & scrambled sentences</span>
+                  </div>
+                </button>
+
+                <button onclick="window.APP.selectNotePartAndTab('part5')" class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 text-left hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all flex items-start gap-2">
+                  <span class="text-emerald-500 font-bold">🔹</span>
+                  <div>
+                    <strong class="font-bold text-slate-800 dark:text-slate-200 block">Part 5: Mathematics Formulas</strong>
+                    <span class="text-[11px] text-slate-500">Percentages, work rate, speed, Venn</span>
+                  </div>
+                </button>
+
+                <button onclick="window.APP.selectNotePartAndTab('part6')" class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 text-left hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all flex items-start gap-2">
+                  <span class="text-emerald-500 font-bold">🔹</span>
+                  <div>
+                    <strong class="font-bold text-slate-800 dark:text-slate-200 block">Part 6: Critical Reasoning</strong>
+                    <span class="text-[11px] text-slate-500">Weakening & strengthening arguments</span>
+                  </div>
+                </button>
+
+                <button onclick="window.APP.selectNotePartAndTab('part7')" class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 text-left hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all flex items-start gap-2">
+                  <span class="text-emerald-500 font-bold">🔹</span>
+                  <div>
+                    <strong class="font-bold text-slate-800 dark:text-slate-200 block">Part 7: Mechanical Reasoning</strong>
+                    <span class="text-[11px] text-slate-500">Gears, pulleys, stability & belts</span>
+                  </div>
+                </button>
+
+                <button onclick="window.APP.selectNotePartAndTab('part8')" class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 text-left hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all flex items-start gap-2">
+                  <span class="text-emerald-500 font-bold">🔹</span>
+                  <div>
+                    <strong class="font-bold text-slate-800 dark:text-slate-200 block">Part 8: Pattern & Spatial</strong>
+                    <span class="text-[11px] text-slate-500">Hidden shapes & 3D box contacts</span>
+                  </div>
+                </button>
+
+                <button onclick="window.APP.selectNotePartAndTab('part9')" class="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200/70 dark:border-slate-800 text-left hover:bg-emerald-500/10 hover:border-emerald-500/30 transition-all flex items-start gap-2 sm:col-span-2">
+                  <span class="text-emerald-500 font-bold">🔹</span>
+                  <div>
+                    <strong class="font-bold text-slate-800 dark:text-slate-200 block">Part 9: Basic Physics & Aviation Equations</strong>
+                    <span class="text-[11px] text-slate-500">Kinematics, forces, work/energy, momentum, fluids, sound & circuits</span>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Available Exams Grid -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <span>Official Exam Papers</span>
+            <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-400">4 Full Exam Sets</span>
+          </h3>
+          <span class="text-xs text-slate-500">Tap Practice Mode to begin answering</span>
+        </div>
+
+        <div id="exam-cards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Dynamically populated by app.js -->
+        </div>
+      </div>
+    </div>
+
+    <!-- STUDY NOTES VIEW -->
+    <div id="notes-view" class="hidden space-y-6 animate-fadeIn">
+      <div class="glass-panel rounded-3xl p-6 sm:p-8 border shadow-sm space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 mb-2">
+              <span>Official EAU Exam Curriculum</span>
+            </div>
+            <h2 class="text-2xl font-black text-slate-900 dark:text-white">AMT Master Preparation Notes</h2>
+            <p class="text-xs sm:text-sm text-slate-500">Aviation reading strategies, grammar rules, formulas & mechanical concepts</p>
+          </div>
+
+          <!-- Search bar -->
+          <div class="relative w-full sm:w-72">
+            <input 
+              id="notes-search-input" 
+              type="text" 
+              oninput="window.APP.filterNotes(this.value)" 
+              placeholder="Search formulas, words..." 
+              class="w-full pl-9 pr-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-medium outline-none focus:ring-2 focus:ring-sky-500"
+            >
+            <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+          </div>
+        </div>
+
+        <!-- Part Navigation Pills -->
+        <div id="notes-part-pills" class="flex items-center gap-2 overflow-x-auto pb-2 pt-1 border-t border-slate-200/80 dark:border-slate-800">
+          <!-- Populated by app.js -->
+        </div>
+      </div>
+
+      <!-- Notes Content Container -->
+      <div id="notes-content-container" class="space-y-4">
+        <!-- Populated by app.js -->
+      </div>
+    </div>
+
+    <!-- EXAM VIEW (INTERACTIVE QUESTION ENGINE) -->
+    <div id="exam-view" class="hidden space-y-6 animate-fadeIn">
+      <!-- Sticky Exam Navigation Bar -->
+      <div class="glass-panel rounded-2xl p-4 border shadow-sm flex items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <button onclick="window.APP.returnToDashboard()" class="p-2 rounded-xl text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="Back to Dashboard">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+          </button>
+          <div>
+            <h3 id="exam-header-title" class="text-sm sm:text-base font-bold text-slate-900 dark:text-white leading-tight truncate max-w-xs sm:max-w-md">
+              AMT Exam 1
+            </h3>
+            <span id="current-q-num" class="text-xs font-semibold text-slate-500 dark:text-slate-400">
+              Question 1 of 57
+            </span>
+          </div>
+        </div>
+
+        <!-- Timer / Mode / Tools -->
+        <div class="flex items-center gap-2 sm:gap-3">
+          <div id="exam-timer-display" class="px-3 py-1.5 rounded-xl font-mono text-xs sm:text-sm font-bold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700">
+            Study Mode
+          </div>
+
+          <!-- Flag Button -->
+          <button id="flag-question-btn" onclick="window.APP.toggleFlagCurrent()" class="p-2 rounded-xl text-slate-400 hover:text-amber-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="Flag for review (Press 'F')">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M3 3a1 1 0 000 2h11.414l-2.707 2.707a1 1 0 000 1.414L14.414 12H3a1 1 0 100 2h13a1 1 0 00.707-1.707l-3-3a1 1 0 000-1.414l3-3A1 1 0 0016 3H3z"></path></svg>
+          </button>
+
+          <!-- Drawer Trigger -->
+          <button onclick="window.APP.openDrawer()" class="p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="Open Question Grid">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Progress Line -->
+      <div class="w-full bg-slate-200 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+        <div id="exam-progress-bar" class="bg-gradient-to-r from-sky-500 to-emerald-500 h-full transition-all duration-300 w-0"></div>
+      </div>
+
+      <!-- Question Card Container -->
+      <div id="question-container">
+        <!-- Rendered dynamically by app.js -->
+      </div>
+
+      <!-- Bottom Navigation Controls -->
+      <div class="glass-panel rounded-2xl p-4 border shadow-sm flex items-center justify-between gap-3">
+        <button id="prev-q-btn" onclick="window.APP.prevQuestion()" class="px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 disabled:opacity-40 disabled:pointer-events-none transition-colors flex items-center gap-1.5">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          Previous
+        </button>
+
+        <!-- Filter Select -->
+        <select onchange="window.APP.setFilter(this.value)" class="px-3 py-2 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 outline-none">
+          <option value="all">All Questions</option>
+          <option value="flagged">Flagged Only</option>
+          <option value="incorrect">Mistakes Only</option>
+        </select>
+
+        <button id="next-q-btn" onclick="window.APP.nextQuestion()" class="px-6 py-2.5 rounded-xl text-sm font-bold text-white bg-sky-600 hover:bg-sky-500 disabled:opacity-40 disabled:pointer-events-none shadow-md shadow-sky-600/20 transition-all flex items-center gap-1.5">
+          Next
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- QUESTION GRID JUMP MODAL -->
+  <div id="question-drawer-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4 hidden">
+    <div class="glass-panel bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 border shadow-2xl space-y-4 max-h-[85vh] flex flex-col">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
+        <h3 class="text-lg font-bold text-slate-900 dark:text-white">Question Navigator</h3>
+        <button onclick="window.APP.closeDrawer()" class="p-1 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <!-- Legend -->
+      <div class="flex flex-wrap items-center gap-3 text-xs text-slate-600 dark:text-slate-400 py-2">
+        <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-emerald-500"></span> Correct</span>
+        <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-red-500"></span> Incorrect</span>
+        <span class="flex items-center gap-1.5"><span class="w-3 h-3 rounded-full bg-slate-300 dark:bg-slate-700"></span> Unanswered</span>
+        <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span> Flagged</span>
+      </div>
+
+      <div id="question-grid-items" class="grid grid-cols-5 sm:grid-cols-6 gap-2.5 overflow-y-auto p-1 flex-1">
+        <!-- Populated dynamically -->
+      </div>
+
+      <div class="pt-3 border-t border-slate-200 dark:border-slate-800 flex justify-end">
+        <button onclick="window.APP.finishExam()" class="px-5 py-2 rounded-xl text-sm font-bold bg-slate-900 text-white dark:bg-sky-600 hover:bg-sky-500 transition-colors">
+          Finish & View Score
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAYWALL / PAYMENT & APPROVAL MODAL -->
+  <div id="paywall-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 hidden overflow-y-auto">
+    <div class="glass-panel bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 sm:p-8 border shadow-2xl space-y-6 my-8">
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-amber-500/10 text-amber-500 border border-amber-500/20 flex items-center justify-center">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white">Unlock Full Exam Access</h3>
+            <p class="text-xs text-slate-500">Official AMT Question Bank & Notes • 300 ETB</p>
+          </div>
+        </div>
+        <button onclick="window.APP.closePaywallModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <!-- Price Banner -->
+      <div class="p-4 rounded-2xl bg-gradient-to-r from-sky-500/10 via-cyan-500/10 to-emerald-500/10 border border-sky-500/20 flex items-center justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400">One-Time Fee</span>
+          <h4 class="text-2xl font-black text-slate-900 dark:text-white" id="paywall-price">300 ETB</h4>
+        </div>
+        <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">Lifetime Access</span>
+      </div>
+
+      <!-- What's Included Summary Box -->
+      <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-800 text-xs space-y-2.5">
+        <div class="font-bold text-slate-900 dark:text-white flex items-center justify-between">
+          <span class="flex items-center gap-1.5"><span class="text-sky-500">✨</span> What's Included with Full Access</span>
+          <span class="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">Everything Unlocked</span>
+        </div>
+        <div class="space-y-1.5 text-slate-600 dark:text-slate-300">
+          <div class="flex items-start gap-2">
+            <span class="text-sky-500 font-bold">🔹</span>
+            <span><strong>4 Practice Exams (220+ Questions):</strong> AMT Exam 1 (58 Qs), Model Exam (50 Qs), AMT Exam 3 (60 Qs), Practice Exam (52 Qs).</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-sky-500 font-bold">🔹</span>
+            <span><strong>Interactive Explanations:</strong> Solutions pop out after selecting an option and clicking the down arrow <strong>🔽</strong>.</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-emerald-500 font-bold">🔹</span>
+            <span><strong>Complete Study Notes & Formulas (All 9 Parts):</strong> Reading, Grammar, Vocabulary, Math, Physics, Mechanics & Spatial.</span>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-purple-500 font-bold">🔹</span>
+            <span><strong>100% Offline Capable:</strong> Runs permanently on mobile or PC with zero internet needed.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 1: Student Information -->
+      <div class="space-y-2">
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Step 1: Your Full Name</label>
+        <input 
+          id="paywall-input-name" 
+          type="text" 
+          oninput="window.APP.updatePaywallStudentId()" 
+          placeholder="Enter your full name (e.g. Abebe Kebede)" 
+          class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-sky-500 outline-none transition-all"
+        >
+        <div class="flex items-center justify-between text-xs text-slate-500 px-1">
+          <span>Your Unique Student ID:</span>
+          <span id="paywall-student-id-display" class="font-mono font-bold text-sky-600 dark:text-sky-400">AMT-STUDENT-1000</span>
+        </div>
+      </div>
+
+      <!-- Step 2: Payment Instructions -->
+      <div class="space-y-3">
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Step 2: Transfer 300 Birr</label>
+        
+        <!-- Telebirr Card -->
+        <div class="p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-xl bg-blue-500 text-white font-bold text-xs flex items-center justify-center">TB</span>
+            <div>
+              <p class="text-xs font-bold text-slate-900 dark:text-white">Telebirr: <span id="paywall-telebirr-num" class="font-mono">0907862027</span></p>
+              <p class="text-[11px] text-slate-500">Account Name: <span id="paywall-telebirr-name">Dagi</span></p>
+            </div>
+          </div>
+          <button onclick="window.APP.copyText(document.getElementById('paywall-telebirr-num').textContent, 'Telebirr number')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border shadow-sm hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors">
+            Copy
+          </button>
+        </div>
+
+        <!-- CBE Card -->
+        <div class="p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-xl bg-purple-600 text-white font-bold text-xs flex items-center justify-center">CBE</span>
+            <div>
+              <p class="text-xs font-bold text-slate-900 dark:text-white">CBE: <span id="paywall-cbe-acc" class="font-mono">1000649624481</span></p>
+              <p class="text-[11px] text-slate-500">Account Name: <span id="paywall-cbe-name">Dagi</span></p>
+            </div>
+          </div>
+          <button onclick="window.APP.copyText(document.getElementById('paywall-cbe-acc').textContent, 'CBE account')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border shadow-sm hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors">
+            Copy
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 3: Send Receipt to Telegram -->
+      <div class="space-y-2">
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Step 3: Send Receipt to Admin</label>
+        <a id="paywall-tg-link" href="https://t.me/Mountxhua" target="_blank" class="w-full py-3 px-4 rounded-xl font-bold text-sm bg-sky-500 hover:bg-sky-400 text-white shadow-lg shadow-sky-500/20 flex items-center justify-center gap-2 transition-all">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .34z"/></svg>
+          Send Receipt & Username to @Mountxhua
+        </a>
+      </div>
+
+      <!-- Step 4: Enter Activation Code -->
+      <div class="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-3">
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Step 4: Enter Approval Code</label>
+        <div class="flex gap-2">
+          <input 
+            id="paywall-activation-code-input" 
+            type="text" 
+            placeholder="e.g. 748-219 or VIP Code" 
+            class="flex-1 px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-mono font-bold tracking-widest text-center text-lg focus:ring-2 focus:ring-emerald-500 outline-none uppercase"
+          >
+          <button onclick="window.APP.submitActivationCode()" class="px-6 py-3 rounded-xl font-bold text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/25 transition-all">
+            Unlock
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN PORTAL MODAL (FOR DAGI) -->
+  <div id="admin-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 hidden overflow-y-auto">
+    <div class="glass-panel bg-white dark:bg-slate-900 rounded-3xl max-w-xl w-full p-6 sm:p-8 border shadow-2xl space-y-6 my-8">
+      
+      <!-- Admin Login View -->
+      <div id="admin-login-view" class="space-y-5 text-center py-6">
+        <div class="w-14 h-14 rounded-2xl bg-sky-500/10 text-sky-500 border border-sky-500/20 flex items-center justify-center mx-auto">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+        </div>
+        <div>
+          <h3 class="text-xl font-extrabold text-slate-900 dark:text-white">Dagi's Admin Portal</h3>
+          <p class="text-xs text-slate-500">Enter Admin PIN to approve students & generate unlock codes</p>
+        </div>
+        <div class="max-w-xs mx-auto space-y-3">
+          <input 
+            id="admin-pin-input" 
+            type="password" 
+            placeholder="Default PIN: 3000" 
+            class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-center font-mono text-xl tracking-widest outline-none focus:ring-2 focus:ring-sky-500"
+          >
+          <button onclick="window.APP.verifyAdminPin()" class="w-full py-3 rounded-xl font-bold bg-sky-600 hover:bg-sky-500 text-white transition-colors">
+            Login as Admin
+          </button>
+          <button onclick="window.APP.closeAdminModal()" class="text-xs text-slate-400 hover:underline">
+            Cancel
+          </button>
+        </div>
+      </div>
+
+      <!-- Admin Dashboard View -->
+      <div id="admin-dashboard-view" class="hidden space-y-6">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-slate-800">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Admin Control & Approval Center</h3>
+            <p class="text-xs text-slate-500">Quick Approval Generator for Students</p>
+          </div>
+          <button onclick="window.APP.closeAdminModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+          </button>
+        </div>
+
+        <!-- 1-CLICK CODE GENERATOR (EASY FOR DAGI) -->
+        <div class="p-5 rounded-2xl bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800 space-y-3">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            <h4 class="text-sm font-bold text-slate-900 dark:text-white">1-Click Student Approval Generator</h4>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-400">
+            Paste the student's name or Student ID from Telegram to generate their 6-digit Unlock Code:
+          </p>
+
+          <div class="flex gap-2">
+            <input 
+              id="admin-student-input" 
+              type="text" 
+              placeholder="e.g. Abebe Kebede or AMT-DAGI-4829" 
+              class="flex-1 px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-medium outline-none focus:ring-2 focus:ring-sky-500"
+            >
+            <button onclick="window.APP.adminGenerateCode()" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-sky-600 hover:bg-sky-500 text-white shadow-sm transition-all whitespace-nowrap">
+              Approve & Generate
+            </button>
+          </div>
+
+          <!-- Generated Code Result Box -->
+          <div id="admin-generated-code-box" class="hidden pt-3 border-t border-sky-200 dark:border-sky-800 space-y-3">
+            <div class="p-3 rounded-xl bg-white dark:bg-slate-900 border border-emerald-500/30 flex items-center justify-between">
+              <div>
+                <span class="text-[10px] uppercase font-bold text-slate-400">Student Activation Code</span>
+                <p id="admin-generated-code" class="text-xl font-mono font-black text-emerald-600 dark:text-emerald-400">849-215</p>
+              </div>
+              <button onclick="window.APP.copyTgReply()" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm flex items-center gap-1.5 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                Copy Telegram Message
+              </button>
+            </div>
+            <textarea id="admin-tg-reply-text" rows="3" readonly class="w-full text-xs font-mono p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 outline-none"></textarea>
+          </div>
+        </div>
+
+        <!-- Master VIP Bypass Key -->
+        <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 flex items-center justify-between">
+          <div>
+            <h5 class="text-xs font-bold text-amber-800 dark:text-amber-300">Master VIP Bypass Key</h5>
+            <p class="text-[11px] text-amber-600 dark:text-amber-400">Instant unlock code for yourself or any device</p>
+          </div>
+          <span id="admin-vip-key-display" class="font-mono font-bold text-sm px-3 py-1 bg-white dark:bg-slate-800 rounded-lg border border-amber-300 dark:border-amber-700">AMT-VIP-2026</span>
+        </div>
+
+        <!-- Settings Form -->
+        <div class="space-y-4 pt-2">
+          <h4 class="text-sm font-bold text-slate-900 dark:text-white">Payment & Contact Configuration</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div>
+              <label class="font-semibold text-slate-500">Telebirr Number</label>
+              <input id="admin-set-telebirr-num" type="text" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+            </div>
+            <div>
+              <label class="font-semibold text-slate-500">Telebirr Name</label>
+              <input id="admin-set-telebirr-name" type="text" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+            </div>
+            <div>
+              <label class="font-semibold text-slate-500">CBE Account Number</label>
+              <input id="admin-set-cbe-acc" type="text" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+            </div>
+            <div>
+              <label class="font-semibold text-slate-500">CBE Account Name</label>
+              <input id="admin-set-cbe-name" type="text" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+            </div>
+            <div>
+              <label class="font-semibold text-slate-500">Telegram Username</label>
+              <input id="admin-set-tg-user" type="text" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+            </div>
+            <div>
+              <label class="font-semibold text-slate-500">Price in Birr (ETB)</label>
+              <input id="admin-set-price" type="number" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+            </div>
+            <div>
+              <label class="font-semibold text-slate-500">Admin PIN</label>
+              <input id="admin-set-pin" type="text" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+            </div>
+          </div>
+
+          <div class="flex justify-end pt-2">
+            <button onclick="window.APP.saveAdminSettings()" class="px-5 py-2 rounded-xl text-xs font-bold bg-slate-900 text-white dark:bg-sky-600 hover:bg-sky-500 transition-colors">
+              Save Settings
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIGHTBOX MODAL (VIEW ORIGINAL SCAN) -->
+  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden" onclick="window.APP.closeLightbox()">
+    <div class="relative max-w-3xl w-full max-h-[90vh] flex flex-col items-center">
+      <button onclick="window.APP.closeLightbox()" class="absolute -top-10 right-0 text-white hover:text-slate-300 p-2 font-bold text-sm flex items-center gap-1">
+        Close ✕
+      </button>
+      <img id="lightbox-image" src="" alt="Original Scan" class="rounded-2xl max-h-[85vh] w-auto shadow-2xl border border-white/10 object-contain">
+    </div>
+  </div>
+
+  <!-- RESULTS MODAL -->
+  <div id="results-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md flex items-center justify-center p-4 hidden">
+    <div class="glass-panel bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 sm:p-8 border shadow-2xl text-center space-y-5 animate-scaleUp">
+      <div class="w-16 h-16 rounded-full bg-sky-500/10 text-sky-500 flex items-center justify-center mx-auto">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+      </div>
+
+      <div>
+        <h3 class="text-2xl font-black text-slate-900 dark:text-white mb-1">Exam Complete!</h3>
+        <p id="results-status-text" class="text-sm font-bold text-emerald-500">PASSED</p>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-800">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Your Score</span>
+        <h4 id="results-score-pct" class="text-5xl font-black text-slate-900 dark:text-white my-1 font-mono">85%</h4>
+        <div class="flex items-center justify-center gap-6 mt-4 text-xs font-semibold text-slate-600 dark:text-slate-400">
+          <div><span id="results-correct-count" class="text-emerald-500 font-bold text-base">42</span> Correct</div>
+          <div><span id="results-incorrect-count" class="text-red-500 font-bold text-base">8</span> Incorrect</div>
+          <div><span id="results-total-count" class="text-slate-700 dark:text-slate-200 font-bold text-base">50</span> Total</div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-2 pt-2">
+        <button onclick="window.APP.setFilter('incorrect'); window.APP.closeResultsModal();" class="w-full py-3 rounded-xl font-bold text-sm bg-sky-600 hover:bg-sky-500 text-white shadow-md shadow-sky-600/20 transition-all">
+          Review Mistakes Only
+        </button>
+        <button onclick="window.APP.closeResultsModal(); window.APP.returnToDashboard();" class="w-full py-2.5 rounded-xl font-semibold text-sm text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+          Return to Dashboard
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- App Core Script -->
+  <script src="auth.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
