@@ -18,14 +18,21 @@ const AMT_AUTH = (function() {
     cbeAccount: "1000649624481",
     cbeName: "Dagi",
     telegramUsername: "Mountxhua",
-    adminPin: "3000",
+    adminPin: "12030215",
     freePreviewCount: 5
   };
 
   function getSettings() {
     try {
       const saved = localStorage.getItem(STORAGE_KEY_SETTINGS);
-      if (saved) return Object.assign({}, DEFAULT_SETTINGS, JSON.parse(saved));
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (!parsed.adminPin || parsed.adminPin === "3000" || parsed.adminPin === "admin") {
+          parsed.adminPin = "12030215";
+          localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(parsed));
+        }
+        return Object.assign({}, DEFAULT_SETTINGS, parsed);
+      }
     } catch (e) {}
     return Object.assign({}, DEFAULT_SETTINGS);
   }
@@ -36,17 +43,27 @@ const AMT_AUTH = (function() {
     return updated;
   }
 
-  // Generates clean Student ID: e.g. "AMT-DAGI-4829"
-  function generateStudentId(name) {
-    if (!name) name = "STUDENT";
-    const clean = name.trim().toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8) || "STUDENT";
-    let hash = 0;
-    for (let i = 0; i < name.length; i++) {
-      hash = ((hash << 5) - hash) + name.charCodeAt(i);
-      hash |= 0;
+  const STORAGE_KEY_DEVICE = "amt_device_id";
+
+  function getOrCreateDeviceId() {
+    try {
+      let devId = localStorage.getItem(STORAGE_KEY_DEVICE);
+      if (!devId) {
+        const rand = Math.floor(1000 + Math.random() * 9000);
+        devId = String(rand);
+        localStorage.setItem(STORAGE_KEY_DEVICE, devId);
+      }
+      return devId;
+    } catch (e) {
+      return "2026";
     }
-    const suffix = String(Math.abs(hash) % 9000 + 1000);
-    return `AMT-${clean}-${suffix}`;
+  }
+
+  // Generates clean Student ID tied to student name and unique device: e.g. "AMT-ABEBE-7341"
+  function generateStudentId(name) {
+    const devId = getOrCreateDeviceId();
+    const clean = (name || "STUDENT").trim().toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8) || "STUDENT";
+    return `AMT-${clean}-${devId}`;
   }
 
   // Generates 6-digit cryptographic activation code mathematically tied to name/id

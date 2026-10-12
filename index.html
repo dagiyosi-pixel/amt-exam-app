@@ -63,10 +63,10 @@
       }
     }
   </script>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=12030215">
   <!-- Load Offline Exam Data & Study Notes -->
-  <script src="public/data/exams-data.js"></script>
-  <script src="public/data/notes-data.js"></script>
+  <script src="public/data/exams-data.js?v=12030215"></script>
+  <script src="public/data/notes-data.js?v=12030215"></script>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-sky-500 selection:text-white">
 
@@ -662,13 +662,13 @@
         </div>
         <div>
           <h3 class="text-xl font-extrabold text-slate-900 dark:text-white">Admin Authentication</h3>
-          <p class="text-xs text-slate-500">Authorized personnel only</p>
+          <p class="text-xs text-slate-500">Enter Admin Password to manage approvals</p>
         </div>
         <div class="max-w-xs mx-auto space-y-3">
           <input 
             id="admin-pin-input" 
             type="password" 
-            placeholder="••••••••" 
+            placeholder="Enter Password" 
             class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-center font-mono text-xl tracking-widest outline-none focus:ring-2 focus:ring-sky-500"
           >
           <button onclick="window.APP.verifyAdminPin()" class="w-full py-3 rounded-xl font-bold bg-sky-600 hover:bg-sky-500 text-white transition-colors">
@@ -904,7 +904,24 @@
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <!-- App Core Script -->
-  <script src="auth.js"></script>
-  <script src="app.js"></script>
+  <script src="auth.js?v=12030215"></script>
+  <script src="app.js?v=12030215"></script>
+  <script>
+    // Invalidate old service worker caches and force immediate refresh
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(regs) {
+        for (var i = 0; i < regs.length; i++) {
+          regs[i].update();
+        }
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (var i = 0; i < names.length; i++) {
+          if (names[i] !== 'amt-exam-v3') caches.delete(names[i]);
+        }
+      });
+    }
+  </script>
 </body>
 </html>

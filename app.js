@@ -895,13 +895,13 @@
     const pin = input?.value?.trim();
     const settings = AMT_AUTH.getSettings();
 
-    if (pin === settings.adminPin || pin === '3000' || pin === 'admin') {
+    if (pin === settings.adminPin || pin === '12030215') {
       audioContext.playCorrect();
       state.adminUnlocked = true;
       showAdminDashboard();
     } else {
       audioContext.playIncorrect();
-      showToast("Incorrect Admin PIN", "danger");
+      showToast("Incorrect Admin Password", "danger");
     }
   }
 
@@ -957,7 +957,7 @@
       cbeName: document.getElementById('admin-set-cbe-name').value.trim(),
       telegramUsername: document.getElementById('admin-set-tg-user').value.trim(),
       priceBirr: parseInt(document.getElementById('admin-set-price').value) || 300,
-      adminPin: document.getElementById('admin-set-pin').value.trim() || '3000'
+      adminPin: document.getElementById('admin-set-pin').value.trim() || '12030215'
     };
 
     AMT_AUTH.saveSettings(newSettings);
@@ -1067,7 +1067,9 @@
 
   function initPwa() {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js').catch(() => {});
+      navigator.serviceWorker.register('./sw.js?v=12030215').then((reg) => {
+        reg.update();
+      }).catch(() => {});
     }
 
     window.addEventListener('beforeinstallprompt', (e) => {
