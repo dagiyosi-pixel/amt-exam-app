@@ -1073,32 +1073,51 @@
     }
   }
 
-  // Universal App Share (Native Share or Telegram)
-  function shareApp() {
-    const shareTitle = "Ethiopian AMT Exam Master";
-    const shareText = "✈️ Prepare for the Ethiopian Aviation Maintenance Technician (AMT) License & Hiring Exams!\n\n• 276 Official Exam Questions with Step-by-Step Solutions\n• 9 Complete Study Modules & Math/Physics Formulas\n• Works 100% Offline on Phone & PC\n\nTry the free exams here:";
-    const shareUrl = "https://dagiyosi-pixel.github.io/amt-exam-app/";
+  // Open external URL safely without popup blocker issues
+  function openExternalUrl(url) {
+    try {
+      const win = window.open(url, '_blank', 'noopener,noreferrer');
+      if (!win || win.closed || typeof win.closed === 'undefined') {
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    } catch (e) {
+      window.open(url, '_blank');
+    }
+  }
 
-    if (navigator.share) {
-      navigator.share({
-        title: shareTitle,
-        text: shareText,
-        url: shareUrl
-      }).catch(() => {});
-    } else {
-      const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
-      window.open(tgUrl, '_blank');
+  // Universal App Share (Direct Telegram Share + Clipboard Copy)
+  function shareApp(e) {
+    audioContext.playClick();
+    const shareUrl = "https://dagiyosi-pixel.github.io/amt-exam-app/";
+    const shareText = "✈️ Ethiopian AMT Exam Master (Official 276 Questions & Study Notes)\n\nPass the Ethiopian Airlines & ECAA Aircraft Maintenance Technician Exams with real past papers, instant scoring, and formulas!\n\nTry the free exams:";
+    const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
+
+    // 1. Copy link to clipboard
+    copyText(shareUrl, "Exam App Link");
+
+    // 2. Open Telegram share if not already handled by a native anchor tag
+    if (!e || !e.currentTarget || e.currentTarget.tagName !== 'A') {
+      openExternalUrl(tgUrl);
     }
   }
 
   // Share Exam Score on Telegram
   function shareScoreOnTelegram() {
+    audioContext.playClick();
     const exam = getCurrentExam();
     const scorePct = document.getElementById('results-score-pct')?.textContent || '85%';
+    const shareUrl = "https://dagiyosi-pixel.github.io/amt-exam-app/";
     const text = `✈️ I scored ${scorePct} on the Ethiopian AMT Exam Simulator (${exam.title})!\nCan you beat my score? Practice 276 official exam questions here:`;
-    const url = "https://dagiyosi-pixel.github.io/amt-exam-app/";
-    const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
-    window.open(tgUrl, '_blank');
+    const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(text)}`;
+
+    copyText(shareUrl, "Exam App Link");
+    openExternalUrl(tgUrl);
   }
 
   // Toast Notification
