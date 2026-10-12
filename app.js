@@ -1035,6 +1035,13 @@
   // Keyboard navigation shortcuts
   function setupEventListeners() {
     window.addEventListener('keydown', (e) => {
+      // Secret Admin Shortcut for Dagi: Ctrl + Shift + A
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'A' || e.key === 'a')) {
+        e.preventDefault();
+        openAdminModal();
+        return;
+      }
+
       if (document.getElementById('exam-view').classList.contains('hidden')) return;
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
