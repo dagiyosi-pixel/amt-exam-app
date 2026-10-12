@@ -992,11 +992,66 @@
     showToast("Settings saved successfully!", "success");
   }
 
+  // Fallback Copy helper for older mobile browsers
+  function fallbackCopy(text, label) {
+    try {
+      const textArea = document.createElement("textarea");
+      textArea.value = text;
+      textArea.style.position = "fixed";
+      textArea.style.left = "-999999px";
+      textArea.style.top = "-999999px";
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      audioContext.playClick();
+      showToast(`✅ ${label} copied to clipboard!`, "success");
+    } catch (err) {
+      showToast(`Copied ${label}`, "info");
+    }
+  }
+
   // Copy helper
   function copyText(text, label) {
-    navigator.clipboard.writeText(text);
-    audioContext.playClick();
-    showToast(`${label} copied to clipboard!`, "success");
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text)
+        .then(() => {
+          audioContext.playClick();
+          showToast(`✅ ${label} copied to clipboard!`, "success");
+        })
+        .catch(() => fallbackCopy(text, label));
+    } else {
+      fallbackCopy(text, label);
+    }
+  }
+
+  // Universal App Share (Native Share or Telegram)
+  function shareApp() {
+    const shareTitle = "Ethiopian AMT Exam Master";
+    const shareText = "✈️ Prepare for the Ethiopian Aviation Maintenance Technician (AMT) License & Hiring Exams!\n\n• 276 Official Exam Questions with Step-by-Step Solutions\n• 9 Complete Study Modules & Math/Physics Formulas\n• Works 100% Offline on Phone & PC\n\nTry the free exams here:";
+    const shareUrl = "https://dagiyosi-pixel.github.io/amt-exam-app/";
+
+    if (navigator.share) {
+      navigator.share({
+        title: shareTitle,
+        text: shareText,
+        url: shareUrl
+      }).catch(() => {});
+    } else {
+      const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
+      window.open(tgUrl, '_blank');
+    }
+  }
+
+  // Share Exam Score on Telegram
+  function shareScoreOnTelegram() {
+    const exam = getCurrentExam();
+    const scorePct = document.getElementById('results-score-pct')?.textContent || '85%';
+    const text = `✈️ I scored ${scorePct} on the Ethiopian AMT Exam Simulator (${exam.title})!\nCan you beat my score? Practice 276 official exam questions here:`;
+    const url = "https://dagiyosi-pixel.github.io/amt-exam-app/";
+    const tgUrl = `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`;
+    window.open(tgUrl, '_blank');
   }
 
   // Toast Notification
@@ -1200,7 +1255,9 @@
     triggerPwaInstall,
     openDownloadModal,
     closeDownloadModal,
-    downloadOfflineFile
+    downloadOfflineFile,
+    shareApp,
+    shareScoreOnTelegram
   };
 
   document.addEventListener('DOMContentLoaded', () => {
