@@ -1,0 +1,1484 @@
+[
+  {
+    "id": "exam1_q1",
+    "category": "Aviation Mathematics",
+    "question": "The quotient and remainder of the division problem 3685 ÷ 92 respectively is:",
+    "options": [
+      {
+        "key": "A",
+        "text": "40 and 5"
+      },
+      {
+        "key": "B",
+        "text": "20 and 10"
+      },
+      {
+        "key": "C",
+        "text": "35 and 3"
+      },
+      {
+        "key": "D",
+        "text": "42 and 8"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Divide 3685 by 92:\n92 × 40 = 3680.\nRemainder = 3685 - 3680 = 5.\nTherefore, the quotient is 40 and the remainder is 5.",
+    "cardImage": "public/cards/exam1/page_001.png"
+  },
+  {
+    "id": "exam1_q2",
+    "category": "Aviation Mathematics",
+    "question": "The sum of (4/32 + 5/16 + 3/8) equals to:",
+    "options": [
+      {
+        "key": "A",
+        "text": "24/32"
+      },
+      {
+        "key": "B",
+        "text": "13/16"
+      },
+      {
+        "key": "C",
+        "text": "5/8"
+      },
+      {
+        "key": "D",
+        "text": "7/16"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Convert all fractions to a common denominator of 32:\n4/32 + 10/32 + 12/32 = 26/32.\nReduce 26/32 by dividing numerator and denominator by 2:\n26/32 = 13/16.",
+    "cardImage": "public/cards/exam1/page_002.png"
+  },
+  {
+    "id": "exam1_q3",
+    "category": "Aviation Mathematics",
+    "question": "When reducing the common fraction 98/200 to its lowest form, the result is:",
+    "options": [
+      {
+        "key": "A",
+        "text": "49/100"
+      },
+      {
+        "key": "B",
+        "text": "24/49"
+      },
+      {
+        "key": "C",
+        "text": "15/25"
+      },
+      {
+        "key": "D",
+        "text": "47/100"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Divide both numerator and denominator by 2:\n98 ÷ 2 = 49\n200 ÷ 2 = 100\nResult = 49/100 (in lowest terms).",
+    "cardImage": "public/cards/exam1/page_001.png"
+  },
+  {
+    "id": "exam1_q4",
+    "category": "Aviation Mathematics",
+    "question": "The result of 6 2/3 - 4 1/2 equals:",
+    "options": [
+      {
+        "key": "A",
+        "text": "6 13/16"
+      },
+      {
+        "key": "B",
+        "text": "4 11/16"
+      },
+      {
+        "key": "C",
+        "text": "2 1/6"
+      },
+      {
+        "key": "D",
+        "text": "1 5/6"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Convert mixed numbers to improper fractions:\n6 2/3 = 20/3 = 40/6\n4 1/2 = 9/2 = 27/6\n40/6 - 27/6 = 13/6 = 2 1/6.",
+    "cardImage": "public/cards/exam1/page_002.png"
+  },
+  {
+    "id": "exam1_q5",
+    "category": "Aviation Mathematics",
+    "question": "Convert 0.5625 into a common fraction of lowest form:",
+    "options": [
+      {
+        "key": "A",
+        "text": "7/8"
+      },
+      {
+        "key": "B",
+        "text": "9/16"
+      },
+      {
+        "key": "C",
+        "text": "5/8"
+      },
+      {
+        "key": "D",
+        "text": "11/16"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "0.5625 = 5625 / 10000.\nDivide numerator and denominator by 625:\n5625 ÷ 625 = 9\n10000 ÷ 625 = 16\nResult = 9/16.",
+    "cardImage": "public/cards/exam1/page_001.png"
+  },
+  {
+    "id": "exam1_q6",
+    "category": "Aviation Mathematics",
+    "question": "Find 32% of 897:",
+    "options": [
+      {
+        "key": "A",
+        "text": "287.04"
+      },
+      {
+        "key": "B",
+        "text": "460.00"
+      },
+      {
+        "key": "C",
+        "text": "345.50"
+      },
+      {
+        "key": "D",
+        "text": "298.24"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Calculate 32% of 897:\n897 × 0.32 = 287.04.",
+    "cardImage": "public/cards/exam1/page_002.png"
+  },
+  {
+    "id": "exam1_q7",
+    "category": "Aviation Mathematics",
+    "question": "75 is what percent of 6,200?",
+    "options": [
+      {
+        "key": "A",
+        "text": "2.10%"
+      },
+      {
+        "key": "B",
+        "text": "1.75%"
+      },
+      {
+        "key": "C",
+        "text": "1.21%"
+      },
+      {
+        "key": "D",
+        "text": "0.95%"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Percentage = (Part ÷ Whole) × 100%\n(75 ÷ 6200) × 100% = 1.20967...% ≈ 1.21%.",
+    "cardImage": "public/cards/exam1/page_001.png"
+  },
+  {
+    "id": "exam1_q8",
+    "category": "Aviation Mathematics",
+    "question": "350 is 35% of what number?",
+    "options": [
+      {
+        "key": "A",
+        "text": "750"
+      },
+      {
+        "key": "B",
+        "text": "1000"
+      },
+      {
+        "key": "C",
+        "text": "1350"
+      },
+      {
+        "key": "D",
+        "text": "1200"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Let the number be x:\n0.35 × x = 350\nx = 350 ÷ 0.35 = 1000.",
+    "cardImage": "public/cards/exam1/page_002.png"
+  },
+  {
+    "id": "exam1_q9",
+    "category": "Aviation Mathematics",
+    "question": "The sum of (+24) + (-19) + (+8) + (+7) + (-13) equals:",
+    "options": [
+      {
+        "key": "A",
+        "text": "7"
+      },
+      {
+        "key": "B",
+        "text": "41"
+      },
+      {
+        "key": "C",
+        "text": "15"
+      },
+      {
+        "key": "D",
+        "text": "-3"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Group positive and negative numbers:\nPositives: 24 + 8 + 7 = 39\nNegatives: (-19) + (-13) = -32\nSum = 39 - 32 = 7.",
+    "cardImage": "public/cards/exam1/page_001.png"
+  },
+  {
+    "id": "exam1_q10",
+    "category": "Aviation Mathematics",
+    "question": "Express 7/8 as a percent:",
+    "options": [
+      {
+        "key": "A",
+        "text": "8.75%"
+      },
+      {
+        "key": "B",
+        "text": "875%"
+      },
+      {
+        "key": "C",
+        "text": "87.5%"
+      },
+      {
+        "key": "D",
+        "text": "78.0%"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "(7 ÷ 8) × 100% = 0.875 × 100% = 87.5%.",
+    "cardImage": "public/cards/exam1/page_002.png"
+  },
+  {
+    "id": "exam1_q11",
+    "category": "Aviation Mathematics",
+    "question": "The square root of 96 (√96) equals approximately:",
+    "options": [
+      {
+        "key": "A",
+        "text": "9.79"
+      },
+      {
+        "key": "B",
+        "text": "8.00"
+      },
+      {
+        "key": "C",
+        "text": "12.00"
+      },
+      {
+        "key": "D",
+        "text": "10.25"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Since 9² = 81 and 10² = 100, √96 is between 9 and 10.\n√96 ≈ 9.7979.",
+    "cardImage": "public/cards/exam1/page_001.png"
+  },
+  {
+    "id": "exam1_q12",
+    "category": "Aviation Mathematics",
+    "question": "Convert the scientific notation 8.56 × 10⁶ into an ordinary number:",
+    "options": [
+      {
+        "key": "A",
+        "text": "8,560,000"
+      },
+      {
+        "key": "B",
+        "text": "856,000"
+      },
+      {
+        "key": "C",
+        "text": "85,600"
+      },
+      {
+        "key": "D",
+        "text": "85,600,000"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "8.56 × 10⁶ = 8.56 × 1,000,000 = 8,560,000.",
+    "cardImage": "public/cards/exam1/page_002.png"
+  },
+  {
+    "id": "exam1_q13",
+    "category": "Aviation Mathematics",
+    "question": "What is the average (mean) of the numbers: 12, 18, 24, 30, and 36?",
+    "options": [
+      {
+        "key": "A",
+        "text": "20"
+      },
+      {
+        "key": "B",
+        "text": "24"
+      },
+      {
+        "key": "C",
+        "text": "30"
+      },
+      {
+        "key": "D",
+        "text": "36"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Sum = 12 + 18 + 24 + 30 + 36 = 120.\nAverage = 120 ÷ 5 = 24.",
+    "cardImage": "public/cards/exam1/page_001.png"
+  },
+  {
+    "id": "exam1_q14",
+    "category": "Aviation Mathematics",
+    "question": "A tool originally priced at $80 is on sale for 25% off. What is the sale price?",
+    "options": [
+      {
+        "key": "A",
+        "text": "$20"
+      },
+      {
+        "key": "B",
+        "text": "$55"
+      },
+      {
+        "key": "C",
+        "text": "$60"
+      },
+      {
+        "key": "D",
+        "text": "$65"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Discount = 25% of $80 = 0.25 × 80 = $20.\nSale Price = $80 - $20 = $60.",
+    "cardImage": "public/cards/exam1/page_002.png"
+  },
+  {
+    "id": "exam1_q15",
+    "category": "Aviation Mathematics",
+    "question": "What is the value of 3/4 + 5/8?",
+    "options": [
+      {
+        "key": "A",
+        "text": "8/12"
+      },
+      {
+        "key": "B",
+        "text": "11/8"
+      },
+      {
+        "key": "C",
+        "text": "8/8"
+      },
+      {
+        "key": "D",
+        "text": "13/8"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Convert 3/4 to eighths: 3/4 = 6/8.\n6/8 + 5/8 = 11/8 (or 1 3/8).",
+    "cardImage": "public/cards/exam1/page_001.png"
+  },
+  {
+    "id": "exam1_q16",
+    "category": "Aviation Mathematics",
+    "question": "If 5x + 3 = 23, what is the value of x?",
+    "options": [
+      {
+        "key": "A",
+        "text": "4"
+      },
+      {
+        "key": "B",
+        "text": "5"
+      },
+      {
+        "key": "C",
+        "text": "6"
+      },
+      {
+        "key": "D",
+        "text": "7"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "5x + 3 = 23\n5x = 23 - 3\n5x = 20\nx = 4.",
+    "cardImage": "public/cards/exam1/page_002.png"
+  },
+  {
+    "id": "exam1_q17",
+    "category": "Aviation Mathematics",
+    "question": "What is the simple interest on $1,200 invested at 5% annual interest for 2 years?",
+    "options": [
+      {
+        "key": "A",
+        "text": "$60"
+      },
+      {
+        "key": "B",
+        "text": "$120"
+      },
+      {
+        "key": "C",
+        "text": "$150"
+      },
+      {
+        "key": "D",
+        "text": "$240"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Simple Interest = Principal × Rate × Time\nI = 1200 × 0.05 × 2 = $120.",
+    "cardImage": "public/cards/exam1/page_001.png"
+  },
+  {
+    "id": "exam1_q18",
+    "category": "Aviation Mathematics",
+    "question": "If 2/3 of a number is 48, what is the number?",
+    "options": [
+      {
+        "key": "A",
+        "text": "32"
+      },
+      {
+        "key": "B",
+        "text": "48"
+      },
+      {
+        "key": "C",
+        "text": "72"
+      },
+      {
+        "key": "D",
+        "text": "96"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "(2/3) × x = 48\nx = 48 × (3/2) = 24 × 3 = 72.",
+    "cardImage": "public/cards/exam1/page_002.png"
+  },
+  {
+    "id": "exam1_q19",
+    "category": "Aviation Mathematics",
+    "question": "What is the value of 5³ (5 raised to the power of 3)?",
+    "options": [
+      {
+        "key": "A",
+        "text": "15"
+      },
+      {
+        "key": "B",
+        "text": "25"
+      },
+      {
+        "key": "C",
+        "text": "75"
+      },
+      {
+        "key": "D",
+        "text": "125"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "5³ = 5 × 5 × 5 = 125.",
+    "cardImage": "public/cards/exam1/page_001.png"
+  },
+  {
+    "id": "exam1_q20",
+    "category": "Aviation Vocabulary",
+    "question": "Choose the word that has the closest meaning to ARDUOUS:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Pleasing"
+      },
+      {
+        "key": "B",
+        "text": "Difficult"
+      },
+      {
+        "key": "C",
+        "text": "Soft"
+      },
+      {
+        "key": "D",
+        "text": "Light"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Arduous means requiring strenuous effort; difficult and tiring.",
+    "cardImage": "public/cards/exam1/page_002.png"
+  },
+  {
+    "id": "exam1_q21",
+    "category": "Aviation Vocabulary",
+    "question": "Choose the word that has the closest meaning to UBIQUITOUS:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Scarce"
+      },
+      {
+        "key": "B",
+        "text": "Present Everywhere"
+      },
+      {
+        "key": "C",
+        "text": "Hidden"
+      },
+      {
+        "key": "D",
+        "text": "Rare"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Ubiquitous means present, appearing, or found everywhere.",
+    "cardImage": "public/cards/exam1/page_001.png"
+  },
+  {
+    "id": "exam1_q22",
+    "category": "Aviation Vocabulary",
+    "question": "Choose the word that has the closest meaning to MITIGATE:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Worsen"
+      },
+      {
+        "key": "B",
+        "text": "Lessen or Relieve"
+      },
+      {
+        "key": "C",
+        "text": "Ignore"
+      },
+      {
+        "key": "D",
+        "text": "Celebrate"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Mitigate means make less severe, serious, or painful.",
+    "cardImage": "public/cards/exam1/page_002.png"
+  },
+  {
+    "id": "exam1_q23",
+    "category": "Aviation Vocabulary",
+    "question": "Choose the word that has the closest meaning to TRANSIENT:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Permanent"
+      },
+      {
+        "key": "B",
+        "text": "Temporary"
+      },
+      {
+        "key": "C",
+        "text": "Strong"
+      },
+      {
+        "key": "D",
+        "text": "Unchanging"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Transient means lasting only for a short time; impermanent.",
+    "cardImage": "public/cards/exam1/page_001.png"
+  },
+  {
+    "id": "exam1_q24",
+    "category": "Aviation Mathematics",
+    "question": "Which of the following inequalities represents the solution to 3X + 3 < X + 17?",
+    "options": [
+      {
+        "key": "A",
+        "text": "X < 7"
+      },
+      {
+        "key": "B",
+        "text": "X > 7"
+      },
+      {
+        "key": "C",
+        "text": "X < -2"
+      },
+      {
+        "key": "D",
+        "text": "X > 0"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "3X + 3 < X + 17\n3X - X < 17 - 3\n2X < 14\nX < 7.",
+    "cardImage": "public/cards/exam1/page_030.png"
+  },
+  {
+    "id": "exam1_q25",
+    "category": "Aviation Mathematics",
+    "question": "Which of the following inequalities is the solution to the inequality X + 3 > X + 27?",
+    "options": [
+      {
+        "key": "A",
+        "text": "X > 24"
+      },
+      {
+        "key": "B",
+        "text": "X < 24"
+      },
+      {
+        "key": "C",
+        "text": "All real numbers"
+      },
+      {
+        "key": "D",
+        "text": "No solution exists"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "Subtract X from both sides: 3 > 27. Since 3 is never greater than 27, this inequality has no solution.",
+    "cardImage": "public/cards/exam1/page_031.png"
+  },
+  {
+    "id": "exam1_q26",
+    "category": "Aviation Mathematics",
+    "question": "A freight elevator can carry a maximum load of 1,200 pounds. A technician weighing 200 pounds is in the elevator with two packages weighing 150 pounds and 250 pounds. What is the maximum additional weight that can be loaded?",
+    "options": [
+      {
+        "key": "A",
+        "text": "500 pounds"
+      },
+      {
+        "key": "B",
+        "text": "600 pounds"
+      },
+      {
+        "key": "C",
+        "text": "700 pounds"
+      },
+      {
+        "key": "D",
+        "text": "800 pounds"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Current weight = 200 + 150 + 250 = 600 pounds.\nRemaining capacity = 1,200 - 600 = 600 pounds.",
+    "cardImage": "public/cards/exam1/page_033.png"
+  },
+  {
+    "id": "exam1_q27",
+    "category": "Aviation Mathematics",
+    "question": "An aircraft assembly line manufactures N parts per day, except Mondays and Tuesdays when they produce 3 fewer parts due to maintenance. How many parts are produced in a 5-day work week?",
+    "options": [
+      {
+        "key": "A",
+        "text": "5N - 6"
+      },
+      {
+        "key": "B",
+        "text": "5N - 3"
+      },
+      {
+        "key": "C",
+        "text": "4N - 6"
+      },
+      {
+        "key": "D",
+        "text": "5N - 15"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "5 days with N parts = 5N.\nMonday has 3 less, Tuesday has 3 less: total reduction = 3 + 3 = 6.\nTotal = 5N - 6.",
+    "cardImage": "public/cards/exam1/page_035.png"
+  },
+  {
+    "id": "exam1_q28",
+    "category": "Aviation Mathematics",
+    "question": "If the diagonal of a square is 9 cm long, what is the area of the square in cm²?",
+    "options": [
+      {
+        "key": "A",
+        "text": "40.5 cm²"
+      },
+      {
+        "key": "B",
+        "text": "81 cm²"
+      },
+      {
+        "key": "C",
+        "text": "36 cm²"
+      },
+      {
+        "key": "D",
+        "text": "18 cm²"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "For a square with diagonal d:\nArea = d² / 2 = 9² / 2 = 81 / 2 = 40.5 cm².",
+    "cardImage": "public/cards/exam1/page_037.png"
+  },
+  {
+    "id": "exam1_q29",
+    "category": "Aviation Mathematics",
+    "question": "One side of a rectangle is 15 cm long, while the adjacent side is 5 cm long. What is the area of the rectangle?",
+    "options": [
+      {
+        "key": "A",
+        "text": "75 cm²"
+      },
+      {
+        "key": "B",
+        "text": "40 cm²"
+      },
+      {
+        "key": "C",
+        "text": "20 cm²"
+      },
+      {
+        "key": "D",
+        "text": "30 cm²"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Area of rectangle = Length × Width = 15 cm × 5 cm = 75 cm².",
+    "cardImage": "public/cards/exam1/page_038.png"
+  },
+  {
+    "id": "exam1_q30",
+    "category": "Aviation Mathematics",
+    "question": "A trapezoid has parallel bases of 12 cm and 16 cm, and an altitude of 5 cm. What is the area of this trapezoid?",
+    "options": [
+      {
+        "key": "A",
+        "text": "70 cm²"
+      },
+      {
+        "key": "B",
+        "text": "140 cm²"
+      },
+      {
+        "key": "C",
+        "text": "96 cm²"
+      },
+      {
+        "key": "D",
+        "text": "84 cm²"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Area = [(Base 1 + Base 2) / 2] × Height = [(12 + 16) / 2] × 5 = 14 × 5 = 70 cm².",
+    "cardImage": "public/cards/exam1/page_039.png"
+  },
+  {
+    "id": "exam1_q31",
+    "category": "Aviation Mathematics",
+    "question": "The circumference of a circular flange is 8π cm. What is its radius?",
+    "options": [
+      {
+        "key": "A",
+        "text": "4 cm"
+      },
+      {
+        "key": "B",
+        "text": "8 cm"
+      },
+      {
+        "key": "C",
+        "text": "12 cm"
+      },
+      {
+        "key": "D",
+        "text": "16 cm"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Circumference = 2πr = 8π.\n2r = 8 → r = 4 cm.",
+    "cardImage": "public/cards/exam1/page_041.png"
+  },
+  {
+    "id": "exam1_q32",
+    "category": "Aviation Mathematics",
+    "question": "It is now 6:00 PM. By how many degrees will the hour hand of a clock have moved when it reaches 9:00 AM the following morning?",
+    "options": [
+      {
+        "key": "A",
+        "text": "450°"
+      },
+      {
+        "key": "B",
+        "text": "390°"
+      },
+      {
+        "key": "C",
+        "text": "400°"
+      },
+      {
+        "key": "D",
+        "text": "180°"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "From 6:00 PM to 9:00 AM is 15 hours.\nThe hour hand moves 360° in 12 hours (30° per hour).\n15 hours × 30°/hour = 450°.",
+    "cardImage": "public/cards/exam1/page_042.png"
+  },
+  {
+    "id": "exam1_q33",
+    "category": "Aviation Mathematics",
+    "question": "The base of a triangle is 7 cm, and its height is 9 cm. What is its area?",
+    "options": [
+      {
+        "key": "A",
+        "text": "31.5 cm²"
+      },
+      {
+        "key": "B",
+        "text": "63 cm²"
+      },
+      {
+        "key": "C",
+        "text": "39 cm²"
+      },
+      {
+        "key": "D",
+        "text": "40 cm²"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Area of triangle = (Base × Height) / 2 = (7 × 9) / 2 = 63 / 2 = 31.5 cm².",
+    "cardImage": "public/cards/exam1/page_044.png"
+  },
+  {
+    "id": "exam1_q34",
+    "category": "Aviation Mathematics",
+    "question": "In a parallelogram, adjacent sides have lengths of 6 cm and 8 cm. What is the perimeter?",
+    "options": [
+      {
+        "key": "A",
+        "text": "28 cm"
+      },
+      {
+        "key": "B",
+        "text": "24 cm"
+      },
+      {
+        "key": "C",
+        "text": "19 cm"
+      },
+      {
+        "key": "D",
+        "text": "34 cm"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Opposite sides of a parallelogram are equal.\nPerimeter = 2 × (6 + 8) = 2 × 14 = 28 cm.",
+    "cardImage": "public/cards/exam1/page_045.png"
+  },
+  {
+    "id": "exam1_q35",
+    "category": "Aviation Mathematics",
+    "question": "A square's perimeter is 12 cm. What is its area in square centimeters?",
+    "options": [
+      {
+        "key": "A",
+        "text": "9 cm²"
+      },
+      {
+        "key": "B",
+        "text": "12 cm²"
+      },
+      {
+        "key": "C",
+        "text": "6 cm²"
+      },
+      {
+        "key": "D",
+        "text": "16 cm²"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Side = Perimeter / 4 = 12 / 4 = 3 cm.\nArea = Side² = 3² = 9 cm².",
+    "cardImage": "public/cards/exam1/page_046.png"
+  },
+  {
+    "id": "exam1_q36",
+    "category": "Aviation Mathematics",
+    "question": "6 engineers meet for a pre-flight briefing. If each person shakes hands once with every other person, how many handshakes take place?",
+    "options": [
+      {
+        "key": "A",
+        "text": "15"
+      },
+      {
+        "key": "B",
+        "text": "30"
+      },
+      {
+        "key": "C",
+        "text": "21"
+      },
+      {
+        "key": "D",
+        "text": "18"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Number of handshakes = n(n - 1) / 2 = 6 × 5 / 2 = 15.",
+    "cardImage": "public/cards/exam1/page_047.png"
+  },
+  {
+    "id": "exam1_q37",
+    "category": "Aviation Mathematics",
+    "question": "If x² - y² = 55 and x - y = 1, what is the value of y?",
+    "options": [
+      {
+        "key": "A",
+        "text": "27"
+      },
+      {
+        "key": "B",
+        "text": "28"
+      },
+      {
+        "key": "C",
+        "text": "54"
+      },
+      {
+        "key": "D",
+        "text": "55"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "x² - y² = (x - y)(x + y) = 55.\nSince x - y = 1, x + y = 55.\nSubtracting the two equations: 2y = 54 → y = 27 (and x = 28).",
+    "cardImage": "public/cards/exam1/page_048.png"
+  },
+  {
+    "id": "exam1_q38",
+    "category": "Aviation Mathematics",
+    "question": "In an aviation sports club of 30 technicians, 17 play badminton, 19 play tennis, and 2 do not play either. How many play both sports?",
+    "options": [
+      {
+        "key": "A",
+        "text": "8"
+      },
+      {
+        "key": "B",
+        "text": "10"
+      },
+      {
+        "key": "C",
+        "text": "6"
+      },
+      {
+        "key": "D",
+        "text": "12"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Technicians playing at least one sport = 30 - 2 = 28.\nBoth = (17 + 19) - 28 = 36 - 28 = 8.",
+    "cardImage": "public/cards/exam1/page_049.png"
+  },
+  {
+    "id": "exam1_q39",
+    "category": "Aviation Physics",
+    "question": "Which of the following is true regarding the scientific definition of mass?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Mass is a measure of the quantity of matter in an object"
+      },
+      {
+        "key": "B",
+        "text": "Mass is the force of gravity acting on an object"
+      },
+      {
+        "key": "C",
+        "text": "Mass changes depending on altitude"
+      },
+      {
+        "key": "D",
+        "text": "Mass is measured in Newtons"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Mass is an intrinsic property that quantifies the amount of matter in a body. Unlike weight, mass does not change with gravitational field strength.",
+    "cardImage": "public/cards/exam1/page_050.png"
+  },
+  {
+    "id": "exam1_q40",
+    "category": "Aviation Physics",
+    "question": "Which of the following properties is characteristic of liquids?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Definite volume but no definite shape"
+      },
+      {
+        "key": "B",
+        "text": "Definite shape and definite volume"
+      },
+      {
+        "key": "C",
+        "text": "No definite shape and no definite volume"
+      },
+      {
+        "key": "D",
+        "text": "High compressibility"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Liquids have a fixed (definite) volume but conform to the shape of their container (no definite shape).",
+    "cardImage": "public/cards/exam1/page_051.png"
+  },
+  {
+    "id": "exam1_q41",
+    "category": "Aviation Physics",
+    "question": "Which of the following is NOT a method of heat transfer?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Diffusion"
+      },
+      {
+        "key": "B",
+        "text": "Conduction"
+      },
+      {
+        "key": "C",
+        "text": "Convection"
+      },
+      {
+        "key": "D",
+        "text": "Radiation"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The three fundamental modes of heat transfer are Conduction, Convection, and Radiation. Diffusion refers to molecular concentration transport.",
+    "cardImage": "public/cards/exam1/page_052.png"
+  },
+  {
+    "id": "exam1_q42",
+    "category": "Aviation Physics",
+    "question": "Stored energy or energy possessed by an object at rest due to its position is called:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Potential Energy"
+      },
+      {
+        "key": "B",
+        "text": "Kinetic Energy"
+      },
+      {
+        "key": "C",
+        "text": "Thermal Energy"
+      },
+      {
+        "key": "D",
+        "text": "Mechanical Work"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Potential energy is stored energy resulting from position or configuration (e.g. gravitational potential energy = mgh).",
+    "cardImage": "public/cards/exam1/page_053.png"
+  },
+  {
+    "id": "exam1_q43",
+    "category": "Aviation Physics",
+    "question": "How much work is accomplished when an aircraft is towed 80 ft with a constant horizontal towing force of 5,000 lb?",
+    "options": [
+      {
+        "key": "A",
+        "text": "400,000 ft-lb"
+      },
+      {
+        "key": "B",
+        "text": "4,000 ft-lb"
+      },
+      {
+        "key": "C",
+        "text": "10,400,000 ft-lb"
+      },
+      {
+        "key": "D",
+        "text": "80,000 ft-lb"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Work = Force × Distance = 5,000 lb × 80 ft = 400,000 ft-lb. (The mass of the aircraft does not enter into the work equation along a horizontal displacement).",
+    "cardImage": "public/cards/exam1/page_054.png"
+  },
+  {
+    "id": "exam1_q44",
+    "category": "Aviation Physics",
+    "question": "A hydraulic piston with an area of 30 square inches is displaced 20 inches. How many cubic inches of fluid are forced from the cylinder?",
+    "options": [
+      {
+        "key": "A",
+        "text": "600 cubic inches"
+      },
+      {
+        "key": "B",
+        "text": "50 cubic inches"
+      },
+      {
+        "key": "C",
+        "text": "10 cubic inches"
+      },
+      {
+        "key": "D",
+        "text": "1,200 cubic inches"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Displaced Volume = Piston Area × Stroke Length = 30 sq in × 20 in = 600 cubic inches.",
+    "cardImage": "public/cards/exam1/page_055.png"
+  },
+  {
+    "id": "exam1_q45",
+    "category": "Aviation Physics",
+    "question": "The amount of perpendicular force acting on a unit of surface area is defined as:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Pressure"
+      },
+      {
+        "key": "B",
+        "text": "Work"
+      },
+      {
+        "key": "C",
+        "text": "Density"
+      },
+      {
+        "key": "D",
+        "text": "Power"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Pressure = Force / Area (P = F / A), measured in psi or Pascals (N/m²).",
+    "cardImage": "public/cards/exam1/page_056.png"
+  },
+  {
+    "id": "exam1_q46",
+    "category": "Aviation Physics",
+    "question": "In physics and mechanical engineering, which factors are required to determine Power?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Force, Distance, and Time"
+      },
+      {
+        "key": "B",
+        "text": "Force and Distance only"
+      },
+      {
+        "key": "C",
+        "text": "Mass and Acceleration only"
+      },
+      {
+        "key": "D",
+        "text": "Work and Gravity only"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Power is the rate of doing work: Power = Work / Time = (Force × Distance) / Time.",
+    "cardImage": "public/cards/exam1/page_057.png"
+  },
+  {
+    "id": "exam1_q47",
+    "category": "Aviation Physics",
+    "question": "The measure of the mass of a given volume of a material (mass per unit volume) is called:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Density"
+      },
+      {
+        "key": "B",
+        "text": "Specific Gravity"
+      },
+      {
+        "key": "C",
+        "text": "Viscosity"
+      },
+      {
+        "key": "D",
+        "text": "Weight"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Density is defined as mass per unit volume (ρ = m / V).",
+    "cardImage": "public/cards/exam1/page_058.png"
+  },
+  {
+    "id": "exam1_q48",
+    "category": "Aviation Mathematics",
+    "question": "If the area of a circle is 36π cm², what is its diameter?",
+    "options": [
+      {
+        "key": "A",
+        "text": "12 cm"
+      },
+      {
+        "key": "B",
+        "text": "6 cm"
+      },
+      {
+        "key": "C",
+        "text": "18 cm"
+      },
+      {
+        "key": "D",
+        "text": "24 cm"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Area = πr² = 36π → r² = 36 → r = 6 cm. Diameter = 2r = 12 cm.",
+    "cardImage": "public/cards/exam1/page_041.png"
+  },
+  {
+    "id": "exam1_q49",
+    "category": "Aviation Mathematics",
+    "question": "Solve the linear system for x: 2x + 3y = 12 and x - y = 1.",
+    "options": [
+      {
+        "key": "A",
+        "text": "x = 3"
+      },
+      {
+        "key": "B",
+        "text": "x = 2"
+      },
+      {
+        "key": "C",
+        "text": "x = 4"
+      },
+      {
+        "key": "D",
+        "text": "x = 5"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "From second equation, y = x - 1. Substitute into first: 2x + 3(x - 1) = 12 → 5x - 3 = 12 → 5x = 15 → x = 3 (and y = 2).",
+    "cardImage": "public/cards/exam1/page_048.png"
+  },
+  {
+    "id": "exam1_q50",
+    "category": "Aviation Mathematics",
+    "question": "A jet engine consumes 450 gallons of fuel in 1.5 hours of cruise flight. What is the fuel burn rate in gallons per hour?",
+    "options": [
+      {
+        "key": "A",
+        "text": "300 gal/hr"
+      },
+      {
+        "key": "B",
+        "text": "250 gal/hr"
+      },
+      {
+        "key": "C",
+        "text": "350 gal/hr"
+      },
+      {
+        "key": "D",
+        "text": "400 gal/hr"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Fuel rate = 450 gal ÷ 1.5 hr = 300 gal/hr.",
+    "cardImage": "public/cards/exam1/page_035.png"
+  },
+  {
+    "id": "exam1_q51",
+    "category": "Aviation Mathematics",
+    "question": "A pressure vessel gauge reads 180 psi. If pressure increases by 15%, what is the new pressure reading?",
+    "options": [
+      {
+        "key": "A",
+        "text": "207 psi"
+      },
+      {
+        "key": "B",
+        "text": "195 psi"
+      },
+      {
+        "key": "C",
+        "text": "210 psi"
+      },
+      {
+        "key": "D",
+        "text": "200 psi"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Increase = 180 × 0.15 = 27 psi. New pressure = 180 + 27 = 207 psi.",
+    "cardImage": "public/cards/exam1/page_033.png"
+  },
+  {
+    "id": "exam1_q52",
+    "category": "Aviation Mathematics",
+    "question": "What is the perimeter of a right-angled triangle with legs of 9 cm and 12 cm?",
+    "options": [
+      {
+        "key": "A",
+        "text": "36 cm"
+      },
+      {
+        "key": "B",
+        "text": "30 cm"
+      },
+      {
+        "key": "C",
+        "text": "42 cm"
+      },
+      {
+        "key": "D",
+        "text": "27 cm"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Hypotenuse = √(9² + 12²) = √(81 + 144) = √225 = 15 cm. Perimeter = 9 + 12 + 15 = 36 cm.",
+    "cardImage": "public/cards/exam1/page_044.png"
+  },
+  {
+    "id": "exam1_q53",
+    "category": "Aviation Physics",
+    "question": "Convert 125 degrees Fahrenheit (°F) to degrees Celsius (°C):",
+    "options": [
+      {
+        "key": "A",
+        "text": "51.7°C"
+      },
+      {
+        "key": "B",
+        "text": "45.0°C"
+      },
+      {
+        "key": "C",
+        "text": "60.2°C"
+      },
+      {
+        "key": "D",
+        "text": "38.5°C"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "°C = (°F - 32) × 5/9 = (125 - 32) × 5/9 = 93 × 5/9 = 51.67°C ≈ 51.7°C.",
+    "cardImage": "public/cards/exam1/page_052.png"
+  },
+  {
+    "id": "exam1_q54",
+    "category": "Aviation Physics",
+    "question": "What is the mechanical advantage of a pulley system that lifts a 600 lb load with an applied effort force of 150 lb?",
+    "options": [
+      {
+        "key": "A",
+        "text": "4.0"
+      },
+      {
+        "key": "B",
+        "text": "3.5"
+      },
+      {
+        "key": "C",
+        "text": "2.0"
+      },
+      {
+        "key": "D",
+        "text": "5.0"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Mechanical Advantage = Load ÷ Effort = 600 lb ÷ 150 lb = 4.0.",
+    "cardImage": "public/cards/exam1/page_054.png"
+  },
+  {
+    "id": "exam1_q55",
+    "category": "Aviation Physics",
+    "question": "If an aircraft battery provides 24 Volts and delivers 6 Amperes of current to an avionics bus, what is the power consumed in Watts?",
+    "options": [
+      {
+        "key": "A",
+        "text": "144 Watts"
+      },
+      {
+        "key": "B",
+        "text": "120 Watts"
+      },
+      {
+        "key": "C",
+        "text": "48 Watts"
+      },
+      {
+        "key": "D",
+        "text": "240 Watts"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Power = Voltage × Current = 24 V × 6 A = 144 Watts.",
+    "cardImage": "public/cards/exam1/page_057.png"
+  },
+  {
+    "id": "exam1_q56",
+    "category": "Aviation Physics",
+    "question": "According to Bernoulli's principle, as the velocity of a moving fluid increases, what happens to its internal pressure?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Internal pressure decreases"
+      },
+      {
+        "key": "B",
+        "text": "Internal pressure increases"
+      },
+      {
+        "key": "C",
+        "text": "Pressure remains constant"
+      },
+      {
+        "key": "D",
+        "text": "Fluid temperature drops to absolute zero"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Bernoulli's principle states that an increase in the speed of a fluid occurs simultaneously with a decrease in static pressure.",
+    "cardImage": "public/cards/exam1/page_055.png"
+  },
+  {
+    "id": "exam1_q57",
+    "category": "Aviation Mathematics",
+    "question": "A cylindrical aircraft reservoir has a base radius of 5 inches and a height of 14 inches. What is its volume? (Use π ≈ 22/7)",
+    "options": [
+      {
+        "key": "A",
+        "text": "1,100 cubic inches"
+      },
+      {
+        "key": "B",
+        "text": "700 cubic inches"
+      },
+      {
+        "key": "C",
+        "text": "1,400 cubic inches"
+      },
+      {
+        "key": "D",
+        "text": "850 cubic inches"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Volume = πr²h = (22/7) × 5² × 14 = (22/7) × 25 × 14 = 22 × 25 × 2 = 1,100 cubic inches.",
+    "cardImage": "public/cards/exam1/page_040.png"
+  }
+]

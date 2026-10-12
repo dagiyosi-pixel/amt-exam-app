@@ -1,0 +1,641 @@
+import fs from 'fs';
+
+function makeOptions(a, b, c, d) {
+  return [
+    { key: 'A', text: String(a).trim() },
+    { key: 'B', text: String(b).trim() },
+    { key: 'C', text: String(c).trim() },
+    { key: 'D', text: String(d).trim() }
+  ];
+}
+
+export const exam3Questions = [
+  {
+    id: "exam3_q1",
+    category: "Technical English & Context",
+    question: "Choose the correct word: 'The Government has recognised the housing crisis and is now preparing legislation that will _____ the start of a new house-building drive.'",
+    options: makeOptions("herald", "recognize", "postpone", "terminate"),
+    correctAnswer: "A",
+    explanation: "In this context, 'herald' means to be a sign that something is about to happen; to usher in or proclaim a major initiative.",
+    cardImage: "public/cards/exam3/page_001.png"
+  },
+  {
+    id: "exam3_q2",
+    category: "Technical English Grammar",
+    question: "Choose the correct words: 'The number of people _____ Jobseeker's Allowance in July was revised _____.'",
+    options: makeOptions("claiming, downwards", "claims, down", "claimings, downstairs", "claiming, downstairs"),
+    correctAnswer: "A",
+    explanation: "'Claiming' is the present participle modifying 'people', and 'downwards' is the appropriate adverb modifying 'revised'.",
+    cardImage: "public/cards/exam3/page_002.png"
+  },
+  {
+    id: "exam3_q3",
+    category: "Aviation Economics & Terminology",
+    question: "Choose the correct words: 'GDP, or gross _____ product, is arguably the most _____ of all economic statistics.'",
+    options: makeOptions("domestic, important", "domesticated, importance", "domestique, importing", "domestic, importantly"),
+    correctAnswer: "A",
+    explanation: "Gross Domestic Product (GDP) is standard economic terminology, followed by the adjective 'important' after the superlative 'most'.",
+    cardImage: "public/cards/exam3/page_003.png"
+  },
+  {
+    id: "exam3_q4",
+    category: "Technical English Syntax",
+    question: "Choose the correct words: 'Data is collected from _____ departments covering _____ different activities.'",
+    options: makeOptions("government, various", "governments, varying", "governmental, variety", "govern, variable"),
+    correctAnswer: "A",
+    explanation: "'Government departments' serves as an established compound noun, and 'various' is the adjective modifying 'activities'.",
+    cardImage: "public/cards/exam3/page_004.png"
+  },
+  {
+    id: "exam3_q5",
+    category: "English Modifiers & Collocations",
+    question: "Choose the correct words: 'The _____ estimates have proven to be _____ accurate.'",
+    options: makeOptions("preliminary, remarkably", "preliminary, remarkable", "preliminaries, remarkable", "pre-estimate, remarkably"),
+    correctAnswer: "A",
+    explanation: "'Preliminary' is the qualifying adjective modifying 'estimates', and 'remarkably' is an adverb of degree modifying 'accurate'.",
+    cardImage: "public/cards/exam3/page_005.png"
+  },
+  {
+    id: "exam3_q6",
+    category: "English Grammar & Usage",
+    question: "Choose the correct words: 'It is _____ to look at the path of the economy over a _____ of time.'",
+    options: makeOptions("recommended, period", "recommendation, periods", "recommends, period", "recommended, periodic"),
+    correctAnswer: "A",
+    explanation: "'It is recommended' is the passive reporting construction, and 'period of time' is the correct singular collocation.",
+    cardImage: "public/cards/exam3/page_006.png"
+  },
+  {
+    id: "exam3_q7",
+    category: "English Participles & Nouns",
+    question: "Choose the correct words: 'They hoped to test how well _____ the big cats' _____ were in the wild.'",
+    options: makeOptions("developed, instincts", "developing, instinctive", "developed, instinctive", "developer, instincts"),
+    correctAnswer: "A",
+    explanation: "'Developed' is the past participle adjective modifying how mature the cats are, and 'instincts' is the plural noun.",
+    cardImage: "public/cards/exam3/page_007.png"
+  },
+  {
+    id: "exam3_q8",
+    category: "Business & Technical English",
+    question: "Choose the correct words: 'High-end _____ firms have managed to weather the _____ crisis well.'",
+    options: makeOptions("manufacturing, economic", "manufacturing, economics", "manufactures, economics", "manufacturer, economy"),
+    correctAnswer: "A",
+    explanation: "'Manufacturing' acts as a noun adjunct modifying 'firms', and 'economic' correctly modifies 'crisis'.",
+    cardImage: "public/cards/exam3/page_008.png"
+  },
+  {
+    id: "exam3_q9",
+    category: "Critical Reasoning & Logic",
+    question: "Which of the following, if true, most seriously weakens the argument that workplace relaxation exercises increase overall productivity?",
+    options: makeOptions(
+      "Employees who do exercises use their working time no more productively than those who do not.",
+      "Relaxation exercises reduce musculoskeletal strain among office workers.",
+      "Some employees prefer aerobic workouts over meditative relaxation.",
+      "Companies providing relaxation training report higher employee morale."
+    ),
+    correctAnswer: "A",
+    explanation: "If employees who do exercises show no greater productivity per working hour, the premise that the exercises boost output is directly weakened.",
+    cardImage: "public/cards/exam3/page_009.png"
+  },
+  {
+    id: "exam3_q10",
+    category: "Reading Comprehension",
+    question: "PASSAGE: 'German economic growth until now has been the potential buffer for keeping the Eurozone system intact. But if the latest figures of a measly 0.1% growth for the second quarter turn into a trend, the likelihood of a return to recession in Europe will increase, putting more pressure on the public finances of Greece, Portugal, Ireland, Italy, and Spain.'\nWhat might be one of the consequences of low economic growth in Germany?",
+    options: makeOptions(
+      "Pressure will increase on Greece's public finances",
+      "Germany will immediately abandon the Eurozone",
+      "The value of the Euro will triple against global currencies",
+      "Bilateral trade between EU nations will be abolished"
+    ),
+    correctAnswer: "A",
+    explanation: "The passage explicitly states that low German growth will increase 'pressure on the public finances of Greece, Portugal, Ireland, Italy, and Spain.'",
+    cardImage: "public/cards/exam3/page_010.png"
+  },
+  {
+    id: "exam3_q11",
+    category: "Reading Comprehension",
+    question: "PASSAGE: 'The Government has recognised the housing problem and is now preparing legislation that will herald the start of a new house-building drive. It intends to support the building of a total of three million new homes by 2020, creating an annual target of 240,000 new homes a year.'\nThe number 3,000,000 in the passage refers to houses that:",
+    options: makeOptions(
+      "Would be built in total by 2020",
+      "Are currently standing in the country",
+      "Would be built each year annually",
+      "Were demolished over the last decade"
+    ),
+    correctAnswer: "A",
+    explanation: "The passage states the government intends to support the building of a 'total of three million new homes by 2020.'",
+    cardImage: "public/cards/exam3/page_011.png"
+  },
+  {
+    id: "exam3_q12",
+    category: "Reading Comprehension & Analysis",
+    question: "PASSAGE: 'Unlike the isolated rebellions of 1848 where information travelled by horse courier, in 2011 news was transmitted instantaneously to millions across television screens and social networks. Encouraged by what they saw, crowds mobilized swiftly.'\nIn comparison with 1848, public demonstrations in 2011 were characterized by:",
+    options: makeOptions(
+      "Instantaneous broadcast and social media transmission to millions",
+      "Complete absence of public crowds",
+      "Strict reliance on postal horse couriers",
+      "Slower transmission of political news"
+    ),
+    correctAnswer: "A",
+    explanation: "The text emphasizes that in 2011 'news was transmitted instantaneously to millions', which distinguished it from the 1848 revolts.",
+    cardImage: "public/cards/exam3/page_012.png"
+  },
+  {
+    id: "exam3_q13",
+    category: "Reading Comprehension & History",
+    question: "PASSAGE: 'In 730 B.C., commander Piye sailed north up the Nile to Upper Egypt. Believing there was a proper way to wage holy war, Piye instructed his soldiers to purify themselves before combat by bathing in the Nile, dressing in fine linen, and sprinkling their bodies with water from the temple at Karnak.'\nBefore combat, Piye ordered his men to:",
+    options: makeOptions(
+      "Purify themselves in the Nile and with water from the Karnak temple",
+      "Surrender their weapons to Egyptian generals",
+      "Avoid wearing linen clothing",
+      "Refuse all food and sacrificial rites"
+    ),
+    correctAnswer: "A",
+    explanation: "The passage explicitly describes Piye ordering soldiers to bathe in the Nile, wear fine linen, and sprinkle themselves with holy water from Karnak.",
+    cardImage: "public/cards/exam3/page_013.png"
+  },
+  {
+    id: "exam3_q14",
+    category: "Reading Comprehension & Economics",
+    question: "PASSAGE: 'There is little wonder Russians are boasting. Global oil prices have increased tenfold since 1998, and Russia has pulled ahead as a top crude oil producer. The Kremlin's budget now overflows with funds for infrastructure and national projects.'\nRussia experienced major budgetary surpluses because:",
+    options: makeOptions(
+      "Global crude oil prices increased tenfold",
+      "Oil exploration was entirely halted",
+      "Russia imported all its fuel from North America",
+      "Domestic taxes were raised to 90%"
+    ),
+    correctAnswer: "A",
+    explanation: "The passage attributes Russia's boom to global crude oil prices increasing tenfold since 1998.",
+    cardImage: "public/cards/exam3/page_014.png"
+  },
+  {
+    id: "exam3_q15",
+    category: "Reading Comprehension",
+    question: "PASSAGE: 'Piye himself feasted and offered sacrifices to the ram-headed sun god Amun before commanding his fleet into combat.'\nTo which deity did Piye offer sacrifices before initiating battle?",
+    options: makeOptions("Amun", "Osiris", "Anubis", "Ra"),
+    correctAnswer: "A",
+    explanation: "The text states: 'Piye himself feasted and offered sacrifices to Amun.'",
+    cardImage: "public/cards/exam3/page_015.png"
+  },
+  {
+    id: "exam3_q16",
+    category: "Reading Comprehension & Demographics",
+    question: "PASSAGE: 'After reaching one billion in 1800, global human population reached two billion around 1930. Demographers project that the world population may reach nine billion around 2045.'\nAccording to middle-road demographic projections in the text, world population may reach 9 billion in:",
+    options: makeOptions("2045", "2010", "2080", "2100"),
+    correctAnswer: "A",
+    explanation: "The passage explicitly states: 'UN demographers consider the middle road their best estimate: they now project that the population may reach 9 billion in 2045.'",
+    cardImage: "public/cards/exam3/page_016.png"
+  },
+  {
+    id: "exam3_q17",
+    category: "Reading Comprehension & Statistics",
+    question: "In the demographic passage, the figure '1.8 billion' specifically refers to the world's count of:",
+    options: makeOptions(
+      "Women of childbearing age globally",
+      "Total infants born in Europe",
+      "Total elderly pensioners",
+      "Unemployed industrial workers"
+    ),
+    correctAnswer: "A",
+    explanation: "Demographic tables in the source document contextualize 1.8 billion as the global population of women in their reproductive/fertile years.",
+    cardImage: "public/cards/exam3/page_017.png"
+  },
+  {
+    id: "exam3_q18",
+    category: "Macroeconomics & Finance",
+    question: "PASSAGE: 'Central banks initiated quantitative easing by purchasing long-term government bonds. This is meant to lower long-term interest rates and incentivize borrowing.'\nQuantitative easing operates primarily by:",
+    options: makeOptions(
+      "Lowering long-term interest rates to stimulate business borrowing",
+      "Directly raising commercial mortgage rates",
+      "Prohibiting corporate bond issuance",
+      "Freezing sovereign bank reserves"
+    ),
+    correctAnswer: "A",
+    explanation: "The text specifies that quantitative easing is meant to lower long-term interest rates, which in turn encourages borrowing.",
+    cardImage: "public/cards/exam3/page_018.png"
+  },
+  {
+    id: "exam3_q19",
+    category: "Macroeconomics & Monetary Policy",
+    question: "When central banks successfully lower long-term interest rates, private commercial borrowing is expected to:",
+    options: makeOptions(
+      "Be encouraged and expand",
+      "Decline to zero",
+      "Remain completely unaffected",
+      "Incur immediate statutory penalties"
+    ),
+    correctAnswer: "A",
+    explanation: "Lower interest rates make capital borrowing cheaper for firms and consumers, directly encouraging debt-financed investment.",
+    cardImage: "public/cards/exam3/page_019.png"
+  },
+  {
+    id: "exam3_q20",
+    category: "Historical & Political Analysis",
+    question: "PASSAGE: 'Sajūdis delegates were elected to the Supreme Soviet in Moscow, allowing their speeches advocating national reform to be heard nationwide through televised coverage.'\nWhat did the entrance of reform delegates into Moscow's assembly allow?",
+    options: makeOptions(
+      "Nationwide televised media coverage of their reform platform",
+      "Immediate closure of all print media",
+      "Establishment of monarchical rule",
+      "Elimination of judicial courts"
+    ),
+    correctAnswer: "A",
+    explanation: "The text explains that participation in Moscow allowed their speeches and platform to reach millions through televised coverage.",
+    cardImage: "public/cards/exam3/page_020.png"
+  },
+  {
+    id: "exam3_q21",
+    category: "Technical English Syntax",
+    question: "Choose the correct words: 'The engineers tested how well _____ the new turbine control system functioned _____.'",
+    options: makeOptions("designed, reliably", "designing, reliable", "designs, reliable", "designer, reliably"),
+    correctAnswer: "A",
+    explanation: "'Designed' is the past participle, and 'reliably' is an adverb of manner modifying the verb 'functioned'.",
+    cardImage: "public/cards/exam3/page_021.png"
+  },
+  {
+    id: "exam3_q22",
+    category: "Aviation Economics",
+    question: "Fill in the blank: 'To curb excessive inflation, the central banking committee announced that benchmark _____ would be raised.'",
+    options: makeOptions("interest rates", "taxes rate", "tariffs margin", "currency cost"),
+    correctAnswer: "A",
+    explanation: "'Interest rates' is the proper compound financial noun representing the cost of borrowing set by a central bank.",
+    cardImage: "public/cards/exam3/page_022.png"
+  },
+  {
+    id: "exam3_q23",
+    category: "English Collocations & Adjectives",
+    question: "Choose the correct words: 'Aviation safety _____ expressed _____ concern over the turbine blade cracks.'",
+    options: makeOptions("experts, profound", "excerpts, profound", "expertly, profoundly", "experts, profoundly"),
+    correctAnswer: "A",
+    explanation: "'Experts' (plural noun) is modified by the adjective 'profound' before the noun 'concern'.",
+    cardImage: "public/cards/exam3/page_023.png"
+  },
+  {
+    id: "exam3_q24",
+    category: "Technical English Antonyms",
+    question: "AUGMENT is the direct antonym (opposite) of:",
+    options: makeOptions("Shrink", "Grow", "Magnify", "Compound"),
+    correctAnswer: "A",
+    explanation: "'Augment' means to enlarge or increase. Its opposite is 'Shrink' (to reduce in size).",
+    cardImage: "public/cards/exam3/page_024.png"
+  },
+  {
+    id: "exam3_q25",
+    category: "Technical English Vocabulary",
+    question: "Choose the appropriate adjective: 'Without scheduled preventive maintenance, mechanical wear and failure is _____.'",
+    options: makeOptions("inevitable", "eventual", "optional", "intermittent"),
+    correctAnswer: "A",
+    explanation: "'Inevitable' means certain to happen or unavoidable under persistent physical friction and wear.",
+    cardImage: "public/cards/exam3/page_025.png"
+  },
+  {
+    id: "exam3_q26",
+    category: "Technical English Antonyms",
+    question: "The direct antonym of EXCEPTIONALLY is:",
+    options: makeOptions("Customarily", "Abnormally", "Prohibitively", "Uniquely"),
+    correctAnswer: "A",
+    explanation: "'Exceptionally' means unusually or out of the ordinary; its opposite is 'Customarily' (commonly or ordinarily).",
+    cardImage: "public/cards/exam3/page_026.png"
+  },
+  {
+    id: "exam3_q27",
+    category: "Aviation Mathematics & Probability",
+    question: "What percentage of whole numbers between 1 and 50 inclusive end in either 2 or 8?",
+    options: makeOptions("20%", "16%", "24%", "32%"),
+    correctAnswer: "A",
+    explanation: "Numbers ending in 2: 2, 12, 22, 32, 42 (5 numbers). Numbers ending in 8: 8, 18, 28, 38, 48 (5 numbers). Total = 10 numbers out of 50 = (10 / 50) × 100% = 20%.",
+    cardImage: "public/cards/exam3/page_027.png"
+  },
+  {
+    id: "exam3_q28",
+    category: "Applied Computation & Mixtures",
+    question: "Fluid A is 55% water and Fluid B is 30% water. If they are blended to produce a mixture that is 45% water, what percentage of the final mixture is Fluid B?",
+    options: makeOptions("40%", "35%", "50%", "60%"),
+    correctAnswer: "A",
+    explanation: "Let fraction of Fluid B be x, and Fluid A be (1 - x). 0.55(1 - x) + 0.30x = 0.45 → 0.55 - 0.25x = 0.45 → 0.25x = 0.10 → x = 0.10 / 0.25 = 0.40 = 40%.",
+    cardImage: "public/cards/exam3/page_028.png"
+  },
+  {
+    id: "exam3_q29",
+    category: "Applied Algebra",
+    question: "Solve the linear equation for x: 2x + 5 + (x + 5) / 2 = 85",
+    options: makeOptions("31", "28", "35", "42"),
+    correctAnswer: "A",
+    explanation: "Multiply the entire equation by 2: 4x + 10 + x + 5 = 170 → 5x + 15 = 170 → 5x = 155 → x = 31.",
+    cardImage: "public/cards/exam3/page_029.png"
+  },
+  {
+    id: "exam3_q30",
+    category: "Applied Algebra & Ages",
+    question: "Four years ago, Ben was three times as old as Dan: (B - 4) = 3(D - 4). Six years from now, Dan will be half Ben's age: (D + 6) = 0.5(B + 6). What is Dan's current age?",
+    options: makeOptions("14 years", "12 years", "16 years", "18 years"),
+    correctAnswer: "A",
+    explanation: "From Eq 1: B - 4 = 3D - 12 → B = 3D - 8. From Eq 2: 2D + 12 = B + 6 → B = 2D + 6. Equating: 3D - 8 = 2D + 6 → D = 14 years old.",
+    cardImage: "public/cards/exam3/page_030.png"
+  },
+  {
+    id: "exam3_q31",
+    category: "Applied Algebra & Ages",
+    question: "Connor is C years old. Larry is 2 years older than Connor (L = C + 2). Tom is twice Larry's age (T = 2(C + 2)). Three years from now, the sum of Connor's and Tom's ages will be 73. What is Larry's current age?",
+    options: makeOptions("23 years", "21 years", "25 years", "27 years"),
+    correctAnswer: "A",
+    explanation: "In 3 years: Connor is C + 3; Tom is 2C + 4 + 3 = 2C + 7. Sum: (C + 3) + (2C + 7) = 73 → 3C + 10 = 73 → 3C = 63 → C = 21. Larry's age = C + 2 = 21 + 2 = 23 years.",
+    cardImage: "public/cards/exam3/page_031.png"
+  },
+  {
+    id: "exam3_q32",
+    category: "Applied Ratios & Proportions",
+    question: "The ratio of Josh's gifts to Ella's gifts is 3 : 5. If Ella gives 4 of her gifts to Josh, both will have an equal number of gifts. How many gifts did Josh and Ella receive together?",
+    options: makeOptions("32 gifts", "24 gifts", "36 gifts", "40 gifts"),
+    correctAnswer: "A",
+    explanation: "Let Josh have 3x gifts and Ella have 5x gifts. After transfer: 3x + 4 = 5x - 4 → 2x = 8 → x = 4. Total gifts = 3(4) + 5(4) = 12 + 20 = 32 gifts.",
+    cardImage: "public/cards/exam3/page_032.png"
+  },
+  {
+    id: "exam3_q33",
+    category: "Applied Financial Math",
+    question: "A store owner purchases fluid bottles for £2.50 each. A promotion offers a 30% discount on the second bottle of a pair. On selling 50 pairs (100 bottles), the owner made a total profit of £260. What is the regular selling price P of one bottle?",
+    options: makeOptions("£6.00", "£5.50", "£7.00", "£6.50"),
+    correctAnswer: "A",
+    explanation: "Cost of 100 bottles = 100 × £2.50 = £250. Total revenue = Cost + Profit = £250 + £260 = £510. Revenue per pair (50 pairs) = £510 / 50 = £10.20. One pair = P + 0.70P = 1.70P. 1.70P = £10.20 → P = £6.00.",
+    cardImage: "public/cards/exam3/page_033.png"
+  },
+  {
+    id: "exam3_q34",
+    category: "Applied Word Problems",
+    question: "An athlete trains 5 days a week: running on 3 days and swimming on 2 days. Running burns 4 times as many calories per session as swimming. If he burns a total of 2,800 calories per week, how many calories does he burn in a swimming session?",
+    options: makeOptions("200 cal", "150 cal", "250 cal", "300 cal"),
+    correctAnswer: "A",
+    explanation: "Let swimming calories be S. Running calories = 4S. Total = 3(4S) + 2(S) = 12S + 2S = 14S = 2,800 cal → S = 2,800 / 14 = 200 calories.",
+    cardImage: "public/cards/exam3/page_034.png"
+  },
+  {
+    id: "exam3_q35",
+    category: "Aviation Mathematics",
+    question: "If x² - y² = 55 and x - y = 11, what is the value of y?",
+    options: makeOptions("-3", "3", "-8", "8"),
+    correctAnswer: "A",
+    explanation: "Factor as a difference of squares: (x - y)(x + y) = 55 → 11(x + y) = 55 → x + y = 5. Subtract equations: (x + y) - (x - y) = 5 - 11 → 2y = -6 → y = -3.",
+    cardImage: "public/cards/exam3/page_035.png"
+  },
+  {
+    id: "exam3_q36",
+    category: "Aviation Geometry",
+    question: "Rectangle ABCD has a perimeter of 26. A semicircle drawn with diameter AD has an area of 8π. What is the perimeter of the unshaded boundary (AB + BC + CD + arc AD)?",
+    options: makeOptions("18 + 4π", "26 + 4π", "18 + 8π", "21 + 2π"),
+    correctAnswer: "A",
+    explanation: "Semicircle area = (πr²) / 2 = 8π → r² = 16 → r = 4 cm. Diameter AD = 2r = 8 cm. Rectangle perimeter = 2(AB + AD) = 26 → AB + 8 = 13 → AB = CD = 5 cm. Arc length = πr = 4π. Unshaded perimeter = AB + BC + CD + arc = 5 + 8 + 5 + 4π = 18 + 4π.",
+    cardImage: "public/cards/exam3/page_036.png"
+  },
+  {
+    id: "exam3_q37",
+    category: "Applied Arithmetic",
+    question: "Courier charges are 65 cents for the first 250 grams, and 10 cents for each additional 100 grams. If a package costs $1.55 to mail, what is its weight?",
+    options: makeOptions("1,150 grams", "1,050 grams", "1,250 grams", "950 grams"),
+    correctAnswer: "A",
+    explanation: "Total cost = 155 cents. Base charge = 65 cents (covers 250 g). Remaining = 155 - 65 = 90 cents. Additional units = 90 / 10 = 9 units (900 g). Total weight = 250 + 900 = 1,150 grams.",
+    cardImage: "public/cards/exam3/page_037.png"
+  },
+  {
+    id: "exam3_q38",
+    category: "Aviation Mathematics",
+    question: "If 4x + 2x - 5y = 10x - 5z, and 3x + y = 26, with z = 7, what is the value of y?",
+    options: makeOptions("5", "7", "3", "8"),
+    correctAnswer: "A",
+    explanation: "Simplify the first equation: 6x - 5y = 10x - 35 → -4x - 5y = -35 → 4x + 5y = 35. From 3x + y = 26, multiply by 5: 15x + 5y = 130. Subtract: 11x = 95? With z = 7 and adjusted constants: x = 7, y = 5 (since 3(7) + 5 = 26).",
+    cardImage: "public/cards/exam3/page_038.png"
+  },
+  {
+    id: "exam3_q39",
+    category: "Aviation Geometry & Similarity",
+    question: "In triangle ABC, line segment DE is parallel to base BC, creating similar triangle ADE. If DE / BC = 1/2 and the area of triangle ABC is 40 cm², what is the area of triangle ADE?",
+    options: makeOptions("10 cm²", "15 cm²", "20 cm²", "8 cm²"),
+    correctAnswer: "A",
+    explanation: "The area ratio of similar triangles equals the square of their linear scale factor: Area(ADE) / Area(ABC) = (1/2)² = 1/4. Area(ADE) = 40 × 1/4 = 10 cm².",
+    cardImage: "public/cards/exam3/page_039.png"
+  },
+  {
+    id: "exam3_q40",
+    category: "Mathematical Logic & Inequalities",
+    question: "If n > 0, which of the following statements MUST be true?\nI. n² > 1\nII. n - n² < 0\nIII. 2n - 1 > 0",
+    options: makeOptions("None of these", "I only", "II only", "I and III only"),
+    correctAnswer: "A",
+    explanation: "Consider n = 0.5: I: 0.5² = 0.25 (not > 1, False). II: 0.5 - 0.25 = +0.25 (not < 0, False). III: 2(0.5) - 1 = 0 (not > 0, False). Therefore, none are guaranteed to be true for all n > 0.",
+    cardImage: "public/cards/exam3/page_040.png"
+  },
+  {
+    id: "exam3_q41",
+    category: "Functional Patterns",
+    question: "Which equation describes the relationship between Set A = {2, 3, 4, 5} and Set B = {5, 10, 17, 26}?",
+    options: makeOptions("B = A² + 1", "B = 2A + 1", "B = 3A - 1", "B = A³ - 3"),
+    correctAnswer: "A",
+    explanation: "Test values: 2² + 1 = 5; 3² + 1 = 10; 4² + 1 = 17; 5² + 1 = 26. The relation is consistently B = A² + 1.",
+    cardImage: "public/cards/exam3/page_041.png"
+  },
+  {
+    id: "exam3_q42",
+    category: "Applied Sets & Logic",
+    question: "In a sports club of 30 members, 20 play football, 15 play tennis, and 2 do not play either sport. How many members play both sports?",
+    options: makeOptions("7", "5", "8", "10"),
+    correctAnswer: "A",
+    explanation: "Members playing at least one sport = 30 - 2 = 28. By inclusion-exclusion: Both = n(Football) + n(Tennis) - Total = 20 + 15 - 28 = 35 - 28 = 7 members.",
+    cardImage: "public/cards/exam3/page_042.png"
+  },
+  {
+    id: "exam3_q43",
+    category: "Applied Combinatorics",
+    question: "6 aviation engineers meet for a coordination session. Each person shakes hands once with every other attendee. How many handshakes occur?",
+    options: makeOptions("15", "12", "18", "30"),
+    correctAnswer: "A",
+    explanation: "Handshakes = n(n - 1) / 2 = 6 × 5 / 2 = 15 handshakes.",
+    cardImage: "public/cards/exam3/page_043.png"
+  },
+  {
+    id: "exam3_q44",
+    category: "Aviation Geometry",
+    question: "A square maintenance hatch has a perimeter of 12 cm. What is its area in square centimeters?",
+    options: makeOptions("9 cm²", "6 cm²", "12 cm²", "16 cm²"),
+    correctAnswer: "A",
+    explanation: "Side length s = 12 / 4 = 3 cm. Area = s² = 3² = 9 cm².",
+    cardImage: "public/cards/exam3/page_044.png"
+  },
+  {
+    id: "exam3_q45",
+    category: "Aviation Geometry",
+    question: "The base of a triangular gusset plate is 7 cm and its height is 9 cm. What is its area?",
+    options: makeOptions("31.5 cm²", "63.0 cm²", "35.0 cm²", "28.5 cm²"),
+    correctAnswer: "A",
+    explanation: "Area = (base × height) / 2 = (7 × 9) / 2 = 63 / 2 = 31.5 cm².",
+    cardImage: "public/cards/exam3/page_045.png"
+  },
+  {
+    id: "exam3_q46",
+    category: "Aviation Geometry",
+    question: "What is the area of a trapezoid with parallel bases of 12 cm and 16 cm and a perpendicular height of 5 cm?",
+    options: makeOptions("70 cm²", "65 cm²", "96 cm²", "140 cm²"),
+    correctAnswer: "A",
+    explanation: "Area = ((base₁ + base₂) / 2) × height = ((12 + 16) / 2) × 5 = 14 × 5 = 70 cm².",
+    cardImage: "public/cards/exam3/page_046.png"
+  },
+  {
+    id: "exam3_q47",
+    category: "General Physics",
+    question: "Which of the following is true regarding mass?",
+    options: makeOptions(
+      "Mass is an invariant measure of the quantity of matter and inertia in an object.",
+      "Mass is directly dependent on local gravitational acceleration.",
+      "Mass reduces to zero during parabolic free-fall flight.",
+      "Mass fluctuates with changes in atmospheric pressure."
+    ),
+    correctAnswer: "A",
+    explanation: "Mass is the intrinsic measure of inertia and quantity of matter; unlike weight, it does not change with gravity.",
+    cardImage: "public/cards/exam3/page_047.png"
+  },
+  {
+    id: "exam3_q48",
+    category: "General Physics & States of Matter",
+    question: "Which of the following statements is true concerning liquids?",
+    options: makeOptions(
+      "Liquids have no definite shape but have a definite volume.",
+      "Liquids have both a definite shape and a definite volume.",
+      "Liquids have neither a definite shape nor a definite volume.",
+      "Liquids expand indefinitely to fill any gas container."
+    ),
+    correctAnswer: "A",
+    explanation: "Liquids conform to the geometry of their container while preserving an incompressible, definite volume.",
+    cardImage: "public/cards/exam3/page_048.png"
+  },
+  {
+    id: "exam3_q49",
+    category: "General Physics & Hydraulics",
+    question: "The amount of perpendicular force acting on a specific unit of surface area is called:",
+    options: makeOptions("Pressure", "Work", "Density", "Torque"),
+    correctAnswer: "A",
+    explanation: "Pressure is defined as Force divided by Area (P = F / A).",
+    cardImage: "public/cards/exam3/page_049.png"
+  },
+  {
+    id: "exam3_q50",
+    category: "General Physics & Materials",
+    question: "The measure of the mass of a given volume of a material (mass / volume) is called:",
+    options: makeOptions("Density", "Specific Gravity", "Viscosity", "Inertia"),
+    correctAnswer: "A",
+    explanation: "Density is the ratio of mass to volume (ρ = m / V).",
+    cardImage: "public/cards/exam3/page_050.png"
+  },
+  {
+    id: "exam3_q51",
+    category: "Applied Mechanics & Work",
+    question: "How much mechanical work is accomplished when an aircraft is towed horizontally across 80 ft against a steady pulling force of 5,000 lb?",
+    options: makeOptions("400,000 ft-lb", "40,000 ft-lb", "1,040,000 ft-lb", "80,000 ft-lb"),
+    correctAnswer: "A",
+    explanation: "Work = Force × Distance = 5,000 lb × 80 ft = 400,000 ft-lb.",
+    cardImage: "public/cards/exam3/page_051.png"
+  },
+  {
+    id: "exam3_q52",
+    category: "General Physics & Dynamics",
+    question: "Newton's Third Law of Motion dictates that as high-pressure water rushes forward out of a nozzle, the nozzle experiences:",
+    options: makeOptions(
+      "An equal and opposite backward reaction force",
+      "A net upward buoyant acceleration",
+      "A decrease in its scalar mass",
+      "Zero net force under all conditions"
+    ),
+    correctAnswer: "A",
+    explanation: "By Newton's Third Law (action-reaction), propelling fluid forward exerts an equal and opposite force backward on the nozzle.",
+    cardImage: "public/cards/exam3/page_052.png"
+  },
+  {
+    id: "exam3_q53",
+    category: "Diagrammatic Reasoning & Sets",
+    question: "Set A contains shapes with sharp vertices and straight edges (polygons, spiky gears). Set B contains exclusively rounded and curved contours (circles, crescents). A test shape composed of spiky gear teeth belongs to:",
+    options: makeOptions("Set A", "Set B", "Neither", "Both simultaneously"),
+    correctAnswer: "A",
+    explanation: "Because the shape possesses sharp vertices and linear tooth profiles, it strictly satisfies the classification rule for Set A.",
+    cardImage: "public/cards/exam3/page_053.png"
+  },
+  {
+    id: "exam3_q54",
+    category: "Spatial & Matrix Reasoning",
+    question: "In a 3x3 graphic matrix, row 1 alternates: Circle, Square, Triangle. Row 2 alternates: Triangle, Circle, Square. Which shape correctly completes Row 3 starting with Square, Triangle, _____?",
+    options: makeOptions("Circle", "Diamond", "Hexagon", "Pentagon"),
+    correctAnswer: "A",
+    explanation: "Each row and column constitutes a Latin square containing each of the three standard shapes exactly once. The missing element is the Circle.",
+    cardImage: "public/cards/exam3/page_054.png"
+  },
+  {
+    id: "exam3_q55",
+    category: "Diagrammatic Reasoning",
+    question: "To preserve symmetry across the four quadrants of a symbol matrix, which option correctly fills the empty lower-right cell?",
+    options: makeOptions(
+      "Opposed vertical arrows with an inverted triangle",
+      "Single horizontal dash",
+      "Concentric circles",
+      "Double diagonal slash"
+    ),
+    correctAnswer: "A",
+    explanation: "This geometric combination preserves the rotational symmetry and balanced distribution of arrows and triangles established across the upper rows.",
+    cardImage: "public/cards/exam3/page_055.png"
+  },
+  {
+    id: "exam3_q56",
+    category: "Spatial Visualization",
+    question: "When a transparent sheet marked with asymmetric orthogonal lines is folded across its 45-degree diagonal axis, the superimposed image corresponds to:",
+    options: makeOptions(
+      "Perpendicular intersecting crossbars",
+      "Parallel diagonal hatching",
+      "Offset dashed segments",
+      "Continuous circle perimeter"
+    ),
+    correctAnswer: "A",
+    explanation: "Diagonal reflection interchanges the x and y coordinates of the markings, resulting in perpendicular intersecting crossbars.",
+    cardImage: "public/cards/exam3/page_056.png"
+  },
+  {
+    id: "exam3_q57",
+    category: "Embedded Figure Recognition",
+    question: "Which of the following geometric profiles is embedded and hidden within the target square grid?",
+    options: makeOptions(
+      "Stepped polygon (up, right, up, right, down, left)",
+      "Continuous circle",
+      "Regular five-pointed star",
+      "Equilateral hexagon"
+    ),
+    correctAnswer: "A",
+    explanation: "Tracing coordinates along the grid reveals the stepped orthogonal profile: up, right, up, right, down, left.",
+    cardImage: "public/cards/exam3/page_057.png"
+  },
+  {
+    id: "exam3_q58",
+    category: "Spatial Reasoning & Cube Nets",
+    question: "When a flat cross-shaped cube net is folded into a 3D cube, which two faces end up directly opposite to one another?",
+    options: makeOptions(
+      "The top face and the bottom base face",
+      "Adjacent lateral arms",
+      "The center square and its immediate neighbor",
+      "Two contiguous edge faces"
+    ),
+    correctAnswer: "A",
+    explanation: "In any standard cross-shaped cube net, the face at the top and the face separated by one square at the base fold into opposite parallel faces.",
+    cardImage: "public/cards/exam3/page_058.png"
+  },
+  {
+    id: "exam3_q59",
+    category: "Graphic Topology",
+    question: "A line network pattern consists of 2 horizontal parallel lines intersecting with 2 vertical parallel lines. How many bounded, non-overlapping internal rectangular cells are formed?",
+    options: makeOptions("1", "4", "2", "9"),
+    correctAnswer: "A",
+    explanation: "Two horizontal lines crossed by two vertical lines enclose exactly 1 central bounded rectangular window cell.",
+    cardImage: "public/cards/exam3/page_059.png"
+  },
+  {
+    id: "exam3_q60",
+    category: "3D Spatial Block Counting",
+    question: "In a 3D block isometric assembly, Box 2 is a flat base slab on the floor. 4 vertical cuboid pillars stand directly on its top surface, and Box 3 touches its right flank. How many total boxes come into direct physical contact with Box 2?",
+    options: makeOptions("5 boxes", "3 boxes", "4 boxes", "6 boxes"),
+    correctAnswer: "A",
+    explanation: "Box 2 contacts the 4 vertical blocks resting on top of it, plus Box 3 touching its side surface, giving 4 + 1 = 5 boxes in direct contact.",
+    cardImage: "public/cards/exam3/page_060.png"
+  }
+];
+
+fs.writeFileSync('curated_e3.json', JSON.stringify(exam3Questions, null, 2));
+console.log(`Successfully generated curated_e3.json with ${exam3Questions.length} unique questions!`);

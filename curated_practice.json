@@ -1,0 +1,1354 @@
+[
+  {
+    "id": "practice_q1",
+    "category": "Technical English Prepositions",
+    "question": "Fill in the blank with the appropriate preposition: 'The mechanic placed the calibrated torque wrench _____ the tool chest.'",
+    "options": [
+      {
+        "key": "A",
+        "text": "onto"
+      },
+      {
+        "key": "B",
+        "text": "into"
+      },
+      {
+        "key": "C",
+        "text": "at"
+      },
+      {
+        "key": "D",
+        "text": "against"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "'Into' indicates movement to the interior of a container or space (the tool chest).",
+    "cardImage": "public/cards/practice/page_001.png"
+  },
+  {
+    "id": "practice_q2",
+    "category": "Technical English Conjunctions",
+    "question": "Choose the correct conjunction to complete the sentence: '_____ the weather was severe, the scheduled flight departed safely on time.'",
+    "options": [
+      {
+        "key": "A",
+        "text": "Although"
+      },
+      {
+        "key": "B",
+        "text": "Because"
+      },
+      {
+        "key": "C",
+        "text": "Unless"
+      },
+      {
+        "key": "D",
+        "text": "Since"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "'Although' is a concessive subordinating conjunction indicating a contrast between severe weather and on-time departure.",
+    "cardImage": "public/cards/practice/page_002.png"
+  },
+  {
+    "id": "practice_q3",
+    "category": "Technical English Conjunctions",
+    "question": "Choose the correct conjunction: 'Neither the pilot _____ the co-pilot noticed the sudden drop in fuel pressure.'",
+    "options": [
+      {
+        "key": "A",
+        "text": "or"
+      },
+      {
+        "key": "B",
+        "text": "nor"
+      },
+      {
+        "key": "C",
+        "text": "and"
+      },
+      {
+        "key": "D",
+        "text": "but"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The correlative conjunction pairing with 'neither' is strictly 'nor' ('neither... nor').",
+    "cardImage": "public/cards/practice/page_003.png"
+  },
+  {
+    "id": "practice_q4",
+    "category": "Verbal Logic & Analogies",
+    "question": "Complete the analogy: Flow is to River as Stagnant is to _____",
+    "options": [
+      {
+        "key": "A",
+        "text": "Rain"
+      },
+      {
+        "key": "B",
+        "text": "Pool"
+      },
+      {
+        "key": "C",
+        "text": "Stream"
+      },
+      {
+        "key": "D",
+        "text": "Canal"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "A river exhibits dynamic flow, whereas a pool or pond contains still, stagnant water.",
+    "cardImage": "public/cards/practice/page_003.png"
+  },
+  {
+    "id": "practice_q5",
+    "category": "Verbal Logic & Analogies",
+    "question": "Complete the analogy: Microphone is to Loud as Microscope is to _____",
+    "options": [
+      {
+        "key": "A",
+        "text": "Magnify"
+      },
+      {
+        "key": "B",
+        "text": "Elongate"
+      },
+      {
+        "key": "C",
+        "text": "Investigate"
+      },
+      {
+        "key": "D",
+        "text": "Examine"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "A microphone makes auditory signals louder; a microscope magnifies visual size.",
+    "cardImage": "public/cards/practice/page_004.png"
+  },
+  {
+    "id": "practice_q6",
+    "category": "Verbal Classification",
+    "question": "Which of the following animals belongs to a different biological class from the rest (odd one out)?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Swan"
+      },
+      {
+        "key": "B",
+        "text": "Chicken"
+      },
+      {
+        "key": "C",
+        "text": "Snake"
+      },
+      {
+        "key": "D",
+        "text": "Duck"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Swan, Chicken, and Duck are birds (Aves), while Snake is a reptile (Squamata).",
+    "cardImage": "public/cards/practice/page_004.png"
+  },
+  {
+    "id": "practice_q7",
+    "category": "Numerical Series & Sequences",
+    "question": "Identify the missing number in the sequence: 11, 19, 29, 41, 55, ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "69"
+      },
+      {
+        "key": "B",
+        "text": "71"
+      },
+      {
+        "key": "C",
+        "text": "73"
+      },
+      {
+        "key": "D",
+        "text": "75"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Successive differences increase by 2: 19-11=8, 29-19=10, 41-29=12, 55-41=14. Next term: 55 + 16 = 71.",
+    "cardImage": "public/cards/practice/page_005.png"
+  },
+  {
+    "id": "practice_q8",
+    "category": "Applied Arithmetic",
+    "question": "If one ream of aviation log sheets costs $3.95, how much would 4 reams cost?",
+    "options": [
+      {
+        "key": "A",
+        "text": "$14.75"
+      },
+      {
+        "key": "B",
+        "text": "$15.70"
+      },
+      {
+        "key": "C",
+        "text": "$15.80"
+      },
+      {
+        "key": "D",
+        "text": "$16.20"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Multiply quantity by unit price: 4 × $3.95 = $15.80.",
+    "cardImage": "public/cards/practice/page_005.png"
+  },
+  {
+    "id": "practice_q9",
+    "category": "Basic Arithmetic",
+    "question": "What is the value of the missing number: 567 = ? - 5",
+    "options": [
+      {
+        "key": "A",
+        "text": "562"
+      },
+      {
+        "key": "B",
+        "text": "572"
+      },
+      {
+        "key": "C",
+        "text": "565"
+      },
+      {
+        "key": "D",
+        "text": "570"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Add 5 to both sides: ? = 567 + 5 = 572.",
+    "cardImage": "public/cards/practice/page_006.png"
+  },
+  {
+    "id": "practice_q10",
+    "category": "Applied Percentages",
+    "question": "How much in percent is 20 out of 40?",
+    "options": [
+      {
+        "key": "A",
+        "text": "50%"
+      },
+      {
+        "key": "B",
+        "text": "40%"
+      },
+      {
+        "key": "C",
+        "text": "30%"
+      },
+      {
+        "key": "D",
+        "text": "25%"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "(20 / 40) × 100% = 0.50 × 100% = 50%.",
+    "cardImage": "public/cards/practice/page_006.png"
+  },
+  {
+    "id": "practice_q11",
+    "category": "Aviation Mathematics & Logarithms",
+    "question": "Evaluate the logarithmic expression: log₁₀(10) =",
+    "options": [
+      {
+        "key": "A",
+        "text": "0"
+      },
+      {
+        "key": "B",
+        "text": "1"
+      },
+      {
+        "key": "C",
+        "text": "10"
+      },
+      {
+        "key": "D",
+        "text": "100"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "By definition of logarithms: log_b(b) = 1, because 10¹ = 10.",
+    "cardImage": "public/cards/practice/page_007.png"
+  },
+  {
+    "id": "practice_q12",
+    "category": "Applied Ratios & Proportions",
+    "question": "A sum of 48,000 Birr is divided among three aviation students in the ratio 3 : 5 : 8. How much does the student with the smallest share receive?",
+    "options": [
+      {
+        "key": "A",
+        "text": "9,000 Birr"
+      },
+      {
+        "key": "B",
+        "text": "15,000 Birr"
+      },
+      {
+        "key": "C",
+        "text": "24,000 Birr"
+      },
+      {
+        "key": "D",
+        "text": "12,000 Birr"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Total parts = 3 + 5 + 8 = 16. Smallest share is 3 parts: (3 / 16) × 48,000 Birr = 3 × 3,000 = 9,000 Birr.",
+    "cardImage": "public/cards/practice/page_007.png"
+  },
+  {
+    "id": "practice_q13",
+    "category": "Applied Percentages",
+    "question": "A special discount of 2 cents off the normal price of 50 cents for a component wash packet is made. What percentage reduction does this represent?",
+    "options": [
+      {
+        "key": "A",
+        "text": "2%"
+      },
+      {
+        "key": "B",
+        "text": "4%"
+      },
+      {
+        "key": "C",
+        "text": "5%"
+      },
+      {
+        "key": "D",
+        "text": "8%"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Percentage reduction = (2 / 50) × 100% = 4%.",
+    "cardImage": "public/cards/practice/page_008.png"
+  },
+  {
+    "id": "practice_q14",
+    "category": "Applied Fraction Computation",
+    "question": "Simplify the fraction expression: (12 / 7) ÷ 12 =",
+    "options": [
+      {
+        "key": "A",
+        "text": "1/7"
+      },
+      {
+        "key": "B",
+        "text": "7"
+      },
+      {
+        "key": "C",
+        "text": "1"
+      },
+      {
+        "key": "D",
+        "text": "12/84"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "(12 / 7) ÷ 12 = (12 / 7) × (1 / 12) = 1/7.",
+    "cardImage": "public/cards/practice/page_008.png"
+  },
+  {
+    "id": "practice_q15",
+    "category": "Aircraft Kinematics",
+    "question": "A jet aircraft starts from rest and accelerates uniformly down a runway at 4 m/s² through a distance of 200 m. How fast is it moving at the end of this distance?",
+    "options": [
+      {
+        "key": "A",
+        "text": "20 m/s"
+      },
+      {
+        "key": "B",
+        "text": "40 m/s"
+      },
+      {
+        "key": "C",
+        "text": "50 m/s"
+      },
+      {
+        "key": "D",
+        "text": "80 m/s"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Using kinematics equation v² = u² + 2as: v² = 0 + 2(4)(200) = 1600 → v = √1600 = 40 m/s.",
+    "cardImage": "public/cards/practice/page_009.png"
+  },
+  {
+    "id": "practice_q16",
+    "category": "Applied Mechanics & Work",
+    "question": "In order for mechanical work to be performed by a force on an object, the direction of the component force and the displacement must be:",
+    "options": [
+      {
+        "key": "A",
+        "text": "In opposite directions only"
+      },
+      {
+        "key": "B",
+        "text": "Non-orthogonal (having a non-zero component along the axis of displacement)"
+      },
+      {
+        "key": "C",
+        "text": "Strictly perpendicular to each other"
+      },
+      {
+        "key": "D",
+        "text": "Stationary at all times"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Work = F · d · cos(θ). If θ = 90° (perpendicular), work is zero. A non-zero force component must align along the displacement axis.",
+    "cardImage": "public/cards/practice/page_009.png"
+  },
+  {
+    "id": "practice_q17",
+    "category": "General Physics & Power",
+    "question": "Mechanical Power is physically defined as:",
+    "options": [
+      {
+        "key": "A",
+        "text": "The rate at which work is performed over time (Work / Time)"
+      },
+      {
+        "key": "B",
+        "text": "The product of force and distance squared"
+      },
+      {
+        "key": "C",
+        "text": "Total kinetic energy divided by displacement"
+      },
+      {
+        "key": "D",
+        "text": "The capacity of an object to resist torque"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Power is defined as the time rate of doing work: P = W / t = dW/dt (measured in Watts or Horsepower).",
+    "cardImage": "public/cards/practice/page_010.png"
+  },
+  {
+    "id": "practice_q18",
+    "category": "Applied Dynamics & Friction",
+    "question": "How large a total horizontal force is needed to accelerate a 2,000 kg aircraft cargo container from rest to 16 m/s over a distance of 80 m against an average friction force of 500 N?",
+    "options": [
+      {
+        "key": "A",
+        "text": "3,700 N"
+      },
+      {
+        "key": "B",
+        "text": "3,200 N"
+      },
+      {
+        "key": "C",
+        "text": "4,520 N"
+      },
+      {
+        "key": "D",
+        "text": "2,700 N"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Acceleration: v² = 2as → 16² = 2a(80) → 256 = 160a → a = 1.6 m/s². Net accelerating force: F_net = m · a = 2000 × 1.6 = 3,200 N. Applied force: F_applied = F_net + F_friction = 3,200 + 500 = 3,700 N.",
+    "cardImage": "public/cards/practice/page_011.png"
+  },
+  {
+    "id": "practice_q19",
+    "category": "Conservation of Energy",
+    "question": "A 0.2 kg maintenance tool is dropped from a hangar scaffolding structure 20 m high. What is its kinetic energy just before striking the ground? (Ignore air drag; g = 10 m/s²)",
+    "options": [
+      {
+        "key": "A",
+        "text": "20 J"
+      },
+      {
+        "key": "B",
+        "text": "40 J"
+      },
+      {
+        "key": "C",
+        "text": "80 J"
+      },
+      {
+        "key": "D",
+        "text": "100 J"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "By conservation of mechanical energy: Final KE = Initial PE = m · g · h = 0.2 kg × 10 m/s² × 20 m = 40 Joules.",
+    "cardImage": "public/cards/practice/page_011.png"
+  },
+  {
+    "id": "practice_q20",
+    "category": "Thermodynamics & Heat Transfer",
+    "question": "The transfer of thermal energy from one region to another via the macroscopic bulk motion of a heated fluid is called:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Conduction"
+      },
+      {
+        "key": "B",
+        "text": "Convection"
+      },
+      {
+        "key": "C",
+        "text": "Radiation"
+      },
+      {
+        "key": "D",
+        "text": "Insulation"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Convection involves the collective physical movement of molecules within fluids (liquids or gases).",
+    "cardImage": "public/cards/practice/page_012.png"
+  },
+  {
+    "id": "practice_q21",
+    "category": "Physical Units & SI Standards",
+    "question": "Which of the following is NOT classified as a basic (fundamental) physical SI unit?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Meter (length)"
+      },
+      {
+        "key": "B",
+        "text": "Second (time)"
+      },
+      {
+        "key": "C",
+        "text": "Newton (force)"
+      },
+      {
+        "key": "D",
+        "text": "Kilogram (mass)"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "The Newton is a derived unit (1 N = 1 kg·m/s²). Meter, Second, and Kilogram are fundamental SI base units.",
+    "cardImage": "public/cards/practice/page_012.png"
+  },
+  {
+    "id": "practice_q22",
+    "category": "Applied Geometry & Angles",
+    "question": "One full coordinate geometric revolution (rotation) is NOT equivalent to:",
+    "options": [
+      {
+        "key": "A",
+        "text": "360 degrees"
+      },
+      {
+        "key": "B",
+        "text": "2π radians"
+      },
+      {
+        "key": "C",
+        "text": "21,600 minutes of arc"
+      },
+      {
+        "key": "D",
+        "text": "4π radians"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "One full rotation equals 360° = 2π radians = 21,600 arcminutes. 4π radians equals two full rotations.",
+    "cardImage": "public/cards/practice/page_013.png"
+  },
+  {
+    "id": "practice_q23",
+    "category": "Technical English Prepositions",
+    "question": "Fill in the blank with the appropriate preposition: 'He has no special liking _____ technical drawings.'",
+    "options": [
+      {
+        "key": "A",
+        "text": "in"
+      },
+      {
+        "key": "B",
+        "text": "for"
+      },
+      {
+        "key": "C",
+        "text": "with"
+      },
+      {
+        "key": "D",
+        "text": "about"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The standard English collocation following the noun 'liking' is 'for' ('a liking for something').",
+    "cardImage": "public/cards/practice/page_013.png"
+  },
+  {
+    "id": "practice_q24",
+    "category": "Technical English Prepositions",
+    "question": "Fill in the blank with the appropriate preposition: 'The mechanic carefully unscrewed the inspection panel _____ a specialized screwdriver.'",
+    "options": [
+      {
+        "key": "A",
+        "text": "on"
+      },
+      {
+        "key": "B",
+        "text": "at"
+      },
+      {
+        "key": "C",
+        "text": "with"
+      },
+      {
+        "key": "D",
+        "text": "for"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "'With' designates the instrument or tool employed to accomplish an action.",
+    "cardImage": "public/cards/practice/page_014.png"
+  },
+  {
+    "id": "practice_q25",
+    "category": "Technical English Prepositions",
+    "question": "Fill in the blank with the appropriate preposition: 'She is remarkably good _____ tracking systemic electrical faults.'",
+    "options": [
+      {
+        "key": "A",
+        "text": "into"
+      },
+      {
+        "key": "B",
+        "text": "at"
+      },
+      {
+        "key": "C",
+        "text": "for"
+      },
+      {
+        "key": "D",
+        "text": "with"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The adjective 'good' pairs with the preposition 'at' when expressing proficiency or skill ('good at something').",
+    "cardImage": "public/cards/practice/page_014.png"
+  },
+  {
+    "id": "practice_q26",
+    "category": "Technical English Conjunctions",
+    "question": "Choose the correct conjunction: 'The structural engineer tried to interpret the damaged blueprint, _____ it was too blurred to read.'",
+    "options": [
+      {
+        "key": "A",
+        "text": "so"
+      },
+      {
+        "key": "B",
+        "text": "and"
+      },
+      {
+        "key": "C",
+        "text": "but"
+      },
+      {
+        "key": "D",
+        "text": "since"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "'But' introduces a contrasting limitation to the engineer's effort.",
+    "cardImage": "public/cards/practice/page_015.png"
+  },
+  {
+    "id": "practice_q27",
+    "category": "Verbal Logic & Analogies",
+    "question": "Complete the analogy: Architect is to Building as Sculptor is to _____",
+    "options": [
+      {
+        "key": "A",
+        "text": "Museum"
+      },
+      {
+        "key": "B",
+        "text": "Chisel"
+      },
+      {
+        "key": "C",
+        "text": "Stone"
+      },
+      {
+        "key": "D",
+        "text": "Statue"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "An architect designs/creates a building; a sculptor carves/creates a statue.",
+    "cardImage": "public/cards/practice/page_016.png"
+  },
+  {
+    "id": "practice_q28",
+    "category": "Linguistic Hierarchy",
+    "question": "Arrange the structural units below in logically ascending sequence from smallest to largest:\n1. Word | 2. Letters | 3. Paragraph | 4. Phrase | 5. Sentence",
+    "options": [
+      {
+        "key": "A",
+        "text": "1, 2, 3, 4, 5"
+      },
+      {
+        "key": "B",
+        "text": "2, 1, 4, 5, 3"
+      },
+      {
+        "key": "C",
+        "text": "2, 1, 5, 4, 3"
+      },
+      {
+        "key": "D",
+        "text": "1, 3, 2, 4, 5"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Smallest to largest: Letters (2) → Word (1) → Phrase (4) → Sentence (5) → Paragraph (3).",
+    "cardImage": "public/cards/practice/page_016.png"
+  },
+  {
+    "id": "practice_q29",
+    "category": "Verbal Classification",
+    "question": "Which of the following items of headwear is functionally distinct from the others (odd one out)?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Cap"
+      },
+      {
+        "key": "B",
+        "text": "Turban"
+      },
+      {
+        "key": "C",
+        "text": "Veil"
+      },
+      {
+        "key": "D",
+        "text": "Helmet"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Cap, Turban, and Helmet are head coverings worn as protective or structured headwear, whereas a veil is a lightweight face/drape covering.",
+    "cardImage": "public/cards/practice/page_017.png"
+  },
+  {
+    "id": "practice_q30",
+    "category": "Numerical Series & Sequences",
+    "question": "Identify the missing number at the end of the series: 3, 6, 11, 18, ?",
+    "options": [
+      {
+        "key": "A",
+        "text": "25"
+      },
+      {
+        "key": "B",
+        "text": "26"
+      },
+      {
+        "key": "C",
+        "text": "27"
+      },
+      {
+        "key": "D",
+        "text": "28"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Differences increase by consecutive odd numbers: 6-3=3, 11-6=5, 18-11=7. Next increment is +9: 18 + 9 = 27.",
+    "cardImage": "public/cards/practice/page_017.png"
+  },
+  {
+    "id": "practice_q31",
+    "category": "Fraction Arithmetic",
+    "question": "Solve for the missing fraction: 1/4 + ? = 3/4",
+    "options": [
+      {
+        "key": "A",
+        "text": "1/4"
+      },
+      {
+        "key": "B",
+        "text": "1/2"
+      },
+      {
+        "key": "C",
+        "text": "2/3"
+      },
+      {
+        "key": "D",
+        "text": "1/8"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Subtract: 3/4 - 1/4 = 2/4. Reducing 2/4 gives 1/2.",
+    "cardImage": "public/cards/practice/page_018.png"
+  },
+  {
+    "id": "practice_q32",
+    "category": "Decimal Computation",
+    "question": "Compute the decimal product: 0.32 × 0.32 =",
+    "options": [
+      {
+        "key": "A",
+        "text": "1.024"
+      },
+      {
+        "key": "B",
+        "text": "0.01024"
+      },
+      {
+        "key": "C",
+        "text": "0.1024"
+      },
+      {
+        "key": "D",
+        "text": "0.001024"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "32 × 32 = 1024. Counting 4 decimal places gives 0.1024.",
+    "cardImage": "public/cards/practice/page_018.png"
+  },
+  {
+    "id": "practice_q33",
+    "category": "Applied Algebra",
+    "question": "Simplify the algebraic expression for all values where a ≠ -1: (a² - 1) / (a + 1) =",
+    "options": [
+      {
+        "key": "A",
+        "text": "a - 1"
+      },
+      {
+        "key": "B",
+        "text": "a + 1"
+      },
+      {
+        "key": "C",
+        "text": "1"
+      },
+      {
+        "key": "D",
+        "text": "a² - 2"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Factor numerator as a difference of squares: (a - 1)(a + 1) / (a + 1) = a - 1.",
+    "cardImage": "public/cards/practice/page_019.png"
+  },
+  {
+    "id": "practice_q34",
+    "category": "Applied Measurement & Time",
+    "question": "Calculate the exact sum of the times: 2 hrs 45 min 35 sec + 4 hrs 45 min 35 sec =",
+    "options": [
+      {
+        "key": "A",
+        "text": "6 hrs 45 min 35 sec"
+      },
+      {
+        "key": "B",
+        "text": "7 hrs 30 min 10 sec"
+      },
+      {
+        "key": "C",
+        "text": "7 hrs 31 min 10 sec"
+      },
+      {
+        "key": "D",
+        "text": "7 hrs 41 min 20 sec"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Seconds: 35 + 35 = 70 sec = 1 min 10 sec. Minutes: 45 + 45 + 1 = 91 min = 1 hr 31 min. Hours: 2 + 4 + 1 = 7 hrs. Total = 7 hrs 31 min 10 sec.",
+    "cardImage": "public/cards/practice/page_019.png"
+  },
+  {
+    "id": "practice_q35",
+    "category": "Algebra & Quadratics",
+    "question": "Determine the real solution set for the quadratic equation: 3x² + 5x = 2x + 6",
+    "options": [
+      {
+        "key": "A",
+        "text": "{-2, 1}"
+      },
+      {
+        "key": "B",
+        "text": "{-1, 2}"
+      },
+      {
+        "key": "C",
+        "text": "{2, 3}"
+      },
+      {
+        "key": "D",
+        "text": "{-3, 1}"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Rearrange to standard quadratic form: 3x² + 3x - 6 = 0 → x² + x - 2 = 0 → (x + 2)(x - 1) = 0 → x = -2 or x = 1.",
+    "cardImage": "public/cards/practice/page_020.png"
+  },
+  {
+    "id": "practice_q36",
+    "category": "Proportions & Algebra",
+    "question": "Identify the positive value that satisfies the proportion: x / 7 = 7 / x",
+    "options": [
+      {
+        "key": "A",
+        "text": "1"
+      },
+      {
+        "key": "B",
+        "text": "7"
+      },
+      {
+        "key": "C",
+        "text": "14"
+      },
+      {
+        "key": "D",
+        "text": "49"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Cross-multiply: x² = 7 × 7 = 49 → x = √49 = 7.",
+    "cardImage": "public/cards/practice/page_020.png"
+  },
+  {
+    "id": "practice_q37",
+    "category": "Technical English Spelling",
+    "question": "Find the correctly spelled vocabulary word:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Foreign"
+      },
+      {
+        "key": "B",
+        "text": "Foreine"
+      },
+      {
+        "key": "C",
+        "text": "Fareign"
+      },
+      {
+        "key": "D",
+        "text": "Forein"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The correct spelling is 'Foreign' (F-o-r-e-i-g-n).",
+    "cardImage": "public/cards/practice/page_021.png"
+  },
+  {
+    "id": "practice_q38",
+    "category": "Applied Kinematics & Units",
+    "question": "Convert a linear speed of 10 km/hr directly into meters per second (m/s):",
+    "options": [
+      {
+        "key": "A",
+        "text": "2.78 m/s"
+      },
+      {
+        "key": "B",
+        "text": "3.60 m/s"
+      },
+      {
+        "key": "C",
+        "text": "1.00 m/s"
+      },
+      {
+        "key": "D",
+        "text": "5.55 m/s"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Multiply by conversion factor: 10 × (1000 m / 3600 s) = 10 / 3.6 ≈ 2.78 m/s.",
+    "cardImage": "public/cards/practice/page_021.png"
+  },
+  {
+    "id": "practice_q39",
+    "category": "General Physics & Vectors",
+    "question": "Which of the following physical measurements can be fully represented as a vector quantity?",
+    "options": [
+      {
+        "key": "A",
+        "text": "The number of passengers in a terminal"
+      },
+      {
+        "key": "B",
+        "text": "The gravitational force acting on an airframe"
+      },
+      {
+        "key": "C",
+        "text": "The scalar mass of an engine cowl"
+      },
+      {
+        "key": "D",
+        "text": "The ambient air temperature"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Force possesses both magnitude and direction, making it a true vector quantity. Mass, count, and temperature are scalar quantities.",
+    "cardImage": "public/cards/practice/page_022.png"
+  },
+  {
+    "id": "practice_q40",
+    "category": "Kinematics & Acceleration",
+    "question": "An automobile accelerates from rest at 2 m/s² until reaching 20 m/s, then continues at this constant speed. Find the total time to cover 800 m.",
+    "options": [
+      {
+        "key": "A",
+        "text": "35 s"
+      },
+      {
+        "key": "B",
+        "text": "45 s"
+      },
+      {
+        "key": "C",
+        "text": "50 s"
+      },
+      {
+        "key": "D",
+        "text": "55 s"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Phase 1: Time t₁ = v/a = 20/2 = 10 s. Distance d₁ = 0.5 × a × t₁² = 0.5 × 2 × 100 = 100 m. Remaining distance = 800 - 100 = 700 m. Phase 2: Time t₂ = 700 / 20 = 35 s. Total time = 10 + 35 = 45 s.",
+    "cardImage": "public/cards/practice/page_022.png"
+  },
+  {
+    "id": "practice_q41",
+    "category": "Kinematics & Motion",
+    "question": "In classic rectilinear, uniformly accelerated motion, which variable remains constant throughout the displacement?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Velocity"
+      },
+      {
+        "key": "B",
+        "text": "Acceleration"
+      },
+      {
+        "key": "C",
+        "text": "Displacement"
+      },
+      {
+        "key": "D",
+        "text": "Momentum"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "By definition, 'uniformly accelerated motion' means that acceleration is constant over time.",
+    "cardImage": "public/cards/practice/page_023.png"
+  },
+  {
+    "id": "practice_q42",
+    "category": "Applied Mechanics & Momentum",
+    "question": "The physical quantity defined as the mathematical product of an object's mass and its instantaneous velocity is called:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Acceleration"
+      },
+      {
+        "key": "B",
+        "text": "Momentum"
+      },
+      {
+        "key": "C",
+        "text": "Force"
+      },
+      {
+        "key": "D",
+        "text": "Kinetic Energy"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Linear momentum is defined as p = m · v (expressed in kg·m/s).",
+    "cardImage": "public/cards/practice/page_023.png"
+  },
+  {
+    "id": "practice_q43",
+    "category": "General Physics & Projectiles",
+    "question": "Ideal projectile motion near the Earth's surface can be analyzed as a simultaneous superposition of:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Uniform horizontal velocity and uniformly accelerated vertical motion."
+      },
+      {
+        "key": "B",
+        "text": "Uniform vertical velocity and uniformly accelerated horizontal motion."
+      },
+      {
+        "key": "C",
+        "text": "Uniformly accelerated motion along both orthogonal axes."
+      },
+      {
+        "key": "D",
+        "text": "Constant non-accelerated velocity in all directions."
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Gravity acts strictly vertically (constant downward acceleration g), while horizontal velocity remains constant in the absence of air drag.",
+    "cardImage": "public/cards/practice/page_024.png"
+  },
+  {
+    "id": "practice_q44",
+    "category": "General Physics & Dynamics",
+    "question": "Newton's Second Law of Motion mathematically and conceptually states that:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Every body continues at rest unless acted upon by a net force."
+      },
+      {
+        "key": "B",
+        "text": "To every action force, there is an equal and opposite reaction force."
+      },
+      {
+        "key": "C",
+        "text": "The acceleration of a body is directly proportional to the net force acting on it and inversely proportional to its mass (F = ma)."
+      },
+      {
+        "key": "D",
+        "text": "Total mechanical energy of an isolated system is always conserved."
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Newton's Second Law states that F_net = m · a, so acceleration is directly proportional to net force and inversely proportional to mass.",
+    "cardImage": "public/cards/practice/page_024.png"
+  },
+  {
+    "id": "practice_q45",
+    "category": "Physical Units & Energy",
+    "question": "Which of the following is NOT a recognized unit of mechanical work or energy?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Newton (N)"
+      },
+      {
+        "key": "B",
+        "text": "Joule (J)"
+      },
+      {
+        "key": "C",
+        "text": "Foot-pound (ft-lb)"
+      },
+      {
+        "key": "D",
+        "text": "Watt-hour (Wh)"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The Newton (N) is a unit of force, whereas Joules, Foot-pounds, and Watt-hours are units of work/energy.",
+    "cardImage": "public/cards/practice/page_025.png"
+  },
+  {
+    "id": "practice_q46",
+    "category": "Applied Mechanics & Pulleys",
+    "question": "A heavy crate weighing 24 lbs is suspended from a single movable pulley system supported by two rope strands. How much tension force is required to lift the weight?",
+    "options": [
+      {
+        "key": "A",
+        "text": "12 lbs"
+      },
+      {
+        "key": "B",
+        "text": "24 lbs"
+      },
+      {
+        "key": "C",
+        "text": "36 lbs"
+      },
+      {
+        "key": "D",
+        "text": "48 lbs"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "A single movable pulley supported by two strands provides a mechanical advantage of 2: Ideal Effort Force = Load / 2 = 24 / 2 = 12 lbs.",
+    "cardImage": "public/cards/practice/page_025.png"
+  },
+  {
+    "id": "practice_q47",
+    "category": "Technical English Spelling",
+    "question": "Find the correctly spelled word:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Satelite"
+      },
+      {
+        "key": "B",
+        "text": "Satellite"
+      },
+      {
+        "key": "C",
+        "text": "Sattelite"
+      },
+      {
+        "key": "D",
+        "text": "Satelitte"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The correct spelling is 'Satellite' (with one 't' and double 'l': S-a-t-e-l-l-i-t-e).",
+    "cardImage": "public/cards/practice/page_026.png"
+  },
+  {
+    "id": "practice_q48",
+    "category": "Verbal Logic & Analogies",
+    "question": "Complete the analogy: Cup is to Coffee as Bowl is to _____",
+    "options": [
+      {
+        "key": "A",
+        "text": "Dish"
+      },
+      {
+        "key": "B",
+        "text": "Soup"
+      },
+      {
+        "key": "C",
+        "text": "Spoon"
+      },
+      {
+        "key": "D",
+        "text": "Fork"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "A cup is the standard container for drinking coffee; a bowl is the standard container for eating soup.",
+    "cardImage": "public/cards/practice/page_031.png"
+  },
+  {
+    "id": "practice_q49",
+    "category": "Applied Arithmetic",
+    "question": "Find the square root of the expression: (49 × 25) / 49 =",
+    "options": [
+      {
+        "key": "A",
+        "text": "5"
+      },
+      {
+        "key": "B",
+        "text": "7"
+      },
+      {
+        "key": "C",
+        "text": "25"
+      },
+      {
+        "key": "D",
+        "text": "35"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Cancel 49 in numerator and denominator: √(25) = 5.",
+    "cardImage": "public/cards/practice/page_031.png"
+  },
+  {
+    "id": "practice_q50",
+    "category": "Applied Aerodynamics",
+    "question": "When an aircraft is in steady, unaccelerated level cruise flight, the aerodynamic lift force must exactly balance with:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Thrust"
+      },
+      {
+        "key": "B",
+        "text": "Drag"
+      },
+      {
+        "key": "C",
+        "text": "Aircraft Weight"
+      },
+      {
+        "key": "D",
+        "text": "Inertia"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "In unaccelerated level flight, the vertical forces are balanced: Lift = Weight, and horizontal forces are balanced: Thrust = Drag.",
+    "cardImage": "public/cards/practice/page_038.png"
+  },
+  {
+    "id": "practice_q51",
+    "category": "Applied Aerodynamics & Fluid Dynamics",
+    "question": "According to Bernoulli's Principle, within a steady streamline flow of an ideal fluid, an increase in fluid velocity occurs simultaneously with a decrease in:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Total mass"
+      },
+      {
+        "key": "B",
+        "text": "Fluid density"
+      },
+      {
+        "key": "C",
+        "text": "Static pressure"
+      },
+      {
+        "key": "D",
+        "text": "Temperature"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "Bernoulli's Principle states that as fluid velocity increases along a streamline, static pressure decreases.",
+    "cardImage": "public/cards/practice/page_039.png"
+  },
+  {
+    "id": "practice_q52",
+    "category": "General Physics & Acoustics",
+    "question": "Which physical wave parameter determines the fundamental pitch of a sound wave generated by an engine turbine?",
+    "options": [
+      {
+        "key": "A",
+        "text": "Amplitude"
+      },
+      {
+        "key": "B",
+        "text": "Phase"
+      },
+      {
+        "key": "C",
+        "text": "Frequency"
+      },
+      {
+        "key": "D",
+        "text": "Velocity"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "The pitch of a sound wave is directly determined by its frequency (cycles per second, measured in Hertz).",
+    "cardImage": "public/cards/practice/page_052.png"
+  }
+]

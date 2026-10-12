@@ -1,0 +1,1484 @@
+[
+  {
+    "id": "exam2_q1",
+    "category": "English Prepositions",
+    "question": "She traveled __ the world.",
+    "options": [
+      {
+        "key": "A",
+        "text": "over"
+      },
+      {
+        "key": "B",
+        "text": "across"
+      },
+      {
+        "key": "C",
+        "text": "on"
+      },
+      {
+        "key": "D",
+        "text": "around"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "\"Travel around the world\" is the standard English idiomatic expression meaning to travel extensively throughout many regions of the globe.",
+    "cardImage": "public/cards/exam1/page_003.png"
+  },
+  {
+    "id": "exam2_q2",
+    "category": "English Prepositions",
+    "question": "There's a park across the street __ the hospital.",
+    "options": [
+      {
+        "key": "A",
+        "text": "of"
+      },
+      {
+        "key": "B",
+        "text": "to"
+      },
+      {
+        "key": "C",
+        "text": "from"
+      },
+      {
+        "key": "D",
+        "text": "for"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "\"Across the street from\" is the correct prepositional construction indicating relative location on the opposite side of a street.",
+    "cardImage": "public/cards/exam1/page_004.png"
+  },
+  {
+    "id": "exam2_q3",
+    "category": "English Pronouns",
+    "question": "I'm taking __ some books.",
+    "options": [
+      {
+        "key": "A",
+        "text": "hers"
+      },
+      {
+        "key": "B",
+        "text": "her"
+      },
+      {
+        "key": "C",
+        "text": "to her"
+      },
+      {
+        "key": "D",
+        "text": "she"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "\"Taking her\" uses the objective pronoun \"her\" as the indirect object receiving the direct object (\"some books\").",
+    "cardImage": "public/cards/exam1/page_006.png"
+  },
+  {
+    "id": "exam2_q4",
+    "category": "English Syntax",
+    "question": "___ bottle on the table.",
+    "options": [
+      {
+        "key": "A",
+        "text": "It has a"
+      },
+      {
+        "key": "B",
+        "text": "There's a"
+      },
+      {
+        "key": "C",
+        "text": "It's a"
+      },
+      {
+        "key": "D",
+        "text": "There are"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "\"There's a\" (contraction of 'There is a') is the existential construction indicating the presence of a singular countable object on the table.",
+    "cardImage": "public/cards/exam1/page_007.png"
+  },
+  {
+    "id": "exam2_q5",
+    "category": "English Auxiliary Verbs",
+    "question": "A: Does your mother like Turkish coffee?\nB: Yes, she __",
+    "options": [
+      {
+        "key": "A",
+        "text": "do"
+      },
+      {
+        "key": "B",
+        "text": "does"
+      },
+      {
+        "key": "C",
+        "text": "does like"
+      },
+      {
+        "key": "D",
+        "text": "likes"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "In standard English short answers to yes/no questions formulated with 'does', we repeat the auxiliary verb: 'Yes, she does.'",
+    "cardImage": "public/cards/exam1/page_008.png"
+  },
+  {
+    "id": "exam2_q6",
+    "category": "English Determiners",
+    "question": "I have a very good radio. I don't need __",
+    "options": [
+      {
+        "key": "A",
+        "text": "other one"
+      },
+      {
+        "key": "B",
+        "text": "any"
+      },
+      {
+        "key": "C",
+        "text": "some"
+      },
+      {
+        "key": "D",
+        "text": "another one"
+      }
+    ],
+    "correctAnswer": "D",
+    "explanation": "\"Another one\" means an additional one of the same item. We use 'another one' in singular negative contexts referring to duplicate items.",
+    "cardImage": "public/cards/exam1/page_009.png"
+  },
+  {
+    "id": "exam2_q7",
+    "category": "English Modals",
+    "question": "Helen is always reading books. She ___ like to read.",
+    "options": [
+      {
+        "key": "A",
+        "text": "will"
+      },
+      {
+        "key": "B",
+        "text": "would"
+      },
+      {
+        "key": "C",
+        "text": "must"
+      },
+      {
+        "key": "D",
+        "text": "can"
+      }
+    ],
+    "correctAnswer": "C",
+    "explanation": "\"Must\" is used for strong logical deduction based on observable evidence (since she is always reading, she must logically like to read).",
+    "cardImage": "public/cards/exam1/page_010.png"
+  },
+  {
+    "id": "exam2_q8",
+    "category": "English Modifiers",
+    "question": "I am not ___ to vote in the national elections.",
+    "options": [
+      {
+        "key": "A",
+        "text": "very old"
+      },
+      {
+        "key": "B",
+        "text": "old enough"
+      },
+      {
+        "key": "C",
+        "text": "enough old"
+      },
+      {
+        "key": "D",
+        "text": "old for"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "The modifier 'enough' always follows an adjective: Adjective + enough (e.g. 'old enough', 'tall enough').",
+    "cardImage": "public/cards/exam1/page_011.png"
+  },
+  {
+    "id": "exam2_q9",
+    "category": "English Subject-Verb Agreement",
+    "question": "Tom and Helen ___ the radio.",
+    "options": [
+      {
+        "key": "A",
+        "text": "are listening on"
+      },
+      {
+        "key": "B",
+        "text": "are listening to"
+      },
+      {
+        "key": "C",
+        "text": "is listening on"
+      },
+      {
+        "key": "D",
+        "text": "is listening to"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "Compound plural subject 'Tom and Helen' requires plural verb 'are', and the verb 'listen' takes the preposition 'to'.",
+    "cardImage": "public/cards/exam1/page_012.png"
+  },
+  {
+    "id": "exam2_q10",
+    "category": "English Tenses",
+    "question": "They ___ dinner when the emergency alarm rang.",
+    "options": [
+      {
+        "key": "A",
+        "text": "were having"
+      },
+      {
+        "key": "B",
+        "text": "had"
+      },
+      {
+        "key": "C",
+        "text": "have had"
+      },
+      {
+        "key": "D",
+        "text": "are having"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Past Continuous ('were having') expresses an action in progress in the past that was interrupted by a simple past event ('rang').",
+    "cardImage": "public/cards/exam1/page_013.png"
+  },
+  {
+    "id": "exam2_q11",
+    "category": "English Conditionals",
+    "question": "If it rains heavily tomorrow, we ___ the airfield inspection.",
+    "options": [
+      {
+        "key": "A",
+        "text": "would postpone"
+      },
+      {
+        "key": "B",
+        "text": "will postpone"
+      },
+      {
+        "key": "C",
+        "text": "postponed"
+      },
+      {
+        "key": "D",
+        "text": "had postponed"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "First Conditional: If + Present Simple (rains), will + base verb (will postpone) expresses a realistic future condition.",
+    "cardImage": "public/cards/exam1/page_014.png"
+  },
+  {
+    "id": "exam2_q12",
+    "category": "English Subjunctive",
+    "question": "The chief engineer insisted that the maintenance technician ___ the logbook before takeoff.",
+    "options": [
+      {
+        "key": "A",
+        "text": "sign"
+      },
+      {
+        "key": "B",
+        "text": "signs"
+      },
+      {
+        "key": "C",
+        "text": "signed"
+      },
+      {
+        "key": "D",
+        "text": "signing"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The mandative subjunctive requires the base form of the verb ('sign') following verbs of demand or insistence ('insisted that...').",
+    "cardImage": "public/cards/exam1/page_015.png"
+  },
+  {
+    "id": "exam2_q13",
+    "category": "English Concord",
+    "question": "Neither the pilot nor the avionics technicians ___ aware of the electrical fault.",
+    "options": [
+      {
+        "key": "A",
+        "text": "was"
+      },
+      {
+        "key": "B",
+        "text": "were"
+      },
+      {
+        "key": "C",
+        "text": "is"
+      },
+      {
+        "key": "D",
+        "text": "has been"
+      }
+    ],
+    "correctAnswer": "B",
+    "explanation": "In 'Neither... nor...' structures, verb agreement is determined by the subject closest to the verb ('avionics technicians' is plural, requiring 'were').",
+    "cardImage": "public/cards/exam1/page_016.png"
+  },
+  {
+    "id": "exam2_q14",
+    "category": "English Vocabulary",
+    "question": "The antonym (opposite) of EXCEPTIONALLY is:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Ordinarily"
+      },
+      {
+        "key": "B",
+        "text": "Abnormally"
+      },
+      {
+        "key": "C",
+        "text": "Rarely"
+      },
+      {
+        "key": "D",
+        "text": "Prohibitively"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Exceptionally means unusually or remarkably. Its direct opposite is Ordinarily (commonly, usually).",
+    "cardImage": "public/cards/exam1/page_017.png"
+  },
+  {
+    "id": "exam2_q15",
+    "category": "English Vocabulary",
+    "question": "The antonym (opposite) of QUIT is:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Endure"
+      },
+      {
+        "key": "B",
+        "text": "Forsake"
+      },
+      {
+        "key": "C",
+        "text": "Indulge"
+      },
+      {
+        "key": "D",
+        "text": "Exit"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Quit means to stop or discontinue an effort. Endure means to persist or hold out under difficult conditions.",
+    "cardImage": "public/cards/exam1/page_018.png"
+  },
+  {
+    "id": "exam2_q16",
+    "category": "English Collocations",
+    "question": "___ say this is causing __ damage to the population.",
+    "options": [
+      {
+        "key": "A",
+        "text": "Experts, profound"
+      },
+      {
+        "key": "B",
+        "text": "Expert, profound"
+      },
+      {
+        "key": "C",
+        "text": "Excerpts, profound"
+      },
+      {
+        "key": "D",
+        "text": "Experts, profoundly"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The plural subject 'Experts' matches the plural verb 'say', and the adjective 'profound' correctly modifies the noun 'damage'.",
+    "cardImage": "public/cards/exam1/page_019.png"
+  },
+  {
+    "id": "exam2_q17",
+    "category": "English Syntax",
+    "question": "They hoped to test how well __ the big cats’ wild __ were by seeing if they could hunt.",
+    "options": [
+      {
+        "key": "A",
+        "text": "developed, instincts"
+      },
+      {
+        "key": "B",
+        "text": "developing, instinctive"
+      },
+      {
+        "key": "C",
+        "text": "developed, instinctively"
+      },
+      {
+        "key": "D",
+        "text": "developer, instincts"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The past participle 'developed' functions as an adjective modifying 'instincts' (plural noun).",
+    "cardImage": "public/cards/exam1/page_020.png"
+  },
+  {
+    "id": "exam2_q18",
+    "category": "English Passive Voice",
+    "question": "He said that __ rates are unlikely to be __ before the rate falls to 7%.",
+    "options": [
+      {
+        "key": "A",
+        "text": "interest, raised"
+      },
+      {
+        "key": "B",
+        "text": "interests, risen"
+      },
+      {
+        "key": "C",
+        "text": "interesting, rose"
+      },
+      {
+        "key": "D",
+        "text": "interest, raising"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Compound noun 'interest rates', followed by passive infinitive 'to be raised'.",
+    "cardImage": "public/cards/exam1/page_021.png"
+  },
+  {
+    "id": "exam2_q19",
+    "category": "English Syntax",
+    "question": "The number of people __ Jobseeker's Allowance in July was revised __.",
+    "options": [
+      {
+        "key": "A",
+        "text": "claiming, downwards"
+      },
+      {
+        "key": "B",
+        "text": "claims, down"
+      },
+      {
+        "key": "C",
+        "text": "claimings, downstairs"
+      },
+      {
+        "key": "D",
+        "text": "claiming, downstairs"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The participial phrase 'claiming Jobseeker's Allowance' modifies 'people', and 'downwards' acts as the adverb modifying 'revised'.",
+    "cardImage": "public/cards/exam1/page_022.png"
+  },
+  {
+    "id": "exam2_q20",
+    "category": "English Collocations",
+    "question": "GDP, or gross ___ product, is arguably the most ___ of all economic statistics.",
+    "options": [
+      {
+        "key": "A",
+        "text": "domestic, important"
+      },
+      {
+        "key": "B",
+        "text": "domesticated, importance"
+      },
+      {
+        "key": "C",
+        "text": "domestique, importing"
+      },
+      {
+        "key": "D",
+        "text": "domestic, importantly"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The fixed economic term is 'Gross Domestic Product' (GDP), and 'important' is the adjective following 'the most'.",
+    "cardImage": "public/cards/exam1/page_023.png"
+  },
+  {
+    "id": "exam2_q21",
+    "category": "English Modifiers",
+    "question": "Data is collected from __ departments covering ___ different activities.",
+    "options": [
+      {
+        "key": "A",
+        "text": "government, various"
+      },
+      {
+        "key": "B",
+        "text": "governments, varying"
+      },
+      {
+        "key": "C",
+        "text": "governmental, variety"
+      },
+      {
+        "key": "D",
+        "text": "govern, variable"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "'Government' functions as a noun adjunct modifying 'departments', and 'various' is the adjective modifying 'activities'.",
+    "cardImage": "public/cards/exam1/page_024.png"
+  },
+  {
+    "id": "exam2_q22",
+    "category": "English Adverbs",
+    "question": "The ___ estimates have proven to be __ accurate.",
+    "options": [
+      {
+        "key": "A",
+        "text": "preliminary, remarkably"
+      },
+      {
+        "key": "B",
+        "text": "preliminary, remarkable"
+      },
+      {
+        "key": "C",
+        "text": "preliminaries, remarkable"
+      },
+      {
+        "key": "D",
+        "text": "pre-estimate, remarkably"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "'Preliminary' modifies the noun 'estimates', and the adverb 'remarkably' modifies the adjective 'accurate'.",
+    "cardImage": "public/cards/exam1/page_025.png"
+  },
+  {
+    "id": "exam2_q23",
+    "category": "English Syntax",
+    "question": "It is __ to look at the path of the economy over a ___ of time.",
+    "options": [
+      {
+        "key": "A",
+        "text": "recommended, period"
+      },
+      {
+        "key": "B",
+        "text": "recommendation, periods"
+      },
+      {
+        "key": "C",
+        "text": "recommends, period"
+      },
+      {
+        "key": "D",
+        "text": "recommended, periodic"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "'It is recommended' uses the passive participle as a predicate adjective, and 'period of time' is the correct singular collocation.",
+    "cardImage": "public/cards/exam1/page_026.png"
+  },
+  {
+    "id": "exam2_q24",
+    "category": "English Collocations",
+    "question": "The manufacturing plant is ___ to stay on the ___ line.",
+    "options": [
+      {
+        "key": "A",
+        "text": "struggling, production"
+      },
+      {
+        "key": "B",
+        "text": "struggles, products"
+      },
+      {
+        "key": "C",
+        "text": "struggling, products"
+      },
+      {
+        "key": "D",
+        "text": "struggling, productions"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "'Struggling' is the present participle forming the continuous aspect, and 'production line' is the standard industrial term.",
+    "cardImage": "public/cards/exam1/page_027.png"
+  },
+  {
+    "id": "exam2_q25",
+    "category": "English Collocations",
+    "question": "High-end __ firms have managed to weather the ___ crisis well.",
+    "options": [
+      {
+        "key": "A",
+        "text": "manufacturing, economic"
+      },
+      {
+        "key": "B",
+        "text": "manufacturing, economics"
+      },
+      {
+        "key": "C",
+        "text": "manufactures, economics"
+      },
+      {
+        "key": "D",
+        "text": "manufacturer, economy"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "'Manufacturing firms' describes industrial organizations, and 'economic crisis' is the correct adjectival pairing.",
+    "cardImage": "public/cards/exam1/page_028.png"
+  },
+  {
+    "id": "exam2_q26",
+    "category": "English Prepositions",
+    "question": "Choose the correct preposition: The aircraft was equipped __ modern avionics systems.",
+    "options": [
+      {
+        "key": "A",
+        "text": "with"
+      },
+      {
+        "key": "B",
+        "text": "by"
+      },
+      {
+        "key": "C",
+        "text": "of"
+      },
+      {
+        "key": "D",
+        "text": "for"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The verb 'equipped' takes the preposition 'with': equipped with modern avionics.",
+    "cardImage": "public/cards/exam1/page_004.png"
+  },
+  {
+    "id": "exam2_q27",
+    "category": "English Subjunctive",
+    "question": "The flight attendant requested that all passengers ___ their seatbelts fastened.",
+    "options": [
+      {
+        "key": "A",
+        "text": "keep"
+      },
+      {
+        "key": "B",
+        "text": "kept"
+      },
+      {
+        "key": "C",
+        "text": "keeps"
+      },
+      {
+        "key": "D",
+        "text": "keeping"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Mandative subjunctive after verbs of request ('requested that...') uses the base verb 'keep'.",
+    "cardImage": "public/cards/exam1/page_015.png"
+  },
+  {
+    "id": "exam2_q28",
+    "category": "English Vocabulary",
+    "question": "Choose the antonym of OBSOLETE:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Modern"
+      },
+      {
+        "key": "B",
+        "text": "Outdated"
+      },
+      {
+        "key": "C",
+        "text": "Antique"
+      },
+      {
+        "key": "D",
+        "text": "Defective"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Obsolete means no longer produced or used; out of date. Its opposite is Modern.",
+    "cardImage": "public/cards/exam1/page_017.png"
+  },
+  {
+    "id": "exam2_q29",
+    "category": "English Parts of Speech",
+    "question": "The maintenance manual provides __ instructions for replacing turbine blades.",
+    "options": [
+      {
+        "key": "A",
+        "text": "comprehensive"
+      },
+      {
+        "key": "B",
+        "text": "comprehend"
+      },
+      {
+        "key": "C",
+        "text": "comprehensibly"
+      },
+      {
+        "key": "D",
+        "text": "comprehension"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The adjective 'comprehensive' correctly modifies the noun 'instructions'.",
+    "cardImage": "public/cards/exam1/page_024.png"
+  },
+  {
+    "id": "exam2_q30",
+    "category": "English Tenses",
+    "question": "By the time the inspectors arrived at the hangar, the technicians ___ the engine overhaul.",
+    "options": [
+      {
+        "key": "A",
+        "text": "had completed"
+      },
+      {
+        "key": "B",
+        "text": "have completed"
+      },
+      {
+        "key": "C",
+        "text": "complete"
+      },
+      {
+        "key": "D",
+        "text": "are completing"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Past Perfect ('had completed') represents an action that was finished before another event in the past ('arrived').",
+    "cardImage": "public/cards/exam1/page_013.png"
+  },
+  {
+    "id": "exam2_q31",
+    "category": "English Conjunctions",
+    "question": "The pilot was not only skilled in instrument flying ___ experienced in emergency landings.",
+    "options": [
+      {
+        "key": "A",
+        "text": "but also"
+      },
+      {
+        "key": "B",
+        "text": "and also"
+      },
+      {
+        "key": "C",
+        "text": "nor"
+      },
+      {
+        "key": "D",
+        "text": "or"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Correlative conjunctions: 'not only... but also...'.",
+    "cardImage": "public/cards/exam1/page_026.png"
+  },
+  {
+    "id": "exam2_q32",
+    "category": "English Vocabulary",
+    "question": "Choose the synonym of ADVERSITY:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Hardship"
+      },
+      {
+        "key": "B",
+        "text": "Prosperity"
+      },
+      {
+        "key": "C",
+        "text": "Fortune"
+      },
+      {
+        "key": "D",
+        "text": "Ease"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Adversity means difficulties or misfortune; its synonym is Hardship.",
+    "cardImage": "public/cards/exam1/page_018.png"
+  },
+  {
+    "id": "exam2_q33",
+    "category": "English Concord",
+    "question": "A large number of aircraft parts ___ stored in the central warehouse.",
+    "options": [
+      {
+        "key": "A",
+        "text": "are"
+      },
+      {
+        "key": "B",
+        "text": "is"
+      },
+      {
+        "key": "C",
+        "text": "was"
+      },
+      {
+        "key": "D",
+        "text": "has been"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "'A large number of [plural noun]' takes a plural verb ('are stored').",
+    "cardImage": "public/cards/exam1/page_016.png"
+  },
+  {
+    "id": "exam2_q34",
+    "category": "English Spelling",
+    "question": "Choose the correctly spelled word:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Maintenance"
+      },
+      {
+        "key": "B",
+        "text": "Maintainance"
+      },
+      {
+        "key": "C",
+        "text": "Maintenence"
+      },
+      {
+        "key": "D",
+        "text": "Maintinance"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The correct spelling is 'Maintenance' (M-A-I-N-T-E-N-A-N-C-E).",
+    "cardImage": "public/cards/exam1/page_019.png"
+  },
+  {
+    "id": "exam2_q35",
+    "category": "English Reported Speech",
+    "question": "The supervisor asked him why he ___ the hydraulic leak earlier.",
+    "options": [
+      {
+        "key": "A",
+        "text": "had not reported"
+      },
+      {
+        "key": "B",
+        "text": "has not reported"
+      },
+      {
+        "key": "C",
+        "text": "does not report"
+      },
+      {
+        "key": "D",
+        "text": "not reported"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "In reported questions in past tense, backshift to past perfect ('had not reported').",
+    "cardImage": "public/cards/exam1/page_021.png"
+  },
+  {
+    "id": "exam2_q36",
+    "category": "English Vocabulary",
+    "question": "Choose the word with the closest meaning to PRECARIOUS:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Unstable or Dangerous"
+      },
+      {
+        "key": "B",
+        "text": "Secure"
+      },
+      {
+        "key": "C",
+        "text": "Careful"
+      },
+      {
+        "key": "D",
+        "text": "Predictable"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Precarious means not securely held or in position; dangerously likely to fall or collapse.",
+    "cardImage": "public/cards/exam1/page_020.png"
+  },
+  {
+    "id": "exam2_q37",
+    "category": "English Concord",
+    "question": "Every technician and apprentice in the workshop ___ required to wear protective goggles.",
+    "options": [
+      {
+        "key": "A",
+        "text": "is"
+      },
+      {
+        "key": "B",
+        "text": "are"
+      },
+      {
+        "key": "C",
+        "text": "were"
+      },
+      {
+        "key": "D",
+        "text": "have been"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Subjects preceded by 'every' take a singular verb ('is required').",
+    "cardImage": "public/cards/exam1/page_016.png"
+  },
+  {
+    "id": "exam2_q38",
+    "category": "English Idioms",
+    "question": "The engineer had no difficulty ___ identifying the malfunctioning relay.",
+    "options": [
+      {
+        "key": "A",
+        "text": "in"
+      },
+      {
+        "key": "B",
+        "text": "at"
+      },
+      {
+        "key": "C",
+        "text": "for"
+      },
+      {
+        "key": "D",
+        "text": "to"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "'Have difficulty in doing something' is the standard English idiom.",
+    "cardImage": "public/cards/exam1/page_022.png"
+  },
+  {
+    "id": "exam2_q39",
+    "category": "English Gerunds",
+    "question": "Despite ___ tired after the night shift, the inspector double-checked the rudder torque.",
+    "options": [
+      {
+        "key": "A",
+        "text": "feeling"
+      },
+      {
+        "key": "B",
+        "text": "feel"
+      },
+      {
+        "key": "C",
+        "text": "felt"
+      },
+      {
+        "key": "D",
+        "text": "to feel"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The preposition 'despite' is followed by a gerund ('feeling').",
+    "cardImage": "public/cards/exam1/page_023.png"
+  },
+  {
+    "id": "exam2_q40",
+    "category": "English Phrasal Verbs",
+    "question": "Choose the correct phrasal verb: The flight was ___ due to heavy thunderstorm activity.",
+    "options": [
+      {
+        "key": "A",
+        "text": "called off"
+      },
+      {
+        "key": "B",
+        "text": "called in"
+      },
+      {
+        "key": "C",
+        "text": "called for"
+      },
+      {
+        "key": "D",
+        "text": "called out"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "'Called off' means cancelled.",
+    "cardImage": "public/cards/exam1/page_025.png"
+  },
+  {
+    "id": "exam2_q41",
+    "category": "English Prepositions",
+    "question": "She is capable ___ handling advanced turbine overhaul procedures.",
+    "options": [
+      {
+        "key": "A",
+        "text": "of"
+      },
+      {
+        "key": "B",
+        "text": "to"
+      },
+      {
+        "key": "C",
+        "text": "for"
+      },
+      {
+        "key": "D",
+        "text": "in"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The adjective 'capable' takes the preposition 'of': capable of handling.",
+    "cardImage": "public/cards/exam1/page_004.png"
+  },
+  {
+    "id": "exam2_q42",
+    "category": "English Concord",
+    "question": "Neither of the auxiliary fuel tanks ___ leaking.",
+    "options": [
+      {
+        "key": "A",
+        "text": "is"
+      },
+      {
+        "key": "B",
+        "text": "are"
+      },
+      {
+        "key": "C",
+        "text": "were"
+      },
+      {
+        "key": "D",
+        "text": "have been"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "'Neither of' takes a singular verb in formal English: 'Neither of the tanks is leaking.'",
+    "cardImage": "public/cards/exam1/page_016.png"
+  },
+  {
+    "id": "exam2_q43",
+    "category": "English Vocabulary",
+    "question": "Choose the antonym of STRINGENT:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Lenient"
+      },
+      {
+        "key": "B",
+        "text": "Strict"
+      },
+      {
+        "key": "C",
+        "text": "Severe"
+      },
+      {
+        "key": "D",
+        "text": "Demanding"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Stringent means strict, precise, and exacting. Its opposite is Lenient.",
+    "cardImage": "public/cards/exam1/page_017.png"
+  },
+  {
+    "id": "exam2_q44",
+    "category": "English Adverbs",
+    "question": "He speaks English so ___ that international pilots easily understand his clearances.",
+    "options": [
+      {
+        "key": "A",
+        "text": "fluently"
+      },
+      {
+        "key": "B",
+        "text": "fluent"
+      },
+      {
+        "key": "C",
+        "text": "fluency"
+      },
+      {
+        "key": "D",
+        "text": "more fluent"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The adverb 'fluently' modifies the verb 'speaks'.",
+    "cardImage": "public/cards/exam1/page_024.png"
+  },
+  {
+    "id": "exam2_q45",
+    "category": "English Gerunds",
+    "question": "The mechanic insisted on ___ the wiring diagram before disconnecting the alternator.",
+    "options": [
+      {
+        "key": "A",
+        "text": "reviewing"
+      },
+      {
+        "key": "B",
+        "text": "review"
+      },
+      {
+        "key": "C",
+        "text": "reviewed"
+      },
+      {
+        "key": "D",
+        "text": "to review"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Prepositions like 'on' must be followed by a gerund ('reviewing').",
+    "cardImage": "public/cards/exam1/page_023.png"
+  },
+  {
+    "id": "exam2_q46",
+    "category": "Verbal Reasoning",
+    "question": "Choose the correct analogy: Wrench is to Mechanic as Scalpel is to __",
+    "options": [
+      {
+        "key": "A",
+        "text": "Surgeon"
+      },
+      {
+        "key": "B",
+        "text": "Patient"
+      },
+      {
+        "key": "C",
+        "text": "Hospital"
+      },
+      {
+        "key": "D",
+        "text": "Medicine"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Tool to professional: A wrench is the tool of a mechanic, a scalpel is the tool of a surgeon.",
+    "cardImage": "public/cards/exam1/page_020.png"
+  },
+  {
+    "id": "exam2_q47",
+    "category": "Verbal Reasoning",
+    "question": "Choose the correct analogy: Altitude is to Altimeter as Airspeed is to __",
+    "options": [
+      {
+        "key": "A",
+        "text": "Pitot-static Tube"
+      },
+      {
+        "key": "B",
+        "text": "Compass"
+      },
+      {
+        "key": "C",
+        "text": "Thermometer"
+      },
+      {
+        "key": "D",
+        "text": "Barometer"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Measurement to instrument: Altitude is measured by an altimeter; airspeed is measured via a pitot-static system.",
+    "cardImage": "public/cards/exam1/page_020.png"
+  },
+  {
+    "id": "exam2_q48",
+    "category": "English Parts of Speech",
+    "question": "Choose the correct word: The crew completed their pre-flight checklist with utmost __.",
+    "options": [
+      {
+        "key": "A",
+        "text": "precision"
+      },
+      {
+        "key": "B",
+        "text": "precise"
+      },
+      {
+        "key": "C",
+        "text": "precisely"
+      },
+      {
+        "key": "D",
+        "text": "precisionist"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The preposition 'with' requires a noun: 'with utmost precision'.",
+    "cardImage": "public/cards/exam1/page_024.png"
+  },
+  {
+    "id": "exam2_q49",
+    "category": "English Conditionals",
+    "question": "Had the pilot known about the icing conditions, he ___ a different cruising altitude.",
+    "options": [
+      {
+        "key": "A",
+        "text": "would have chosen"
+      },
+      {
+        "key": "B",
+        "text": "will choose"
+      },
+      {
+        "key": "C",
+        "text": "chose"
+      },
+      {
+        "key": "D",
+        "text": "would choose"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Third Conditional inversion: 'Had the pilot known...' corresponds to 'would have chosen'.",
+    "cardImage": "public/cards/exam1/page_014.png"
+  },
+  {
+    "id": "exam2_q50",
+    "category": "English Spelling",
+    "question": "Choose the correct spelling:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Convenient"
+      },
+      {
+        "key": "B",
+        "text": "Convinient"
+      },
+      {
+        "key": "C",
+        "text": "Conveniant"
+      },
+      {
+        "key": "D",
+        "text": "Conveinent"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The correct spelling is 'Convenient' (C-O-N-V-E-N-I-E-N-T).",
+    "cardImage": "public/cards/exam1/page_019.png"
+  },
+  {
+    "id": "exam2_q51",
+    "category": "English Phrasal Verbs",
+    "question": "The lead mechanic told the trainees to look ___ any signs of structural fatigue.",
+    "options": [
+      {
+        "key": "A",
+        "text": "for"
+      },
+      {
+        "key": "B",
+        "text": "after"
+      },
+      {
+        "key": "C",
+        "text": "into"
+      },
+      {
+        "key": "D",
+        "text": "up"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "'Look for' means search for or seek.",
+    "cardImage": "public/cards/exam1/page_025.png"
+  },
+  {
+    "id": "exam2_q52",
+    "category": "English Conjunctions",
+    "question": "The hangar doors were closed ___ protect the maintenance equipment from the storm.",
+    "options": [
+      {
+        "key": "A",
+        "text": "in order to"
+      },
+      {
+        "key": "B",
+        "text": "so that"
+      },
+      {
+        "key": "C",
+        "text": "because"
+      },
+      {
+        "key": "D",
+        "text": "unless"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "'In order to' expresses purpose followed by a bare infinitive verb ('protect').",
+    "cardImage": "public/cards/exam1/page_026.png"
+  },
+  {
+    "id": "exam2_q53",
+    "category": "English Vocabulary",
+    "question": "Choose the synonym of LUMINOUS:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Radiant or Glowing"
+      },
+      {
+        "key": "B",
+        "text": "Opaque"
+      },
+      {
+        "key": "C",
+        "text": "Dark"
+      },
+      {
+        "key": "D",
+        "text": "Heavy"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Luminous means emitting or reflecting light; glowing, radiant.",
+    "cardImage": "public/cards/exam1/page_018.png"
+  },
+  {
+    "id": "exam2_q54",
+    "category": "English Prepositions",
+    "question": "The flight operations team congratulated the crew ___ their safe emergency landing.",
+    "options": [
+      {
+        "key": "A",
+        "text": "on"
+      },
+      {
+        "key": "B",
+        "text": "for"
+      },
+      {
+        "key": "C",
+        "text": "at"
+      },
+      {
+        "key": "D",
+        "text": "with"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The verb 'congratulate' takes the preposition 'on': congratulate someone on something.",
+    "cardImage": "public/cards/exam1/page_004.png"
+  },
+  {
+    "id": "exam2_q55",
+    "category": "English Correlatives",
+    "question": "Hardly had the aircraft touched down ___ the right main gear sensor triggered an alert.",
+    "options": [
+      {
+        "key": "A",
+        "text": "when"
+      },
+      {
+        "key": "B",
+        "text": "than"
+      },
+      {
+        "key": "C",
+        "text": "then"
+      },
+      {
+        "key": "D",
+        "text": "while"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "'Hardly... when...' is the standard correlative construction.",
+    "cardImage": "public/cards/exam1/page_026.png"
+  },
+  {
+    "id": "exam2_q56",
+    "category": "English Adverbs",
+    "question": "The technician took great care to ensure the rivets were installed ___.",
+    "options": [
+      {
+        "key": "A",
+        "text": "accurately"
+      },
+      {
+        "key": "B",
+        "text": "accuracy"
+      },
+      {
+        "key": "C",
+        "text": "accurate"
+      },
+      {
+        "key": "D",
+        "text": "more accurate"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "The adverb 'accurately' modifies the passive verb phrase 'were installed'.",
+    "cardImage": "public/cards/exam1/page_024.png"
+  },
+  {
+    "id": "exam2_q57",
+    "category": "English Vocabulary",
+    "question": "Choose the synonym of FACILITATE:",
+    "options": [
+      {
+        "key": "A",
+        "text": "Expedite or Assist"
+      },
+      {
+        "key": "B",
+        "text": "Hinder"
+      },
+      {
+        "key": "C",
+        "text": "Delay"
+      },
+      {
+        "key": "D",
+        "text": "Complicate"
+      }
+    ],
+    "correctAnswer": "A",
+    "explanation": "Facilitate means make an action or process easy or easier; expedite, assist.",
+    "cardImage": "public/cards/exam1/page_018.png"
+  }
+]
