@@ -840,7 +840,18 @@
     }
   }
 
+  let codeAttempts = 0;
+  let codeLockoutUntil = 0;
+
   function submitActivationCode() {
+    const now = Date.now();
+    if (now < codeLockoutUntil) {
+      const waitSec = Math.ceil((codeLockoutUntil - now) / 1000);
+      audioContext.playIncorrect();
+      showToast(`⛔ Please wait ${waitSec}s before trying another code.`, "danger");
+      return;
+    }
+
     const codeInput = document.getElementById('paywall-activation-code-input');
     const nameInput = document.getElementById('paywall-input-name');
     const code = codeInput?.value?.trim();
@@ -854,6 +865,7 @@
 
     const res = AMT_AUTH.activateUser(code, name, studentId);
     if (res.success) {
+      codeAttempts = 0;
       audioContext.playCorrect();
       showToast("🎉 Full Access Successfully Activated! Welcome!", "success");
       closePaywallModal();
@@ -862,8 +874,14 @@
       if (state.currentTab === 'notes') renderNotesContent();
       if (state.currentExamId) renderCurrentQuestion();
     } else {
+      codeAttempts++;
       audioContext.playIncorrect();
-      showToast(res.error || "Invalid code. Please check with Admin on Telegram.", "danger");
+      if (codeAttempts >= 5) {
+        codeLockoutUntil = Date.now() + 60000;
+        showToast("⛔ Too many failed attempts. Locked for 60 seconds.", "danger");
+      } else {
+        showToast(res.error || "❌ Invalid code. Please check with Admin on Telegram.", "danger");
+      }
     }
   }
 
@@ -916,17 +934,44 @@
     document.getElementById('admin-modal').classList.add('hidden');
   }
 
+  let adminAttempts = 0;
+  let adminLockoutUntil = 0;
+
   function verifyAdminPin() {
+    const now = Date.now();
+    if (now < adminLockoutUntil) {
+      const waitSec = Math.ceil((adminLockoutUntil - now) / 1000);
+      audioContext.playIncorrect();
+      showToast(`⛔ Locked out! Too many attempts. Try again in ${waitSec}s`, "danger");
+      return;
+    }
+
     const input = document.getElementById('admin-pin-input');
     const pin = input?.value?.trim();
 
-    if (pin === '12030215') {
+    if (!pin) {
+      showToast("Please enter Admin Password", "danger");
+      return;
+    }
+
+    if (AMT_AUTH.verifyAdminPin(pin)) {
+      adminAttempts = 0;
       audioContext.playCorrect();
       state.adminUnlocked = true;
+      if (input) input.value = '';
       showAdminDashboard();
     } else {
+      adminAttempts++;
       audioContext.playIncorrect();
-      showToast("❌ Incorrect Admin Password", "danger");
+      if (adminAttempts >= 5) {
+        adminLockoutUntil = Date.now() + 300000; // 5 min lockout
+        showToast("⛔ Maximum attempts exceeded. Locked for 5 minutes.", "danger");
+      } else if (adminAttempts >= 3) {
+        adminLockoutUntil = Date.now() + 60000; // 1 min lockout
+        showToast("⛔ 3 failed attempts. Locked for 60 seconds.", "danger");
+      } else {
+        showToast(`❌ Incorrect Admin Password (${3 - adminAttempts} attempts left)`, "danger");
+      }
     }
   }
 
@@ -941,8 +986,9 @@
     document.getElementById('admin-set-cbe-name').value = settings.cbeName;
     document.getElementById('admin-set-tg-user').value = settings.telegramUsername;
     document.getElementById('admin-set-price').value = settings.priceBirr;
-    document.getElementById('admin-set-pin').value = '12030215';
-    document.getElementById('admin-vip-key-display').textContent = AMT_AUTH.MASTER_KEY;
+    document.getElementById('admin-set-pin').value = '';
+    document.getElementById('admin-set-pin').placeholder = 'Leave blank to keep current PIN';
+    document.getElementById('admin-vip-key-display').textContent = AMT_AUTH.VIP_DISPLAY;
   }
 
   // 1-Click Code Generation for Dagi
@@ -976,16 +1022,17 @@
 
   function saveAdminSettings() {
     const rawPin = document.getElementById('admin-set-pin').value.trim();
-    const cleanPin = (!rawPin || rawPin === '3000') ? '12030215' : rawPin;
     const newSettings = {
       telebirrNumber: document.getElementById('admin-set-telebirr-num').value.trim(),
       telebirrName: document.getElementById('admin-set-telebirr-name').value.trim(),
       cbeAccount: document.getElementById('admin-set-cbe-acc').value.trim(),
       cbeName: document.getElementById('admin-set-cbe-name').value.trim(),
       telegramUsername: document.getElementById('admin-set-tg-user').value.trim(),
-      priceBirr: parseInt(document.getElementById('admin-set-price').value) || 300,
-      adminPin: cleanPin
+      priceBirr: parseInt(document.getElementById('admin-set-price').value) || 300
     };
+    if (rawPin) {
+      newSettings.adminPin = rawPin;
+    }
 
     AMT_AUTH.saveSettings(newSettings);
     audioContext.playCorrect();
@@ -1149,7 +1196,7 @@
 
   function initPwa() {
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js?v=12030215').then((reg) => {
+      navigator.serviceWorker.register('./sw.js?v=2026.4.1').then((reg) => {
         reg.update();
       }).catch(() => {});
     }

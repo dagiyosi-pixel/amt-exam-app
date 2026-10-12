@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <script>
-    // Immediate Startup Protection: Forcefully eliminate 3000 from browser storage
+    // Immediate Startup Storage Sanitizer: Purge legacy credentials
     (function() {
       try {
         var raw = localStorage.getItem('amt_admin_settings');
         if (raw) {
           var s = JSON.parse(raw);
-          if (s.adminPin !== '12030215') {
-            s.adminPin = '12030215';
+          if (s.adminPin) {
+            delete s.adminPin;
             localStorage.setItem('amt_admin_settings', JSON.stringify(s));
           }
         }
@@ -86,10 +86,10 @@
       }
     }
   </script>
-  <link rel="stylesheet" href="style.css?v=12030215">
+  <link rel="stylesheet" href="style.css?v=2026.4.1">
   <!-- Load Offline Exam Data & Study Notes -->
-  <script src="public/data/exams-data.js?v=12030215"></script>
-  <script src="public/data/notes-data.js?v=12030215"></script>
+  <script src="public/data/exams-data.js?v=2026.4.1"></script>
+  <script src="public/data/notes-data.js?v=2026.4.1"></script>
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col antialiased selection:bg-sky-500 selection:text-white">
 
@@ -965,8 +965,8 @@
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <!-- App Core Script -->
-  <script src="auth.js?v=12030215"></script>
-  <script src="app.js?v=12030215"></script>
+  <script src="auth.js?v=2026.4.1"></script>
+  <script src="app.js?v=2026.4.1"></script>
   <script>
     // Invalidate old service worker caches and force immediate refresh
     if ('serviceWorker' in navigator) {
