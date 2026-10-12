@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0284c7" />
+      <stop offset="100%" stop-color="#0f172a" />
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="100%" stop-color="#0284c7" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="128" fill="url(#bg)" />
+  <circle cx="256" cy="256" r="210" fill="none" stroke="#38bdf8" stroke-width="6" stroke-opacity="0.25" stroke-dasharray="12 12" />
+  
+  <!-- Jet Plane Silhouette -->
+  <g transform="translate(256, 256) scale(1.1) translate(-256, -256)">
+    <path d="M256 70 L285 200 L440 260 L440 295 L285 270 L285 390 L345 425 L345 450 L256 430 L167 450 L167 425 L227 390 L227 270 L72 295 L72 260 L227 200 Z" 
+          fill="#ffffff" 
+          filter="drop-shadow(0px 8px 16px rgba(0,0,0,0.35))" />
+    <!-- Center Wrench / Gear Overlay -->
+    <circle cx="256" cy="275" r="30" fill="#0284c7" />
+    <path d="M256 255 L262 265 L272 267 L265 275 L267 285 L256 279 L245 285 L247 275 L240 267 L250 265 Z" fill="#38bdf8" />
+  </g>
+  
+  <!-- App Label -->
+  <text x="256" y="475" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="900" fill="#38bdf8" letter-spacing="4">AMT MASTER</text>
+</svg>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dagiyosi-pixel.github.io/amt-exam-app/sitemap.xml

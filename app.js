@@ -1055,6 +1055,44 @@
     });
   }
 
+  // PWA Installation & Download Center
+  let deferredPwaPrompt = null;
+
+  function initPwa() {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    }
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPwaPrompt = e;
+      const btn = document.getElementById('pwa-install-header-btn');
+      if (btn) btn.classList.remove('hidden');
+    });
+  }
+
+  function triggerPwaInstall() {
+    if (deferredPwaPrompt) {
+      deferredPwaPrompt.prompt();
+      deferredPwaPrompt.userChoice.then((choice) => {
+        if (choice.outcome === 'accepted') {
+          showToast("App installed to your device!", "success");
+        }
+        deferredPwaPrompt = null;
+      });
+    } else {
+      showToast("To install: Open browser menu (⋮ or Share) and tap 'Add to Home screen'", "info");
+    }
+  }
+
+  function openDownloadModal() {
+    document.getElementById('download-modal')?.classList.remove('hidden');
+  }
+
+  function closeDownloadModal() {
+    document.getElementById('download-modal')?.classList.add('hidden');
+  }
+
   // Expose global controller
   window.APP = {
     init,
@@ -1091,8 +1129,15 @@
     saveAdminSettings,
     copyText,
     toggleTheme,
-    toggleSound
+    toggleSound,
+    triggerPwaInstall,
+    openDownloadModal,
+    closeDownloadModal
   };
 
-  document.addEventListener('DOMContentLoaded', init);
+  document.addEventListener('DOMContentLoaded', () => {
+    init();
+    initPwa();
+  });
 })();
+
