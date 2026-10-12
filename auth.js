@@ -29,8 +29,8 @@ const AMT_AUTH = (function() {
         const parsed = JSON.parse(saved);
         if (!parsed.adminPin || parsed.adminPin === "3000" || parsed.adminPin === "admin") {
           parsed.adminPin = "12030215";
-          localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(parsed));
         }
+        localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(parsed));
         return Object.assign({}, DEFAULT_SETTINGS, parsed);
       }
     } catch (e) {}

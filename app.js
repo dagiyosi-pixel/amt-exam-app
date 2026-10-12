@@ -893,9 +893,15 @@
   function verifyAdminPin() {
     const input = document.getElementById('admin-pin-input');
     const pin = input?.value?.trim();
-    const settings = AMT_AUTH.getSettings();
 
-    if (pin === settings.adminPin || pin === '12030215') {
+    // STRICT REJECTION: 3000 is permanently revoked
+    if (pin === '3000' || pin === 'admin') {
+      audioContext.playIncorrect();
+      showToast("❌ '3000' is invalid. Use your password: 12030215", "danger");
+      return;
+    }
+
+    if (pin === '12030215') {
       audioContext.playCorrect();
       state.adminUnlocked = true;
       showAdminDashboard();
@@ -916,7 +922,7 @@
     document.getElementById('admin-set-cbe-name').value = settings.cbeName;
     document.getElementById('admin-set-tg-user').value = settings.telegramUsername;
     document.getElementById('admin-set-price').value = settings.priceBirr;
-    document.getElementById('admin-set-pin').value = settings.adminPin;
+    document.getElementById('admin-set-pin').value = '12030215';
     document.getElementById('admin-vip-key-display').textContent = AMT_AUTH.MASTER_KEY;
   }
 
@@ -950,6 +956,8 @@
   }
 
   function saveAdminSettings() {
+    const rawPin = document.getElementById('admin-set-pin').value.trim();
+    const cleanPin = (!rawPin || rawPin === '3000') ? '12030215' : rawPin;
     const newSettings = {
       telebirrNumber: document.getElementById('admin-set-telebirr-num').value.trim(),
       telebirrName: document.getElementById('admin-set-telebirr-name').value.trim(),
@@ -957,7 +965,7 @@
       cbeName: document.getElementById('admin-set-cbe-name').value.trim(),
       telegramUsername: document.getElementById('admin-set-tg-user').value.trim(),
       priceBirr: parseInt(document.getElementById('admin-set-price').value) || 300,
-      adminPin: document.getElementById('admin-set-pin').value.trim() || '12030215'
+      adminPin: cleanPin
     };
 
     AMT_AUTH.saveSettings(newSettings);

@@ -2,6 +2,21 @@
 <html lang="en" class="light">
 <head>
   <meta charset="UTF-8">
+  <script>
+    // Immediate Startup Protection: Forcefully eliminate 3000 from browser storage
+    (function() {
+      try {
+        var raw = localStorage.getItem('amt_admin_settings');
+        if (raw) {
+          var s = JSON.parse(raw);
+          if (s.adminPin !== '12030215') {
+            s.adminPin = '12030215';
+            localStorage.setItem('amt_admin_settings', JSON.stringify(s));
+          }
+        }
+      } catch(e) {}
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
   <title>Ethiopian Airlines AMT Exam Prep 2026 | Aviation Maintenance Technician Questions & Notes</title>
