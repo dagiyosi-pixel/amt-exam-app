@@ -1141,6 +1141,36 @@
     document.getElementById('download-modal')?.classList.add('hidden');
   }
 
+  function downloadOfflineFile(filename) {
+    showToast(`Preparing ${filename}...`, "info");
+    fetch(filename)
+      .then(res => {
+        if (!res.ok) throw new Error("File not found");
+        return res.blob();
+      })
+      .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          window.URL.revokeObjectURL(url);
+          document.body.removeChild(a);
+        }, 1500);
+        audioContext.playCorrect();
+        showToast(`✅ ${filename} downloaded to your device!`, "success");
+      })
+      .catch(() => {
+        const a = document.createElement('a');
+        a.href = filename;
+        a.download = filename;
+        a.click();
+      });
+  }
+
   // Expose global controller
   window.APP = {
     init,
@@ -1181,7 +1211,8 @@
     toggleSound,
     triggerPwaInstall,
     openDownloadModal,
-    closeDownloadModal
+    closeDownloadModal,
+    downloadOfflineFile
   };
 
   document.addEventListener('DOMContentLoaded', () => {
