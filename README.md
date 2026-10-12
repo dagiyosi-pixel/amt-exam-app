@@ -1,52 +1,30 @@
-# Ethiopian AMT Exam Master (Aviation Maintenance Technician Prep)
+# Ethiopian Airlines AMT Exam Prep 2026 ✈️
+### Comprehensive Aircraft Maintenance Technician (AMT) & EAU Entrance Exam Guide
 
-A clean, modern, mobile-friendly exam preparation web application built from official Ethiopian AMT practice exams and the newly included **AMT Exam Preparation Notes**.
+**Live Web Application:** [https://dagiyosi-pixel.github.io/amt-exam-app/](https://dagiyosi-pixel.github.io/amt-exam-app/)
 
----
-
-## 🚀 How to Run the App
-
-### Option 1: Instant Launch (No installation required)
-- Double-click **`start-app.bat`** (or open **`index.html`** in Chrome, Edge, Safari, or Firefox).
-- The app will open immediately in your browser.
-
-### Option 2: Local Server (For testing on your phone via WiFi)
-- Double-click **`start-server.bat`**.
-- It opens **`http://localhost:3000`** in your browser.
-- Anyone on your local WiFi network can also open `http://<your-pc-ip>:3000`.
+Prepare and pass the **Ethiopian Airlines & Ethiopian Aviation University (EAU) Aircraft Maintenance Technician (AMT) entrance exams**. Features **276 official practice questions**, **5 complete exam papers**, step-by-step solutions, technical formulas, and the full master study curriculum.
 
 ---
 
-## 💰 Payment & Approval Setup (Configured for Dagi)
+## 📲 Access & Download Options
 
-- **Telebirr Number:** `0907862027` (Dagi)
-- **CBE Bank Account:** `1000649624481` (Dagi)
-- **Telegram Contact:** `@Mountxhua` (https://t.me/Mountxhua)
-- **Price:** 300 ETB (Birr)
+### 1. Web Application (All Devices)
+- Open directly in any mobile or desktop browser:  
+  👉 **[https://dagiyosi-pixel.github.io/amt-exam-app/](https://dagiyosi-pixel.github.io/amt-exam-app/)**
 
----
+### 2. Android Mobile App (Like Ethiopian 360)
+- Open the live link in **Google Chrome** on your Android phone.
+- Tap **"Install App"** (or Chrome menu `⋮` &rarr; **"Add to Home Screen"**).
+- Installs as a standalone Android app with the official airplane icon, working 100% offline.
 
-## 👑 For Dagi (The Admin): How to Approve Students in 2 Seconds
-
-You don't need any technical experience! Here is the exact 3-step workflow:
-
-1. **Open the Admin Portal**:
-   - In the top-right corner of the app, click the **"Admin"** button.
-   - Enter your Admin PIN (default: **`3000`**).
-2. **Approve the Student**:
-   - In the **1-Click Student Approval Generator**, paste the student's name (e.g., *Abebe Kebede*) or Student ID that they sent on Telegram.
-   - Click **"Approve & Generate"**.
-   - It instantly shows their unique 6-digit Activation Code (e.g., `174-194`).
-3. **Send to the Student**:
-   - Click **"Copy Telegram Message"** (it copies a polite approval message containing the code).
-   - Paste it in Telegram to the student!
-   - When the student enters the code in their app, all 4 exams (220+ questions) and all 9 study notes unlock immediately and permanently.
-
-> **Master VIP Bypass Key**: If you want to unlock the app for yourself on any computer or phone without generating a code, enter **`AMT-VIP-2026`** in the activation code box!
+### 3. Windows Desktop Application (.exe)
+- Download and run **`AMT_Exam_App.exe`** directly on Windows 10 & 11 PCs and laptops.
+- Zero installation required, zero browser address bars, launches instantly offline.
 
 ---
 
-## 📚 What's Included in the App
+## 📚 What's Included
 
 ### 1. Official Practice Exams (276 Questions Across 5 Full Papers)
 - 📘 **AMT Exam 1:** Mathematics & Applied Computation (57 Questions)
@@ -54,24 +32,30 @@ You don't need any technical experience! Here is the exact 3-step workflow:
 - 📙 **AMT Exam 3:** Aviation Reading, Economics & Logic (60 Questions)
 - 📕 **AMT Model Exam:** Full Comprehensive Simulation (50 Questions)
 - 📓 **AMT Practice Exam:** Technical Grammar, Prepositions & Acoustics (52 Questions)
-- **4 Options Guaranteed:** Every single question has exactly 4 clean, distinct options (A, B, C, D).
-- **Interactive Explanations:** Explanations pop out only after choosing an answer and clicking the down arrow `▾`.
+- **4 Options Guaranteed:** Every single question has exactly 4 distinct choices (A, B, C, D).
+- **Interactive Explanations:** Step-by-step solution for every question.
 
 ### 2. Complete Study Notes & Formulas (All 9 Parts)
-- 📖 **Part 1:** Reading Comprehension Strategies (Strategies 1–10)
-- ✍️ **Part 2:** English Grammar Definitions & Rules (Tenses, Conditionals, Prepositions, Phrasal Verbs)
-- 🔤 **Part 3:** Vocabulary (Synonyms, Antonyms & Commonly Misspelled Words)
-- 🧠 **Part 4:** Verbal Reasoning & Analogies
-- 📐 **Part 5:** Mathematics Formulas & Solved Examples (Percentages, Work Rate, Speed, Venn Diagrams, Area, Volume)
-- 🎯 **Part 6:** Critical Reasoning (Weakening/Strengthening Arguments)
-- ⚙️ **Part 7:** Mechanical Reasoning & Physical Concepts (Gears, Pulleys, Stability, Belts)
-- 🧩 **Part 8:** Pattern & Spatial Reasoning
-- ⚡ **Part 9:** Basic Physics & Aviation Equations (Kinematics, Forces, Work/Energy, Momentum, Fluids, Sound, Electricity)
+- **Part 1:** English Language & Aviation Grammar
+- **Part 2:** General Physics, Mechanics & Waves
+- **Part 3:** Electrical, Electronics & Radio Principles
+- **Part 4:** Aircraft Fundamentals & Aerodynamics
+- **Part 5:** Applied Mathematics, Ratios, Speed & Algebra
+- **Part 6:** Mechanical Systems, Hydraulics & Materials
+- **Part 7:** Logic, Problem Solving & Spatial Reasoning
+- **Part 8:** Chemistry Essentials, Corrosion & Aviation Fluids
+- **Part 9:** AMT Quick Reference, Aviation Acronyms & Constants
 
 ---
 
-## 📤 How to Share the App with Buyers
+## 💰 Payment & Instant Activation (Ethiopia)
 
-- Send the ZIP file on your Desktop: [`amt-exam-app.zip`](file:///C:/Users/Dagi%203/Desktop/amt-exam-app.zip) via Telegram or Google Drive.
-- The student extracts the ZIP and double clicks `start-app.bat` or `index.html`.
-- To use the full app, they must first send their receipt of 300 Birr to you on Telegram `@Mountxhua`, and you approve them!
+- **One-time Lifetime Access:** 300 ETB
+- **Telebirr Number:** `0907862027` (Dagi)
+- **CBE Bank Account:** `1000649624481` (Dagi)
+- **Telegram Approval:** [@Mountxhua](https://t.me/Mountxhua)
+
+---
+
+## 🔒 Offline Cryptographic License
+Built with client-side cryptographic licensing. Every student gets a mathematically verified unique activation code tied to their specific Student ID. All exam progress, answers, and bookmarks persist 100% offline in browser storage.
