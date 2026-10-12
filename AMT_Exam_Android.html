@@ -59,7 +59,7 @@
     "operatingSystem": "All",
     "offers": {
       "@type": "Offer",
-      "price": "300",
+      "price": "250",
       "priceCurrency": "ETB"
     }
   }
@@ -338,7 +338,7 @@ html {
           <div class="flex flex-wrap items-center gap-3">
             <button onclick="window.APP.openPaywallModal()" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-sky-500 to-cyan-500 hover:from-sky-400 hover:to-cyan-400 text-white shadow-lg shadow-sky-500/25 transition-all flex items-center gap-2">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-              Unlock Full Access (300 Birr)
+              Unlock Full Access (250 Birr)
             </button>
             <button onclick="window.APP.showNotesTab()" class="px-4 py-2.5 rounded-xl text-sm font-semibold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center gap-1.5">
               <span>Read Study Notes</span>
@@ -726,7 +726,7 @@ html {
           </div>
           <div>
             <h3 class="text-xl font-extrabold text-slate-900 dark:text-white">Unlock Full Exam Access</h3>
-            <p class="text-xs text-slate-500">Official AMT Question Bank & Notes • 300 ETB</p>
+            <p class="text-xs text-slate-500">Official AMT Question Bank & Notes • 250 ETB</p>
           </div>
         </div>
         <button onclick="window.APP.closePaywallModal()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-1">
@@ -738,7 +738,7 @@ html {
       <div class="p-4 rounded-2xl bg-gradient-to-r from-sky-500/10 via-cyan-500/10 to-emerald-500/10 border border-sky-500/20 flex items-center justify-between">
         <div>
           <span class="text-xs font-bold uppercase tracking-wider text-sky-600 dark:text-sky-400">One-Time Fee</span>
-          <h4 class="text-2xl font-black text-slate-900 dark:text-white" id="paywall-price">300 ETB</h4>
+          <h4 class="text-2xl font-black text-slate-900 dark:text-white" id="paywall-price">250 ETB</h4>
         </div>
         <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-600 dark:text-emerald-400">Lifetime Access</span>
       </div>
@@ -787,7 +787,7 @@ html {
 
       <!-- Step 2: Payment Instructions -->
       <div class="space-y-3">
-        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Step 2: Transfer 300 Birr</label>
+        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Step 2: Transfer 250 Birr</label>
         
         <!-- Telebirr Card -->
         <div class="p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 flex items-center justify-between gap-3">
@@ -8530,7 +8530,7 @@ const AMT_AUTH = (function() {
 
   // Default settings
   const DEFAULT_SETTINGS = {
-    priceBirr: 300,
+    priceBirr: 250,
     telebirrNumber: "0907862027",
     telebirrName: "Dagi",
     cbeAccount: "1000649624481",
@@ -8551,6 +8551,9 @@ const AMT_AUTH = (function() {
         }
         if (!parsed.adminPinHash) {
           parsed.adminPinHash = ADMIN_PIN_HASH;
+        }
+        if (!parsed.priceBirr || parsed.priceBirr === 300) {
+          parsed.priceBirr = 250;
         }
         localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(parsed));
         return Object.assign({}, DEFAULT_SETTINGS, parsed);
@@ -8849,7 +8852,7 @@ if (typeof module !== 'undefined') module.exports = AMT_AUTH;
       } else {
         badge.innerHTML = `<button onclick="window.APP.openPaywallModal()" class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-xl text-[11px] sm:text-xs font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 hover:bg-amber-500/20 transition-colors whitespace-nowrap">
           <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-          <span class="hidden sm:inline">Trial • </span><span>Unlock (300 ETB)</span>
+          <span class="hidden sm:inline">Trial • </span><span>Unlock (250 ETB)</span>
         </button>`;
       }
     }
@@ -9465,10 +9468,10 @@ if (typeof module !== 'undefined') module.exports = AMT_AUTH;
           ${isLocked ? `
             <div class="p-6 rounded-2xl bg-amber-500/5 border border-amber-500/20 text-center space-y-3">
               <p class="text-sm text-slate-700 dark:text-slate-300 font-medium">
-                Part ${p.number} is locked in Trial Mode. Unlock Full Access (300 Birr) to access all 9 parts of the Master Preparation Notes!
+                Part ${p.number} is locked in Trial Mode. Unlock Full Access (250 Birr) to access all 9 parts of the Master Preparation Notes!
               </p>
               <button onclick="window.APP.openPaywallModal()" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white shadow-md transition-all">
-                Unlock Full Access (300 ETB)
+                Unlock Full Access (250 ETB)
               </button>
             </div>
           ` : `
@@ -9546,7 +9549,7 @@ if (typeof module !== 'undefined') module.exports = AMT_AUTH;
     const settings = AMT_AUTH.getSettings();
     const tgBtn = document.getElementById('paywall-tg-link');
     if (tgBtn) {
-      const msg = encodeURIComponent(`Hi Dagi! I made the 300 Birr payment for the AMT Exam App.\nMy Name: ${name}\nMy Student ID: ${id}\nHere is my receipt screenshot:`);
+      const msg = encodeURIComponent(`Hi Dagi! I made the ${settings.priceBirr} Birr payment for the AMT Exam App.\nMy Name: ${name}\nMy Student ID: ${id}\nHere is my receipt screenshot:`);
       const cleanUsername = settings.telegramUsername.replace('@', '');
       tgBtn.href = `https://t.me/${cleanUsername}?text=${msg}`;
     }
@@ -9718,7 +9721,8 @@ if (typeof module !== 'undefined') module.exports = AMT_AUTH;
     const replyText = document.getElementById('admin-tg-reply-text');
 
     codeDisplay.textContent = code;
-    const msg = `✅ Hello ${query}! Your payment of 300 ETB is approved.\nYour Activation Code: ${code}\nEnter this code in the app to unlock all 5 exams permanently.\nGood luck on your AMT exam! ✈️`;
+    const currentPrice = AMT_AUTH.getSettings().priceBirr || 250;
+    const msg = `✅ Hello ${query}! Your payment of ${currentPrice} ETB is approved.\nYour Activation Code: ${code}\nEnter this code in the app to unlock all 5 exams permanently.\nGood luck on your AMT exam! ✈️`;
     replyText.value = msg;
     resultBox.classList.remove('hidden');
     audioContext.playCorrect();
@@ -9740,7 +9744,7 @@ if (typeof module !== 'undefined') module.exports = AMT_AUTH;
       cbeAccount: document.getElementById('admin-set-cbe-acc').value.trim(),
       cbeName: document.getElementById('admin-set-cbe-name').value.trim(),
       telegramUsername: document.getElementById('admin-set-tg-user').value.trim(),
-      priceBirr: parseInt(document.getElementById('admin-set-price').value) || 300
+      priceBirr: parseInt(document.getElementById('admin-set-price').value) || 250
     };
     if (rawPin) {
       newSettings.adminPin = rawPin;

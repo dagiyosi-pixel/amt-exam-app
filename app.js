@@ -137,7 +137,7 @@
       } else {
         badge.innerHTML = `<button onclick="window.APP.openPaywallModal()" class="inline-flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-xl text-[11px] sm:text-xs font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/30 hover:bg-amber-500/20 transition-colors whitespace-nowrap">
           <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-          <span class="hidden sm:inline">Trial • </span><span>Unlock (300 ETB)</span>
+          <span class="hidden sm:inline">Trial • </span><span>Unlock (250 ETB)</span>
         </button>`;
       }
     }
@@ -753,10 +753,10 @@
           ${isLocked ? `
             <div class="p-6 rounded-2xl bg-amber-500/5 border border-amber-500/20 text-center space-y-3">
               <p class="text-sm text-slate-700 dark:text-slate-300 font-medium">
-                Part ${p.number} is locked in Trial Mode. Unlock Full Access (300 Birr) to access all 9 parts of the Master Preparation Notes!
+                Part ${p.number} is locked in Trial Mode. Unlock Full Access (250 Birr) to access all 9 parts of the Master Preparation Notes!
               </p>
               <button onclick="window.APP.openPaywallModal()" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white shadow-md transition-all">
-                Unlock Full Access (300 ETB)
+                Unlock Full Access (250 ETB)
               </button>
             </div>
           ` : `
@@ -834,7 +834,7 @@
     const settings = AMT_AUTH.getSettings();
     const tgBtn = document.getElementById('paywall-tg-link');
     if (tgBtn) {
-      const msg = encodeURIComponent(`Hi Dagi! I made the 300 Birr payment for the AMT Exam App.\nMy Name: ${name}\nMy Student ID: ${id}\nHere is my receipt screenshot:`);
+      const msg = encodeURIComponent(`Hi Dagi! I made the ${settings.priceBirr} Birr payment for the AMT Exam App.\nMy Name: ${name}\nMy Student ID: ${id}\nHere is my receipt screenshot:`);
       const cleanUsername = settings.telegramUsername.replace('@', '');
       tgBtn.href = `https://t.me/${cleanUsername}?text=${msg}`;
     }
@@ -1006,7 +1006,8 @@
     const replyText = document.getElementById('admin-tg-reply-text');
 
     codeDisplay.textContent = code;
-    const msg = `✅ Hello ${query}! Your payment of 300 ETB is approved.\nYour Activation Code: ${code}\nEnter this code in the app to unlock all 5 exams permanently.\nGood luck on your AMT exam! ✈️`;
+    const currentPrice = AMT_AUTH.getSettings().priceBirr || 250;
+    const msg = `✅ Hello ${query}! Your payment of ${currentPrice} ETB is approved.\nYour Activation Code: ${code}\nEnter this code in the app to unlock all 5 exams permanently.\nGood luck on your AMT exam! ✈️`;
     replyText.value = msg;
     resultBox.classList.remove('hidden');
     audioContext.playCorrect();
@@ -1028,7 +1029,7 @@
       cbeAccount: document.getElementById('admin-set-cbe-acc').value.trim(),
       cbeName: document.getElementById('admin-set-cbe-name').value.trim(),
       telegramUsername: document.getElementById('admin-set-tg-user').value.trim(),
-      priceBirr: parseInt(document.getElementById('admin-set-price').value) || 300
+      priceBirr: parseInt(document.getElementById('admin-set-price').value) || 250
     };
     if (rawPin) {
       newSettings.adminPin = rawPin;

@@ -72,7 +72,7 @@ const AMT_AUTH = (function() {
 
   // Default settings
   const DEFAULT_SETTINGS = {
-    priceBirr: 300,
+    priceBirr: 250,
     telebirrNumber: "0907862027",
     telebirrName: "Dagi",
     cbeAccount: "1000649624481",
@@ -93,6 +93,9 @@ const AMT_AUTH = (function() {
         }
         if (!parsed.adminPinHash) {
           parsed.adminPinHash = ADMIN_PIN_HASH;
+        }
+        if (!parsed.priceBirr || parsed.priceBirr === 300) {
+          parsed.priceBirr = 250;
         }
         localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(parsed));
         return Object.assign({}, DEFAULT_SETTINGS, parsed);
