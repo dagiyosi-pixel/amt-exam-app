@@ -25,7 +25,14 @@
     adminUnlocked: false,
     currentTab: 'exams', // 'exams' | 'notes'
     selectedNotePartId: 'all',
-    noteSearchQuery: ''
+    noteSearchQuery: '',
+    // Flashcard Deck State
+    notesViewMode: 'flashcards', // 'flashcards' | 'guide'
+    currentFlashcardIndex: 0,
+    flashcardFlipped: false,
+    flashcardFilter: 'all',
+    flashcardsDeck: [],
+    masteredFlashcards: new Set(JSON.parse(localStorage.getItem('amt_mastered_flashcards') || '[]'))
   };
 
   // Web Audio Synthesizer for instant, zero-dependency feedback
@@ -113,11 +120,15 @@
     }
   }
 
-  // Load Notes Database
+  // Load Notes & Flashcards Database
   function loadNotesData() {
     if (window.AMT_NOTES_DATA && Array.isArray(window.AMT_NOTES_DATA)) {
       state.notes = window.AMT_NOTES_DATA;
     }
+    if (window.AMT_FLASHCARDS && Array.isArray(window.AMT_FLASHCARDS)) {
+      state.flashcards = window.AMT_FLASHCARDS;
+    }
+    initFlashcardsDeck();
   }
 
   function checkUserAuth() {
@@ -196,8 +207,12 @@
     if (tabExams) tabExams.className = TAB_INACTIVE_CLS;
     if (tabNotes) tabNotes.className = TAB_ACTIVE_CLS;
 
-    renderNotesPills();
-    renderNotesContent();
+    if (state.notesViewMode === 'flashcards') {
+      renderFlashcardDeck();
+    } else {
+      renderNotesPills();
+      renderNotesContent();
+    }
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
@@ -701,6 +716,374 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+
+  // FLASHCARD DECK ENGINE
+  function initFlashcardsDeck() {
+    let list = state.flashcards || [];
+    if (state.flashcardFilter !== 'all') {
+      list = list.filter(c => c.category === state.flashcardFilter);
+    }
+    state.flashcardsDeck = list;
+    if (state.currentFlashcardIndex >= state.flashcardsDeck.length) {
+      state.currentFlashcardIndex = 0;
+    }
+    state.flashcardFlipped = false;
+  }
+
+  function setNotesViewMode(mode) {
+    audioContext.playClick();
+    state.notesViewMode = mode;
+    const flashcardsBtn = document.getElementById('notes-mode-flashcards-btn');
+    const guideBtn = document.getElementById('notes-mode-guide-btn');
+    const flashcardsView = document.getElementById('flashcards-view-container');
+    const guideView = document.getElementById('notes-content-container');
+    const pills = document.getElementById('notes-part-pills');
+    const statsBar = document.getElementById('flashcard-stats-bar');
+
+    if (mode === 'flashcards') {
+      if (flashcardsBtn) {
+        flashcardsBtn.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 bg-[#00843D] text-white shadow-md shadow-emerald-900/20 cursor-pointer";
+      }
+      if (guideBtn) {
+        guideBtn.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white cursor-pointer";
+      }
+      if (flashcardsView) flashcardsView.classList.remove('hidden');
+      if (guideView) guideView.classList.add('hidden');
+      if (pills) pills.classList.add('hidden');
+      if (statsBar) statsBar.classList.remove('hidden');
+      renderFlashcardDeck();
+    } else {
+      if (flashcardsBtn) {
+        flashcardsBtn.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white cursor-pointer";
+      }
+      if (guideBtn) {
+        guideBtn.className = "px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 bg-[#00843D] text-white shadow-md shadow-emerald-900/20 cursor-pointer";
+      }
+      if (flashcardsView) flashcardsView.classList.add('hidden');
+      if (guideView) guideView.classList.remove('hidden');
+      if (pills) pills.classList.remove('hidden');
+      if (statsBar) statsBar.classList.add('hidden');
+      renderNotesPills();
+      renderNotesContent();
+    }
+  }
+
+  function setFlashcardFilter(category) {
+    audioContext.playClick();
+    state.flashcardFilter = category;
+    initFlashcardsDeck();
+    renderFlashcardDeck();
+  }
+
+  function flipCurrentFlashcard() {
+    audioContext.playClick();
+    state.flashcardFlipped = !state.flashcardFlipped;
+    const inner = document.getElementById('active-flashcard-inner');
+    if (inner) {
+      if (state.flashcardFlipped) {
+        inner.classList.add('is-flipped');
+      } else {
+        inner.classList.remove('is-flipped');
+      }
+    }
+  }
+
+  function nextFlashcard() {
+    audioContext.playClick();
+    const isActivated = AMT_AUTH.isUserActivated();
+    const freeFlashcardLimit = 15;
+
+    if (!isActivated && state.currentFlashcardIndex >= freeFlashcardLimit - 1) {
+      openPaywallModal();
+      return;
+    }
+
+    if (state.currentFlashcardIndex < state.flashcardsDeck.length - 1) {
+      state.currentFlashcardIndex++;
+      state.flashcardFlipped = false;
+      renderFlashcardDeck();
+    }
+  }
+
+  function prevFlashcard() {
+    audioContext.playClick();
+    if (state.currentFlashcardIndex > 0) {
+      state.currentFlashcardIndex--;
+      state.flashcardFlipped = false;
+      renderFlashcardDeck();
+    }
+  }
+
+  function shuffleFlashcards() {
+    audioContext.playClick();
+    const deck = [...state.flashcardsDeck];
+    for (let i = deck.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    state.flashcardsDeck = deck;
+    state.currentFlashcardIndex = 0;
+    state.flashcardFlipped = false;
+    renderFlashcardDeck();
+    showToast("🔀 Flashcards shuffled randomly!", "info");
+  }
+
+  function restartFlashcardsDeck() {
+    audioContext.playClick();
+    state.currentFlashcardIndex = 0;
+    state.flashcardFlipped = false;
+    renderFlashcardDeck();
+    showToast("↺ Deck reset to Card 1", "info");
+  }
+
+  function toggleMasterCurrentFlashcard() {
+    audioContext.playClick();
+    const currentCard = state.flashcardsDeck[state.currentFlashcardIndex];
+    if (!currentCard) return;
+
+    if (state.masteredFlashcards.has(currentCard.id)) {
+      state.masteredFlashcards.delete(currentCard.id);
+      showToast("Card unmarked from Mastered", "info");
+    } else {
+      state.masteredFlashcards.add(currentCard.id);
+      showToast("⭐ Card marked as Mastered!", "success");
+    }
+
+    try {
+      localStorage.setItem('amt_mastered_flashcards', JSON.stringify(Array.from(state.masteredFlashcards)));
+    } catch (e) {}
+
+    renderFlashcardDeck();
+  }
+
+  function renderFlashcardDeck() {
+    const container = document.getElementById('flashcards-view-container');
+    if (!container) return;
+
+    const deck = state.flashcardsDeck || [];
+    const totalInDeck = deck.length;
+    const currentIndex = state.currentFlashcardIndex;
+    const isActivated = AMT_AUTH.isUserActivated();
+    const masteredCount = deck.filter(c => state.masteredFlashcards.has(c.id)).length;
+
+    // Update global counter badge and stats bar
+    const masteredCountEl = document.getElementById('flashcard-mastered-count');
+    if (masteredCountEl) {
+      masteredCountEl.innerHTML = '<span>⭐</span><span>Mastered: ' + masteredCount + '/' + totalInDeck + '</span>';
+    }
+    const badgeCountEl = document.getElementById('flashcard-badge-count');
+    if (badgeCountEl) {
+      badgeCountEl.textContent = totalInDeck;
+    }
+
+    // Categories filter buttons
+    const categories = [
+      { key: 'all', label: '🌟 All Cards', count: (state.flashcards || []).length },
+      { key: 'math', label: '📐 Math & Probability', count: (state.flashcards || []).filter(c => c.category === 'math').length },
+      { key: 'machines', label: '⚙️ Levers & Machines', count: (state.flashcards || []).filter(c => c.category === 'machines').length },
+      { key: 'physics', label: '⚡ Physics & Heat', count: (state.flashcards || []).filter(c => c.category === 'physics').length },
+      { key: 'circuits', label: '🔋 Circuits & Charges', count: (state.flashcards || []).filter(c => c.category === 'circuits').length },
+      { key: 'magnetism', label: '🧲 Magnetism', count: (state.flashcards || []).filter(c => c.category === 'magnetism').length },
+      { key: 'logic', label: '🧊 Spatial & Logic', count: (state.flashcards || []).filter(c => c.category === 'logic').length },
+      { key: 'english', label: '✍️ English & Grammar', count: (state.flashcards || []).filter(c => c.category === 'english').length },
+    ];
+
+    const categoryTabsHtml = categories.map(cat => {
+      const active = (state.flashcardFilter === cat.key);
+      return `
+        <button 
+          onclick="window.APP.setFlashcardFilter('${cat.key}')" 
+          class="px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${active ? 'bg-[#00843D] text-white shadow-md shadow-emerald-900/20 border border-emerald-400/40' : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'}"
+        >
+          <span>${cat.label}</span>
+          <span class="ml-1.5 opacity-75 font-mono">(${cat.count})</span>
+        </button>
+      `;
+    }).join('');
+
+    if (totalInDeck === 0) {
+      container.innerHTML = `
+        <div class="rounded-3xl p-10 text-center border bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800">
+          <p class="text-sm font-bold text-slate-500">No flashcards found for this category.</p>
+        </div>
+      `;
+      return;
+    }
+
+    const card = deck[currentIndex];
+    const isMastered = state.masteredFlashcards.has(card.id);
+    const isFlipped = state.flashcardFlipped;
+    const progressPct = Math.round(((currentIndex + 1) / totalInDeck) * 100);
+
+    // Format back text cleanly
+    const formattedBack = escapeHtml(card.back)
+      .replace(/\n\n/g, '<div class="my-2.5"></div>')
+      .replace(/\n/g, '<br/>')
+      .replace(/(⚡[^\n<]+)/g, '<strong class="text-amber-800 dark:text-amber-300 font-bold">$1</strong>')
+      .replace(/(🚨[^\n<]+)/g, '<strong class="text-rose-700 dark:text-rose-400 font-bold">$1</strong>')
+      .replace(/(💡[^\n<]+)/g, '<strong class="text-emerald-700 dark:text-emerald-400 font-bold">$1</strong>')
+      .replace(/(✈️[^\n<]+)/g, '<strong class="text-sky-700 dark:text-sky-400 font-bold">$1</strong>')
+      .replace(/(📐[^\n<]+)/g, '<div class="my-2 px-3.5 py-2 rounded-xl bg-amber-50 dark:bg-slate-800 border border-amber-300/80 font-mono font-bold text-xs sm:text-sm text-slate-900 dark:text-amber-200 shadow-sm">$1</div>');
+
+    container.innerHTML = `
+      <!-- Category Filter Pills -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-2 pt-1">
+        ${categoryTabsHtml}
+      </div>
+
+      <!-- Flashcard Deck Progress Indicator -->
+      <div class="bg-white dark:bg-slate-900 rounded-2xl p-4 border border-slate-200/90 dark:border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-sm">
+        <div class="flex items-center gap-3">
+          <span class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 font-mono font-black text-xs flex items-center justify-center border border-emerald-500/20">
+            ${currentIndex + 1}
+          </span>
+          <div>
+            <div class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+              <span>Card ${currentIndex + 1} of ${totalInDeck}</span>
+              <span class="text-slate-300 dark:text-slate-700">•</span>
+              <span class="text-emerald-700 dark:text-emerald-400 font-semibold">${card.categoryLabel}</span>
+            </div>
+            <div class="text-[11px] text-slate-500 dark:text-slate-400">
+              Module M0${card.module} • Click or tap Space to flip
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Bar & Star Button -->
+        <div class="flex items-center gap-3">
+          <div class="w-28 sm:w-36 bg-slate-100 dark:bg-slate-800 rounded-full h-2.5 overflow-hidden border border-slate-200 dark:border-slate-700">
+            <div class="h-full bg-gradient-to-r from-[#00843D] to-[#FCD116] transition-all duration-300" style="width: ${progressPct}%"></div>
+          </div>
+          <span class="text-xs font-mono font-bold text-slate-600 dark:text-slate-400">${progressPct}%</span>
+
+          <button 
+            onclick="window.APP.toggleMasterCurrentFlashcard()" 
+            class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all border cursor-pointer flex items-center gap-1.5 ${isMastered ? 'bg-amber-500 text-white border-amber-600 shadow-sm' : 'bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-300 dark:border-slate-700 hover:bg-amber-50 hover:text-amber-700'}"
+            title="${isMastered ? 'Card Mastered' : 'Mark as Mastered'}"
+          >
+            <span>${isMastered ? '★' : '☆'}</span>
+            <span>${isMastered ? 'Mastered' : 'Master'}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE 3D FLASHCARD -->
+      <div class="flashcard-perspective w-full max-w-3xl mx-auto my-2">
+        <div 
+          id="active-flashcard-inner" 
+          onclick="window.APP.flipCurrentFlashcard()" 
+          class="flashcard-inner rounded-3xl cursor-pointer ${isFlipped ? 'is-flipped' : ''}"
+        >
+          <!-- FRONT FACE (QUESTION / PROMPT) -->
+          <div class="flashcard-face rounded-3xl p-6 sm:p-9 bg-white dark:bg-slate-900 border-2 border-slate-200/90 dark:border-slate-800 shadow-md relative overflow-hidden flex flex-col justify-between select-none">
+            <!-- Top Ethiopian Ribbon Accent -->
+            <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#00843D] via-[#FCD116] to-[#D3122A]"></div>
+
+            <!-- Card Top Bar -->
+            <div>
+              <div class="flex items-center justify-between gap-3 mb-5">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20">
+                  <span>${card.icon}</span>
+                  <span>${card.type}</span>
+                </div>
+                <span class="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest">
+                  Question Side
+                </span>
+              </div>
+
+              <!-- Question Heading -->
+              <h3 class="text-lg sm:text-2xl font-black text-slate-900 dark:text-white leading-relaxed font-display">
+                ${escapeHtml(card.front)}
+              </h3>
+            </div>
+
+            <!-- Tap to Flip Prompt Banner -->
+            <div class="pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div class="flex items-center gap-2 text-xs font-bold text-emerald-700 dark:text-emerald-400">
+                <span class="w-6 h-6 rounded-lg bg-emerald-500/15 flex items-center justify-center text-sm">🔄</span>
+                <span>Tap Card or Press Spacebar to Reveal Solution</span>
+              </div>
+              <span class="text-[11px] font-mono text-slate-400 font-semibold">Verified EAU Syllabus</span>
+            </div>
+          </div>
+
+          <!-- BACK FACE (VERIFIED ANSWER & DERIVATION) -->
+          <div class="flashcard-face flashcard-face-back rounded-3xl p-6 sm:p-9 bg-gradient-to-br from-emerald-50/90 via-white to-amber-50/50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 border-2 border-emerald-500/50 dark:border-emerald-600/50 shadow-xl relative overflow-hidden flex flex-col justify-between select-none">
+            <!-- Top Ethiopian Ribbon Accent -->
+            <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#00843D] via-[#FCD116] to-[#D3122A]"></div>
+
+            <!-- Back Header -->
+            <div>
+              <div class="flex items-center justify-between gap-3 mb-4">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-600 text-white shadow-sm">
+                  <span>✓</span>
+                  <span>Verified Solution & Derivation</span>
+                </div>
+                <span class="text-xs font-mono font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-widest">
+                  Answer Side
+                </span>
+              </div>
+
+              <!-- Formula Box if Available -->
+              ${card.formula ? `
+                <div class="my-3 px-4 py-3 rounded-2xl bg-white dark:bg-slate-950 border border-emerald-300 dark:border-emerald-800 font-mono font-black text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 shadow-sm flex items-center justify-between">
+                  <span>${card.formula}</span>
+                  <span class="text-[10px] font-sans font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">Formula</span>
+                </div>
+              ` : ''}
+
+              <!-- Solution Content -->
+              <div class="text-xs sm:text-sm leading-relaxed text-slate-800 dark:text-slate-100 font-medium">
+                ${formattedBack}
+              </div>
+            </div>
+
+            <!-- Flip Back CTA -->
+            <div class="pt-5 border-t border-emerald-200/60 dark:border-slate-800 mt-5 flex items-center justify-between">
+              <span class="text-xs font-bold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5">
+                <span>🔄</span>
+                <span>Tap to flip back to question</span>
+              </span>
+              <span class="text-xs font-mono text-slate-500 dark:text-slate-400 font-bold">100% Verified</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DECK NAVIGATION BAR -->
+      <div class="max-w-3xl mx-auto flex items-center justify-between gap-3 pt-3">
+        <button 
+          id="prev-flashcard-btn" 
+          onclick="window.APP.prevFlashcard()" 
+          ${currentIndex === 0 ? 'disabled' : ''} 
+          class="flex-1 sm:flex-initial px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+          <span>Previous</span>
+        </button>
+
+        <button 
+          onclick="window.APP.flipCurrentFlashcard()" 
+          class="flex-1 sm:flex-initial px-6 py-3 rounded-2xl font-bold text-xs sm:text-sm bg-[#00843D] hover:bg-[#00602c] text-white shadow-md shadow-emerald-900/30 transition-all active:scale-95 flex items-center justify-center gap-2 cursor-pointer"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+          <span>Flip Card (Space)</span>
+        </button>
+
+        <button 
+          id="next-flashcard-btn" 
+          onclick="window.APP.nextFlashcard()" 
+          ${currentIndex === totalInDeck - 1 ? 'disabled' : ''} 
+          class="flex-1 sm:flex-initial px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+        >
+          <span>Next</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+      </div>
+    `;
+  }
+
+
     // NOTES VIEWER LOGIC
   function renderNotesPills() {
     const container = document.getElementById('notes-part-pills');
@@ -939,19 +1322,7 @@
     return escaped;
   }
 
-  // View Original Card in Lightbox
-  function viewOriginalCard(imageSrc) {
-    const modal = document.getElementById('lightbox-modal');
-    const img = document.getElementById('lightbox-image');
-    if (!modal || !img) return;
-    img.src = imageSrc;
-    modal.classList.remove('hidden');
-  }
-
-  function closeLightbox() {
-    const modal = document.getElementById('lightbox-modal');
-    if (modal) modal.classList.add('hidden');
-  }
+// Reference Card & Lightbox function permanently retired per user request
 
   // PAYWALL / ACCESS / APPROVAL MODAL
   function openPaywallModal() {
@@ -1390,6 +1761,19 @@
         return;
       }
 
+      if (state.currentTab === 'notes' && state.notesViewMode === 'flashcards') {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.key === 'ArrowRight' || e.key === 'n') {
+          nextFlashcard();
+        } else if (e.key === 'ArrowLeft' || e.key === 'p') {
+          prevFlashcard();
+        } else if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          flipCurrentFlashcard();
+        }
+        return;
+      }
+
       if (document.getElementById('exam-view').classList.contains('hidden')) return;
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
@@ -1502,8 +1886,15 @@
     closeDrawer,
     finishExam,
     closeResultsModal,
-    viewOriginalCard,
-    closeLightbox,
+    setNotesViewMode,
+    setFlashcardFilter,
+    flipCurrentFlashcard,
+    nextFlashcard,
+    prevFlashcard,
+    shuffleFlashcards,
+    restartFlashcardsDeck,
+    toggleMasterCurrentFlashcard,
+    renderFlashcardDeck,
     openPaywallModal,
     closePaywallModal,
     updatePaywallStudentId,

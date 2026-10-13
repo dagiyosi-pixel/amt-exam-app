@@ -296,14 +296,59 @@
           </div>
         </div>
 
-        <!-- Part Navigation Pills -->
-        <div id="notes-part-pills" class="flex items-center gap-2 overflow-x-auto pb-2 pt-1 border-t border-slate-200/80 dark:border-slate-800">
+        <!-- View Mode Segmented Switcher & Flashcard Controls -->
+        <div class="flex items-center justify-between flex-wrap gap-3 pt-3 border-t border-slate-200/80 dark:border-slate-800">
+          <div class="inline-flex p-1 rounded-2xl bg-slate-100 dark:bg-slate-800 border border-slate-200/90 dark:border-slate-700/80 shadow-inner">
+            <button 
+              id="notes-mode-flashcards-btn" 
+              onclick="window.APP.setNotesViewMode('flashcards')" 
+              class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 bg-[#00843D] text-white shadow-md shadow-emerald-900/20 cursor-pointer"
+            >
+              <span>📇</span>
+              <span>Flashcard Deck</span>
+              <span id="flashcard-badge-count" class="px-2 py-0.5 rounded-full text-[11px] bg-white/20 font-mono font-bold">50</span>
+            </button>
+            <button 
+              id="notes-mode-guide-btn" 
+              onclick="window.APP.setNotesViewMode('guide')" 
+              class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white cursor-pointer"
+            >
+              <span>📑</span>
+              <span>Full Study Modules</span>
+              <span class="px-2 py-0.5 rounded-full text-[11px] bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-mono font-bold">10</span>
+            </button>
+          </div>
+
+          <!-- Flashcard Deck Quick Stats & Action Buttons -->
+          <div id="flashcard-stats-bar" class="flex items-center gap-2 text-xs font-semibold text-slate-600 dark:text-slate-400">
+            <span id="flashcard-mastered-count" class="px-3 py-1.5 rounded-xl bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/20 flex items-center gap-1.5 font-bold">
+              <span>⭐</span>
+              <span>Mastered: 0/50</span>
+            </span>
+            <button onclick="window.APP.shuffleFlashcards()" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 flex items-center gap-1 font-bold transition-all cursor-pointer" title="Shuffle Cards">
+              <span>🔀</span>
+              <span class="hidden sm:inline">Shuffle</span>
+            </button>
+            <button onclick="window.APP.restartFlashcardsDeck()" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 flex items-center gap-1 font-bold transition-all cursor-pointer" title="Restart Deck">
+              <span>↺</span>
+              <span class="hidden sm:inline">Reset</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Part Navigation Pills (Active in Full Guide Mode) -->
+        <div id="notes-part-pills" class="hidden flex items-center gap-2 overflow-x-auto pb-2 pt-2 border-t border-slate-200/80 dark:border-slate-800">
           <!-- Populated by app.js -->
         </div>
       </div>
 
-      <!-- Notes Content Container -->
-      <div id="notes-content-container" class="space-y-4">
+      <!-- FLASHCARD DECK VIEW CONTAINER (Active By Default) -->
+      <div id="flashcards-view-container" class="space-y-4">
+        <!-- Rendered by app.js -->
+      </div>
+
+      <!-- FULL STUDY GUIDE CONTAINER (When Toggled) -->
+      <div id="notes-content-container" class="hidden space-y-4">
         <!-- Populated by app.js -->
       </div>
     </div>
@@ -699,16 +744,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- LIGHTBOX MODAL (VIEW ORIGINAL SCAN) -->
-  <div id="lightbox-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 hidden" onclick="window.APP.closeLightbox()">
-    <div class="relative max-w-3xl w-full max-h-[90vh] flex flex-col items-center">
-      <button onclick="window.APP.closeLightbox()" class="absolute -top-10 right-0 text-white hover:text-slate-300 p-2 font-bold text-sm flex items-center gap-1">
-        Close ✕
-      </button>
-      <img id="lightbox-image" src="" alt="Original Scan" class="rounded-2xl max-h-[85vh] w-auto shadow-2xl border border-white/10 object-contain">
     </div>
   </div>
 
