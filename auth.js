@@ -69,6 +69,8 @@ const AMT_AUTH = (function() {
   const STORAGE_KEY_USER = "amt_user_session";
   const STORAGE_KEY_SETTINGS = "amt_admin_settings";
   const STORAGE_KEY_DEVICE = "amt_device_id";
+  const STORAGE_KEY_PERMANENT_DEVICE = "amt_device_activated_forever";
+  const STORAGE_KEY_PERMANENT_TOKEN = "amt_device_activation_token";
 
   // Default settings
   const DEFAULT_SETTINGS = {
@@ -130,10 +132,21 @@ const AMT_AUTH = (function() {
   function getOrCreateDeviceId() {
     try {
       let devId = localStorage.getItem(STORAGE_KEY_DEVICE);
+      if (!devId && typeof document !== 'undefined' && document.cookie) {
+        try {
+          const match = document.cookie.match(/(?:^|;\s*)amt_device_id=([^;]+)/);
+          if (match && match[1]) devId = match[1];
+        } catch (e) {}
+      }
       if (!devId) {
         const rand = Math.floor(1000 + Math.random() * 9000);
         devId = String(rand);
-        localStorage.setItem(STORAGE_KEY_DEVICE, devId);
+      }
+      localStorage.setItem(STORAGE_KEY_DEVICE, devId);
+      if (typeof document !== 'undefined' && document.cookie) {
+        try {
+          document.cookie = `amt_device_id=${devId}; path=/; max-age=315360000; SameSite=Lax`;
+        } catch (e) {}
       }
       return devId;
     } catch (e) {
@@ -204,16 +217,60 @@ const AMT_AUTH = (function() {
   }
 
   function saveUserSession(session) {
-    localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(session));
+    try {
+      localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(session));
+    } catch (e) {}
   }
 
   function isUserActivated() {
-    const session = getUserSession();
-    if (!session || !session.isActivated) return false;
-    // Anti-Tampering Check: Verify cryptographic signature
-    if (!session.signature || !session.activationCode) return false;
-    const expectedSig = computeSessionSignature(session.name || "Student", session.studentId || "", session.activationCode);
-    return session.signature === expectedSig;
+    try {
+      const devId = getOrCreateDeviceId();
+      const expectedToken = sha256(`AMT_DEVICE_LIFETIME_ACTIVATED_${devId}_${SECRET_SALT}`);
+
+      // 1. Primary Check: Permanent Device Lifetime Lock
+      let permanentFlag = localStorage.getItem(STORAGE_KEY_PERMANENT_DEVICE);
+      let permanentToken = localStorage.getItem(STORAGE_KEY_PERMANENT_TOKEN);
+
+      // Multi-storage self-healing: Check cookie backup if localStorage was cleared
+      if ((permanentFlag !== 'true' || permanentToken !== expectedToken) && typeof document !== 'undefined' && document.cookie) {
+        try {
+          const matchFlag = document.cookie.match(/(?:^|;\s*)amt_device_activated_forever=([^;]+)/);
+          const matchToken = document.cookie.match(/(?:^|;\s*)amt_device_activation_token=([^;]+)/);
+          if (matchFlag && matchFlag[1] === 'true' && matchToken && matchToken[1] === expectedToken) {
+            permanentFlag = 'true';
+            permanentToken = expectedToken;
+            localStorage.setItem(STORAGE_KEY_PERMANENT_DEVICE, 'true');
+            localStorage.setItem(STORAGE_KEY_PERMANENT_TOKEN, expectedToken);
+          }
+        } catch (e) {}
+      }
+
+      if (permanentFlag === 'true' && permanentToken === expectedToken) {
+        return true;
+      }
+
+      // 2. Secondary Check: Cryptographic Session Signature
+      const session = getUserSession();
+      if (session && session.isActivated && session.signature && session.activationCode) {
+        const cleanName = (session.name || "Student").trim();
+        const cleanId = (session.studentId || "").trim();
+        const expectedSig = computeSessionSignature(cleanName, cleanId, session.activationCode);
+        if (session.signature === expectedSig) {
+          // Self-heal permanent device tokens so device never needs to re-enter code
+          localStorage.setItem(STORAGE_KEY_PERMANENT_DEVICE, 'true');
+          localStorage.setItem(STORAGE_KEY_PERMANENT_TOKEN, expectedToken);
+          localStorage.setItem('amt_device_activated_at', session.activatedAt || new Date().toISOString());
+          if (typeof document !== 'undefined' && document.cookie) {
+            try {
+              document.cookie = `amt_device_activated_forever=true; path=/; max-age=315360000; SameSite=Lax`;
+              document.cookie = `amt_device_activation_token=${expectedToken}; path=/; max-age=315360000; SameSite=Lax`;
+            } catch (e) {}
+          }
+          return true;
+        }
+      }
+    } catch (e) {}
+    return false;
   }
 
   function activateUser(code, name, studentId) {
@@ -230,6 +287,23 @@ const AMT_AUTH = (function() {
       // Sign session cryptographically
       session.signature = computeSessionSignature(cleanName, cleanId, session.activationCode);
       saveUserSession(session);
+
+      // Lock permanent lifetime verification onto this physical device
+      const devId = getOrCreateDeviceId();
+      const permanentToken = sha256(`AMT_DEVICE_LIFETIME_ACTIVATED_${devId}_${SECRET_SALT}`);
+      try {
+        localStorage.setItem(STORAGE_KEY_PERMANENT_DEVICE, 'true');
+        localStorage.setItem(STORAGE_KEY_PERMANENT_TOKEN, permanentToken);
+        localStorage.setItem('amt_device_activated_at', session.activatedAt);
+      } catch (e) {}
+
+      if (typeof document !== 'undefined' && document.cookie) {
+        try {
+          document.cookie = `amt_device_activated_forever=true; path=/; max-age=315360000; SameSite=Lax`;
+          document.cookie = `amt_device_activation_token=${permanentToken}; path=/; max-age=315360000; SameSite=Lax`;
+        } catch (e) {}
+      }
+
       return { success: true, session };
     }
     return { success: false, error: "Invalid activation code. Please check with Admin on Telegram @Mountxhua" };

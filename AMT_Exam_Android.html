@@ -357,7 +357,7 @@ html {
               <span>📝 Practice Questions (276 Qs)</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </button>
-            <button onclick="window.APP.openPaywallModal()" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-emerald-600 via-amber-500 to-rose-600 hover:opacity-90 text-white shadow-lg shadow-emerald-900/40 transition-all flex items-center gap-2">
+            <button id="hero-unlock-btn" onclick="window.APP.openPaywallModal()" class="px-5 py-2.5 rounded-xl text-sm font-bold bg-gradient-to-r from-emerald-600 via-amber-500 to-rose-600 hover:opacity-90 text-white shadow-lg shadow-emerald-900/40 transition-all flex items-center gap-2">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
               Unlock Full Access (250 Birr)
             </button>
@@ -8398,6 +8398,8 @@ const AMT_AUTH = (function() {
   const STORAGE_KEY_USER = "amt_user_session";
   const STORAGE_KEY_SETTINGS = "amt_admin_settings";
   const STORAGE_KEY_DEVICE = "amt_device_id";
+  const STORAGE_KEY_PERMANENT_DEVICE = "amt_device_activated_forever";
+  const STORAGE_KEY_PERMANENT_TOKEN = "amt_device_activation_token";
 
   // Default settings
   const DEFAULT_SETTINGS = {
@@ -8459,10 +8461,21 @@ const AMT_AUTH = (function() {
   function getOrCreateDeviceId() {
     try {
       let devId = localStorage.getItem(STORAGE_KEY_DEVICE);
+      if (!devId && typeof document !== 'undefined' && document.cookie) {
+        try {
+          const match = document.cookie.match(/(?:^|;\s*)amt_device_id=([^;]+)/);
+          if (match && match[1]) devId = match[1];
+        } catch (e) {}
+      }
       if (!devId) {
         const rand = Math.floor(1000 + Math.random() * 9000);
         devId = String(rand);
-        localStorage.setItem(STORAGE_KEY_DEVICE, devId);
+      }
+      localStorage.setItem(STORAGE_KEY_DEVICE, devId);
+      if (typeof document !== 'undefined' && document.cookie) {
+        try {
+          document.cookie = `amt_device_id=${devId}; path=/; max-age=315360000; SameSite=Lax`;
+        } catch (e) {}
       }
       return devId;
     } catch (e) {
@@ -8533,16 +8546,60 @@ const AMT_AUTH = (function() {
   }
 
   function saveUserSession(session) {
-    localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(session));
+    try {
+      localStorage.setItem(STORAGE_KEY_USER, JSON.stringify(session));
+    } catch (e) {}
   }
 
   function isUserActivated() {
-    const session = getUserSession();
-    if (!session || !session.isActivated) return false;
-    // Anti-Tampering Check: Verify cryptographic signature
-    if (!session.signature || !session.activationCode) return false;
-    const expectedSig = computeSessionSignature(session.name || "Student", session.studentId || "", session.activationCode);
-    return session.signature === expectedSig;
+    try {
+      const devId = getOrCreateDeviceId();
+      const expectedToken = sha256(`AMT_DEVICE_LIFETIME_ACTIVATED_${devId}_${SECRET_SALT}`);
+
+      // 1. Primary Check: Permanent Device Lifetime Lock
+      let permanentFlag = localStorage.getItem(STORAGE_KEY_PERMANENT_DEVICE);
+      let permanentToken = localStorage.getItem(STORAGE_KEY_PERMANENT_TOKEN);
+
+      // Multi-storage self-healing: Check cookie backup if localStorage was cleared
+      if ((permanentFlag !== 'true' || permanentToken !== expectedToken) && typeof document !== 'undefined' && document.cookie) {
+        try {
+          const matchFlag = document.cookie.match(/(?:^|;\s*)amt_device_activated_forever=([^;]+)/);
+          const matchToken = document.cookie.match(/(?:^|;\s*)amt_device_activation_token=([^;]+)/);
+          if (matchFlag && matchFlag[1] === 'true' && matchToken && matchToken[1] === expectedToken) {
+            permanentFlag = 'true';
+            permanentToken = expectedToken;
+            localStorage.setItem(STORAGE_KEY_PERMANENT_DEVICE, 'true');
+            localStorage.setItem(STORAGE_KEY_PERMANENT_TOKEN, expectedToken);
+          }
+        } catch (e) {}
+      }
+
+      if (permanentFlag === 'true' && permanentToken === expectedToken) {
+        return true;
+      }
+
+      // 2. Secondary Check: Cryptographic Session Signature
+      const session = getUserSession();
+      if (session && session.isActivated && session.signature && session.activationCode) {
+        const cleanName = (session.name || "Student").trim();
+        const cleanId = (session.studentId || "").trim();
+        const expectedSig = computeSessionSignature(cleanName, cleanId, session.activationCode);
+        if (session.signature === expectedSig) {
+          // Self-heal permanent device tokens so device never needs to re-enter code
+          localStorage.setItem(STORAGE_KEY_PERMANENT_DEVICE, 'true');
+          localStorage.setItem(STORAGE_KEY_PERMANENT_TOKEN, expectedToken);
+          localStorage.setItem('amt_device_activated_at', session.activatedAt || new Date().toISOString());
+          if (typeof document !== 'undefined' && document.cookie) {
+            try {
+              document.cookie = `amt_device_activated_forever=true; path=/; max-age=315360000; SameSite=Lax`;
+              document.cookie = `amt_device_activation_token=${expectedToken}; path=/; max-age=315360000; SameSite=Lax`;
+            } catch (e) {}
+          }
+          return true;
+        }
+      }
+    } catch (e) {}
+    return false;
   }
 
   function activateUser(code, name, studentId) {
@@ -8559,6 +8616,23 @@ const AMT_AUTH = (function() {
       // Sign session cryptographically
       session.signature = computeSessionSignature(cleanName, cleanId, session.activationCode);
       saveUserSession(session);
+
+      // Lock permanent lifetime verification onto this physical device
+      const devId = getOrCreateDeviceId();
+      const permanentToken = sha256(`AMT_DEVICE_LIFETIME_ACTIVATED_${devId}_${SECRET_SALT}`);
+      try {
+        localStorage.setItem(STORAGE_KEY_PERMANENT_DEVICE, 'true');
+        localStorage.setItem(STORAGE_KEY_PERMANENT_TOKEN, permanentToken);
+        localStorage.setItem('amt_device_activated_at', session.activatedAt);
+      } catch (e) {}
+
+      if (typeof document !== 'undefined' && document.cookie) {
+        try {
+          document.cookie = `amt_device_activated_forever=true; path=/; max-age=315360000; SameSite=Lax`;
+          document.cookie = `amt_device_activation_token=${permanentToken}; path=/; max-age=315360000; SameSite=Lax`;
+        } catch (e) {}
+      }
+
       return { success: true, session };
     }
     return { success: false, error: "Invalid activation code. Please check with Admin on Telegram @Mountxhua" };
@@ -8712,6 +8786,7 @@ if (typeof module !== 'undefined') module.exports = AMT_AUTH;
   function updateUIAuthBadge() {
     const isActivated = AMT_AUTH.isUserActivated();
     const badge = document.getElementById('user-auth-badge');
+    const heroBtn = document.getElementById('hero-unlock-btn');
     const lockIcons = document.querySelectorAll('.exam-lock-icon');
     
     if (badge) {
@@ -8725,6 +8800,16 @@ if (typeof module !== 'undefined') module.exports = AMT_AUTH;
           <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
           <span class="hidden sm:inline">Trial • </span><span>Unlock (250 ETB)</span>
         </button>`;
+      }
+    }
+
+    if (heroBtn) {
+      if (isActivated) {
+        heroBtn.className = "px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-400/40 flex items-center justify-center gap-2 select-none pointer-events-none shadow-sm";
+        heroBtn.innerHTML = `<svg class="w-4 h-4 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg><span>✓ Device Verified • Full Access</span>`;
+      } else {
+        heroBtn.className = "px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-emerald-600 via-amber-500 to-rose-600 hover:opacity-90 text-white shadow-lg shadow-emerald-900/40 transition-all flex items-center justify-center gap-2 cursor-pointer";
+        heroBtn.innerHTML = `<svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg><span>Unlock Full Access (250 Birr)</span>`;
       }
     }
 
@@ -9437,6 +9522,10 @@ if (typeof module !== 'undefined') module.exports = AMT_AUTH;
 
   // PAYWALL / ACCESS / APPROVAL MODAL
   function openPaywallModal() {
+    if (AMT_AUTH.isUserActivated()) {
+      showToast("✅ This device is already permanently verified with Full Access!", "success");
+      return;
+    }
     const modal = document.getElementById('paywall-modal');
     if (!modal) return;
 
