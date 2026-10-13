@@ -304,9 +304,68 @@ const AMT_AUTH = (function() {
         } catch (e) {}
       }
 
+      // Layer 3: Sync to IndexedDB Vault (survives casual cache/cookie clearings)
+      syncToVault({ devId, permanentToken, activatedAt: session.activatedAt, code: session.activationCode, name: session.name });
+
       return { success: true, session };
     }
     return { success: false, error: "Invalid activation code. Please check with Admin on Telegram @Mountxhua" };
+  }
+
+  // Layer 3 Vault Storage Implementation
+  function syncToVault(data) {
+    try {
+      if (typeof indexedDB === 'undefined') return;
+      const req = indexedDB.open('amt_vault_db', 1);
+      req.onupgradeneeded = function(e) {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains('vault')) {
+          db.createObjectStore('vault');
+        }
+      };
+      req.onsuccess = function(e) {
+        try {
+          const db = e.target.result;
+          const tx = db.transaction('vault', 'readwrite');
+          tx.objectStore('vault').put(data, 'device_lock');
+        } catch(err) {}
+      };
+    } catch(e) {}
+  }
+
+  function restoreFromVault(callback) {
+    try {
+      if (typeof indexedDB === 'undefined') return;
+      const req = indexedDB.open('amt_vault_db', 1);
+      req.onupgradeneeded = function(e) {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains('vault')) {
+          db.createObjectStore('vault');
+        }
+      };
+      req.onsuccess = function(e) {
+        try {
+          const db = e.target.result;
+          const tx = db.transaction('vault', 'readonly');
+          const store = tx.objectStore('vault');
+          const getReq = store.get('device_lock');
+          getReq.onsuccess = function() {
+            if (getReq.result) {
+              const res = getReq.result;
+              if (res.devId && res.permanentToken) {
+                const expected = sha256(`AMT_DEVICE_LIFETIME_ACTIVATED_${res.devId}_${SECRET_SALT}`);
+                if (res.permanentToken === expected) {
+                  localStorage.setItem(STORAGE_KEY_DEVICE, res.devId);
+                  localStorage.setItem(STORAGE_KEY_PERMANENT_DEVICE, 'true');
+                  localStorage.setItem(STORAGE_KEY_PERMANENT_TOKEN, res.permanentToken);
+                  if (typeof callback === 'function') callback(true);
+                }
+              }
+            }
+          };
+        } catch(err) {}
+      };
+    } catch(e) {}
   }
 
   return {
@@ -320,6 +379,8 @@ const AMT_AUTH = (function() {
     saveUserSession,
     isUserActivated,
     activateUser,
+    restoreFromVault,
+    syncToVault,
     sha256,
     VIP_DISPLAY: "AMT-VIP-2026"
   };

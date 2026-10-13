@@ -1,11 +1,13 @@
 {
-  "name": "Ethiopian AMT Exam Master",
-  "short_name": "AMT Exam",
-  "description": "Ethiopian Airlines & EAU Aircraft Maintenance Technician (AMT) Exam Preparation App with 276 questions, 5 full exams, and master study notes.",
+  "name": "Ethiopian Airlines AMT Exam Master",
+  "short_name": "Ethiopian AMT",
+  "id": "ethiopian-amt-exam-prep-2026",
+  "description": "Ethiopian Airlines & EAU Aircraft Maintenance Technician (AMT) Exam Prep with 276 official questions, 5 full exam papers, and 10 study modules.",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "background_color": "#0f172a",
-  "theme_color": "#0284c7",
+  "background_color": "#060913",
+  "theme_color": "#00843D",
   "orientation": "portrait-primary",
   "categories": ["education", "books", "productivity"],
   "icons": [

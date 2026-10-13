@@ -1,4 +1,4 @@
-const CACHE_NAME = 'amt-exam-v3';
+const CACHE_NAME = 'amt-exam-v2026-prod';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

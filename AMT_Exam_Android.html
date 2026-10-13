@@ -30,7 +30,7 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://dagiyosi-pixel.github.io/amt-exam-app/">
   <meta property="og:title" content="Ethiopian Airlines AMT Exam Prep 2026 | Aviation Maintenance Technician">
-  <meta property="og:description" content="Prepare and pass the Ethiopian Airlines & EAU AMT entrance exam. 276 official exam questions, solutions, and 9 study chapters.">
+  <meta property="og:description" content="Official Ethiopian Airlines & EAU AMT Exam Prep. 276 verified past questions across 5 full exam papers, step-by-step solutions, and 10 master study modules.">
   <meta property="og:image" content="https://dagiyosi-pixel.github.io/amt-exam-app/public/icons/icon-512.png">
   <meta property="og:image:width" content="512">
   <meta property="og:image:height" content="512">
@@ -38,12 +38,14 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ethiopian Airlines AMT Exam Prep 2026">
-  <meta name="twitter:description" content="276 practice questions across 5 full exam papers with detailed solutions and formulas.">
+  <meta name="twitter:description" content="276 official exam questions across 5 full papers with detailed derivations and 10 study modules.">
   <meta name="twitter:image" content="https://dagiyosi-pixel.github.io/amt-exam-app/public/icons/icon-512.png">
 
   <!-- PWA & Mobile Icons -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#0284c7">
+  <meta name="theme-color" content="#00843D">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <link rel="icon" type="image/png" href="public/icons/icon-192.png">
   <link rel="apple-touch-icon" href="public/icons/icon-192.png">
 
@@ -8773,9 +8775,68 @@ const AMT_AUTH = (function() {
         } catch (e) {}
       }
 
+      // Layer 3: Sync to IndexedDB Vault (survives casual cache/cookie clearings)
+      syncToVault({ devId, permanentToken, activatedAt: session.activatedAt, code: session.activationCode, name: session.name });
+
       return { success: true, session };
     }
     return { success: false, error: "Invalid activation code. Please check with Admin on Telegram @Mountxhua" };
+  }
+
+  // Layer 3 Vault Storage Implementation
+  function syncToVault(data) {
+    try {
+      if (typeof indexedDB === 'undefined') return;
+      const req = indexedDB.open('amt_vault_db', 1);
+      req.onupgradeneeded = function(e) {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains('vault')) {
+          db.createObjectStore('vault');
+        }
+      };
+      req.onsuccess = function(e) {
+        try {
+          const db = e.target.result;
+          const tx = db.transaction('vault', 'readwrite');
+          tx.objectStore('vault').put(data, 'device_lock');
+        } catch(err) {}
+      };
+    } catch(e) {}
+  }
+
+  function restoreFromVault(callback) {
+    try {
+      if (typeof indexedDB === 'undefined') return;
+      const req = indexedDB.open('amt_vault_db', 1);
+      req.onupgradeneeded = function(e) {
+        const db = e.target.result;
+        if (!db.objectStoreNames.contains('vault')) {
+          db.createObjectStore('vault');
+        }
+      };
+      req.onsuccess = function(e) {
+        try {
+          const db = e.target.result;
+          const tx = db.transaction('vault', 'readonly');
+          const store = tx.objectStore('vault');
+          const getReq = store.get('device_lock');
+          getReq.onsuccess = function() {
+            if (getReq.result) {
+              const res = getReq.result;
+              if (res.devId && res.permanentToken) {
+                const expected = sha256(`AMT_DEVICE_LIFETIME_ACTIVATED_${res.devId}_${SECRET_SALT}`);
+                if (res.permanentToken === expected) {
+                  localStorage.setItem(STORAGE_KEY_DEVICE, res.devId);
+                  localStorage.setItem(STORAGE_KEY_PERMANENT_DEVICE, 'true');
+                  localStorage.setItem(STORAGE_KEY_PERMANENT_TOKEN, res.permanentToken);
+                  if (typeof callback === 'function') callback(true);
+                }
+              }
+            }
+          };
+        } catch(err) {}
+      };
+    } catch(e) {}
   }
 
   return {
@@ -8789,6 +8850,8 @@ const AMT_AUTH = (function() {
     saveUserSession,
     isUserActivated,
     activateUser,
+    restoreFromVault,
+    syncToVault,
     sha256,
     VIP_DISPLAY: "AMT-VIP-2026"
   };
@@ -8881,6 +8944,17 @@ if (typeof module !== 'undefined') module.exports = AMT_AUTH;
     checkUserAuth();
     setupEventListeners();
     updateUIAuthBadge();
+
+    // Layer 3 Vault Self-Healing: Background recovery if storage was cleared
+    if (AMT_AUTH.restoreFromVault) {
+      AMT_AUTH.restoreFromVault((restored) => {
+        if (restored) {
+          updateUIAuthBadge();
+          renderExamCards();
+          if (state.currentTab === 'notes') renderNotesContent();
+        }
+      });
+    }
   }
 
   // Load Exam Database

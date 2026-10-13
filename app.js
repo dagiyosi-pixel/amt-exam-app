@@ -81,6 +81,17 @@
     checkUserAuth();
     setupEventListeners();
     updateUIAuthBadge();
+
+    // Layer 3 Vault Self-Healing: Background recovery if storage was cleared
+    if (AMT_AUTH.restoreFromVault) {
+      AMT_AUTH.restoreFromVault((restored) => {
+        if (restored) {
+          updateUIAuthBadge();
+          renderExamCards();
+          if (state.currentTab === 'notes') renderNotesContent();
+        }
+      });
+    }
   }
 
   // Load Exam Database
