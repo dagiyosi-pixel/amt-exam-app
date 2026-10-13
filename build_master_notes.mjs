@@ -4,123 +4,121 @@ export const masterNotes = [
   {
     id: "part1",
     number: 1,
-    title: "Part 1: Reading Comprehension Strategies & Technical Analysis",
-    shortTitle: "Part 1: Reading",
+    title: "Part 1: Reading Comprehension Ninja Strategies",
+    shortTitle: "Part 1: Reading Ninja 🥷",
     icon: "book-open",
-    content: `1.1 Core Strategies for Technical Passages
-• Strategy 1: Skim for Global Architecture Before Analyzing Details
-Quickly scan the passage in 30–45 seconds to map its structure (problem-solution, historical sequence, technological comparison, cause-and-effect). Never attempt to memorize technical numbers on the first pass.
+    content: `1.1 How to Read Like an Aviation Radar Operator
+• Strategy 1: The 45-Second Flight Path Scan
+Don't get bogged down in the swamp of technical numbers on your first pass! Scan the passage like radar mapping terrain in 30–45 seconds. Find the big picture: Is it talking about a broken engine (problem-solution), turbine history (timeline), or comparing Boeing vs Airbus materials (comparison)?
 
-• Strategy 2: Anchor Every Factual Answer Directly to the Text
-For questions concerning dates, component names, regulatory numbers, or percentages, do not trust memory. Return to the referenced paragraph. The correct answer must be explicitly affirmed or logically entailed by the passage text.
+• Strategy 2: Anchor Truth to the Text, Not Your Imagination
+🚨 [TRAP ALERT]: The exam makers love inserting answers that sound completely logical in real life, but are NOT mentioned anywhere in the passage! If the text doesn't say it, treat it as unproven.
+- TRUE: Directly stated in black and white by the author.
+- FALSE: Explicitly contradicted by facts in the passage.
+- CANNOT SAY: You might know it from personal life, but the text is silent!
 
-• Strategy 3: Identify and Eliminate Extreme & Absolute Language
-Statements featuring extreme quantifiers—such as "always", "never", "exclusively", "wholly", "completely", or "only"—are almost universally incorrect unless the source passage uses identical absolute phraseology. Conversely, qualifying modal verbs—such as "can", "may", "typically", "often", and "partially"—indicate nuanced, defensible, and correct answers.
+• Strategy 3: The Extreme Word Red Flag
+Whenever an answer choice contains extreme words—like "always", "never", "only", "completely", "exclusively"—your mental alarm bells should ring!
+⚡ [SPEED SHORTCUT]: Extreme statements are 95% wrong in comprehension exams. Nuanced words like "often", "can", "may", "partially", and "typically" are almost always the winning answers.
 
-• Strategy 4: Contextual Vocabulary Extraction
-When an exam question queries the contextual meaning of a word (e.g., "compromised", "herald", "mitigate"), read two full sentences before and after the target word. Determine whether the connotation is constructive, neutral, or detrimental to isolate the true technical synonym.
+• Strategy 4: The 2-Sentence Spy Technique
+Encountered a scary vocabulary word like "mitigate" or "debacle"? Read two full sentences before it and two sentences after it. The tone (danger vs safety, success vs failure) will instantly expose its true meaning.
 
-• Strategy 5: Synthesizing Multi-Sentence Inferences
-For inference questions ("What can be logically inferred?"), aggregate facts distributed across distinct paragraphs. If Sentence A states that German economic output contracted, and Sentence B states that Eurozone rescue disbursements depend on German tax revenues, the valid deduction is that rescue liquidity will face constraints.
-
-• Strategy 6: Dissecting "True", "False", and "Cannot Say"
-- TRUE: Directly affirmed by the passage text without requiring unsupported assumptions.
-- FALSE: Explicitly contradicted by the factual assertions in the passage.
-- CANNOT SAY: The passage provides partial or zero data regarding the premise, making verification impossible.`
+🧠 [POP QUIZ]: A passage explains that jet fuel prices increased, but never mentions ticket prices. The question asks: "Did airline ticket prices rise? (True / False / Cannot Say)". What is the answer? || CANNOT SAY! Even though ticket prices obviously rise in the real world, the passage never affirmed it!`
   },
   {
     id: "part2",
     number: 2,
-    title: "Part 2: English Grammar, Syntax, Conditionals & Prepositions",
-    shortTitle: "Part 2: Grammar",
+    title: "Part 2: English Grammar, Syntax & Aviation Concord",
+    shortTitle: "Part 2: Grammar & Rules ✍️",
     icon: "file-text",
-    content: `2.1 Subject-Verb Concord (Agreement Rules)
-• Core Rule: A singular subject requires a singular verb (adds -s/-es in present tense); a plural subject requires a plural verb.
-  - Incorrect: "The fleet of transport aircraft are grounded."
-  - Correct: "The fleet of transport aircraft is grounded." (The subject is the collective singular noun 'fleet', not 'aircraft').
-• Proximity Rule with Correlative Conjunctions ("Neither... nor", "Either... or"):
-  The verb agrees in number strictly with the subject closest to it.
-  - "Neither the lead engineer nor the technicians were present." ('technicians' is plural → were).
-  - "Neither the technicians nor the lead engineer was present." ('lead engineer' is singular → was).
+    content: `2.1 Subject-Verb Concord (The Collective Trap)
+• The "Fleet" & "Crew" Illusion
+Don't let long descriptive prepositional phrases trick your verb agreement!
+- ❌ Wrong: "The fleet of 40 cargo aircraft are grounded."
+- ✅ Right: "The fleet of 40 cargo aircraft is grounded." (The true subject is the singular noun 'fleet', not the 40 aircraft!).
 
-2.2 Aviation Technical Prepositions
-• across: Movement from one boundary or side of a surface to the opposite side ("The technician walked across the aircraft wing").
-• through: Movement inside an enclosed three-dimensional volume ("Hydraulic fluid circulates through the pressurized line").
-• into: Motion directed toward the interior of a container ("Place the torque wrench into the cabinet").
-• at: Specific points in space, calibrations, or temperatures ("The turbine ignites at 600°C").
-• in accordance with: Strict compliance with official publications ("The inspection was completed in accordance with the maintenance manual").
-• good at: Demonstrating technical skill ("She is remarkably skilled at diagnosing electrical faults").
+• The Closest Neighbor Rule ("Neither... Nor" & "Either... Or")
+💡 [AHA! MOMENT]: When "Neither... nor" enters the hangar, the verb only cares about its absolute closest neighbor!
+- "Neither the captain nor the technicians were ready." ('technicians' is plural → were).
+- "Neither the technicians nor the captain was ready." ('captain' is singular → was).
 
-2.3 Conditional Clauses (The Four Structural Types)
-• Zero Conditional (Universal Laws & Physics):
-  Structure: If + Present Simple, Present Simple.
-  Example: "If hydraulic fluid pressure drops below 1,500 PSI, the warning annunciator illuminates."
-• First Conditional (Real Future Scenarios):
-  Structure: If + Present Simple, will + Verb.
-  Example: "If the crack exceeds allowable limits, the supervisor will reject the component."
-• Second Conditional (Hypothetical / Unreal Present):
-  Structure: If + Past Simple, would + Verb.
-  Example: "If the airline had additional spare engines, it would expand transatlantic routes."
-• Third Conditional (Unreal Past / Missed Opportunity):
-  Structure: If + Past Perfect (had + past participle), would have + Past Participle.
-  Example: "If the mechanic had inspected the o-ring earlier, the flight would not have experienced fluid starvation."`
+2.2 Aviation Prepositions: Where Things Actually Go
+• across: Gliding from one edge of a flat surface to the other ("The engineer walked across the wing").
+• through: Traveling inside a 3D enclosed tube or volume ("Hydraulic fluid shoots through the steel line").
+• into: Moving from outside to the inside of a container ("Put the torque wrench into the toolbox").
+• at: Pinpoint temperatures or calibrations ("The turbine ignites at 600°C").
+• in accordance with: Strict manual compliance ("Work completed in accordance with the maintenance manual").
+
+2.3 The Four Flight Levels of Conditionals
+• Zero Conditional (Laws of Nature): If + Present, Present.
+  "If fuel pressure drops below 1,500 PSI, the warning horn sounds."
+• First Conditional (Real Tomorrow): If + Present, will + Verb.
+  "If the crack grows, the inspector will reject the fuselage."
+• Second Conditional (The Unreal Daydream): If + Past, would + Verb.
+  "If we had five spare engines, we would fly to London tomorrow."
+• Third Conditional (The Hindsight Regret): If + Past Perfect, would have + Past Participle.
+  "If the technician had tightened the bolt, the leak would not have occurred."
+
+🧠 [POP QUIZ]: Fill the blank: "Neither the flight attendants nor the chief pilot ___ (was/were) informed." || WAS! The singular noun 'chief pilot' is closest to the verb!`
   },
   {
     id: "part3",
     number: 3,
-    title: "Part 3: Technical Aviation Vocabulary, Synonyms & Antonyms",
-    shortTitle: "Part 3: Vocab",
+    title: "Part 3: Technical Aviation Vocabulary & Spelling Traps",
+    shortTitle: "Part 3: Vocab Vault 📖",
     icon: "list",
     content: `3.1 High-Yield Technical Synonyms
-• ARDUOUS → Strenuous, laborious, demanding, challenging.
-• MITIGATE → Alleviate, reduce, lessen, abate, temper.
-• FORMULATE → Devise, construct, engineer, develop.
-• AMBIGUOUS → Equivocal, vague, indefinite, indistinct.
-• COHESIVE → Unified, connected, integrated, bonded.
-• VIABLE → Feasible, workable, practicable, operational.
-• LUMINOUS → Radiant, brilliant, emitting light.
-• DEBACLE → Catastrophe, breakdown, total failure, collapse.
-• ADVERSITY → Hardship, affliction, misfortune.
-• PREREQUISITE → Mandatory condition, requirement, essential.
+• ARDUOUS → Strenuous, grueling, backbreaking, exhausting.
+• MITIGATE → Alleviate, reduce, lessen, cool down, abate.
+• FORMULATE → Devise, invent, engineer, construct.
+• AMBIGUOUS → Vague, unclear, hazy, equivocal.
+• COHESIVE → Unified, bonded together, sticky, integrated.
+• VIABLE → Workable, feasible, usable, practical.
+• DEBACLE → Total disaster, catastrophe, complete failure.
+• ADVERSITY → Hardship, tough times, misfortune.
 
-3.2 High-Yield Technical Antonyms
-• AUGMENT (to expand or make greater) ↔ SHRINK, diminish, decrease, reduce.
-• EXCEPTIONALLY (unusually or extraordinarily) ↔ CUSTOMARILY, ordinarily, routinely.
-• INEVITABLE (unavoidable) ↔ OPTIONAL, preventable, avoidable.
-• VIABLE (workable, capable of success) ↔ IMPRACTICAL, impossible, hopeless.
-• ACCORDANCE (agreement, compliance) ↔ CONFLICT, contradiction, defiance.
-• MANIFEST (apparent, obvious) ↔ CONCEALED, latent, hidden.
-• PRELIMINARY (initial, introductory) ↔ FINAL, concluding, definitive.
+3.2 High-Yield Technical Antonyms (Opposites)
+• AUGMENT (make bigger, beef up) ↔ SHRINK, diminish, deplete, reduce.
+• EXCEPTIONALLY (extraordinary) ↔ ORDINARILY, customarily, routinely.
+• INEVITABLE (bound to happen) ↔ PREVENTABLE, avoidable, optional.
+• ACCORDANCE (following rules) ↔ DEFIANCE, conflict, disobedience.
+• PRELIMINARY (starting warm-up) ↔ FINAL, concluding, definitive.
 
-3.3 Crucial Technical Spelling Watchlist
-• Maintenance (m-a-i-n-t-e-n-a-n-c-e) — Note: ends with -ance, not -ence!
-• Satellite (s-a-t-e-l-l-i-t-e) — One 't', double 'l'.
-• Foreign (f-o-r-e-i-g-n) — 'e' precedes 'i'.
-• Gauge (g-a-u-g-e) — 'a' precedes 'u'.
-• Independent (i-n-d-e-p-e-n-d-e-n-t) — Ends with -ent, never -ant.
-• Occurrence (o-c-c-u-r-r-e-n-c-e) — Double 'c', double 'r'.`
+3.3 The Top 5 Spelling Assassins on the Exam
+🚨 [TRAP ALERT]: These 5 words are deliberately planted in questions to catch careless eyes:
+1. Maintenance (m-a-i-n-t-e-n-a-n-c-e) → Remember: ends in -ANCE, never -ence!
+2. Gauge (g-a-u-g-e) → 'a' comes before 'u'!
+3. Satellite (s-a-t-e-l-l-i-t-e) → One 't', double 'l'!
+4. Occurrence (o-c-c-u-r-r-e-n-c-e) → Double 'c', double 'r'!
+5. Independent (i-n-d-e-p-e-n-d-e-n-t) → Ends in -ENT, never -ant!
+
+🧠 [POP QUIZ]: What is the exact technical antonym of the word "AUGMENT"? || DIMINISH or REDUCE (Augment means to expand or enlarge).`
   },
   {
     id: "part4",
     number: 4,
-    title: "Part 4: Verbal Analogies & Linguistic Reasoning",
-    shortTitle: "Part 4: Verbal",
+    title: "Part 4: Verbal Analogies & Mind Benders",
+    shortTitle: "Part 4: Analogies & Logic 🧩",
     icon: "git-merge",
-    content: `4.1 Relationship Classifications in Analogies
-• Function / Control:
-  - Brake : Vehicle :: Rudder : Ship (A brake controls/retards a vehicle; a rudder steers a ship).
-  - Microphone : Loud :: Microscope : Magnify (A microphone intensifies acoustic amplitude; a microscope magnifies visual scale).
-• Profession : Primary Operational Environment:
-  - Doctor : Hospital :: Pilot : Cockpit :: Mechanic : Hangar.
-• Tool : Material / Artifact:
-  - Sculptor : Statue :: Architect : Building :: Carpenter : Airframe.
-• Container : Commodity:
-  - Cup : Coffee :: Bowl : Soup.
-• Antonym Pairs:
-  - Decrease : Increase :: Beauty : Ugliness :: Stagnant : Flowing.
+    content: `4.1 Cracking the Analogy Secret Code
+An analogy is simply a math equation made of words: A is to B exactly as C is to D (A : B :: C : D).
+Always build a super specific sentence connecting the first pair, then test that exact sentence on the options!
 
-4.2 Linguistic Hierarchy (Ascending Structural Scale)
-Letters (Graphemes) → Words (Lexemes) → Phrases (Constituents) → Sentences (Clauses) → Paragraphs (Discourse).`
+• Pattern 1: Control & Steering
+- Rudder : Ship :: Elevator : Airplane
+  (A rudder steers a ship horizontally; an elevator controls an aircraft pitch vertically!).
+- Brake : Wheel :: Reverse Thrust : Jet Engine
+  (Both decelerate motion).
+
+• Pattern 2: Tool to Craft
+- Micrometer : Machinist :: Stethoscope : Doctor :: Rivet Gun : Sheet Metal Tech.
+
+• Pattern 3: The Expanding Universe of Language
+💡 [AHA! MOMENT]: Letters make Words, Words make Phrases, Phrases make Sentences, Sentences make Paragraphs!
+Letters (Graphemes) → Words (Lexemes) → Phrases → Sentences → Paragraphs.
+
+🧠 [POP QUIZ]: Complete the analogy: Microphone : Amplify :: Microscope : ___? || MAGNIFY (A microphone amplifies sound; a microscope magnifies sight!).`
   },
   {
     id: "part5",
@@ -128,109 +126,111 @@ Letters (Graphemes) → Words (Lexemes) → Phrases (Constituents) → Sentences
     title: "Part 5: Master Mathematics Curriculum (Probability, Binary, Functions, Geometry & Fractions)",
     shortTitle: "Part 5: Mathematics 📐",
     icon: "percent",
-    content: `5.1 Probability & Combinatorics
-• Classical Definition:
-  P(Event) = (Number of Favorable Outcomes) / (Total Number of Exhaustive Outcomes).
-• The "At-Least-One" Complement Rule:
-  Calculating "at least one" directly is computationally tedious. Always calculate the probability of the complement ("none") and subtract from 1:
-  P(At least one) = 1 - P(None).
-  Example: When tossing a fair coin 3 times, what is the probability of getting at least one head?
-  P(No heads) = P(TTT) = (1/2) × (1/2) × (1/2) = 1/8.
-  P(At least 1 Head) = 1 - 1/8 = 7/8.
-• Independent vs. Dependent Events:
-  - Independent (With Replacement): P(A and B) = P(A) × P(B).
-  - Dependent (Without Replacement): P(A and B) = P(A) × P(B | A). Total sample space and target count both decrease by 1!
-• Handshake & Pairing Combinations:
-  For n distinct participants, the number of unique pairwise handshakes is given by:
-  Combinations = C(n, 2) = n(n - 1) / 2.
-  Example: 6 engineers meet for a shift briefing.
-  Handshakes = 6 × 5 / 2 = 15.
+    content: `5.1 Probability: The Lazy Genius Complement Hack
+• Classical Probability:
+📐 [FORMULA]: P(Event) = (Favorable Outcomes) / (Total Possible Outcomes)
 
-5.2 Binary Number Systems (Base-2 Computation)
-• Fundamental Architecture:
-  The binary system uses only digits 0 and 1. Positional place values correspond to successive integer powers of 2 from right to left:
-  2⁷=128 | 2⁶=64 | 2⁵=32 | 2⁴=16 | 2³=8 | 2²=4 | 2¹=2 | 2⁰=1.
-• Binary to Decimal Conversion:
-  Example: Convert binary 10110₂ to base-10:
-  (1 × 16) + (0 × 8) + (1 × 4) + (1 × 2) + (0 × 1) = 16 + 0 + 4 + 2 + 0 = 22₁₀.
-• Decimal to Binary Conversion (Successive Power Subtraction):
-  Example: Convert decimal 25₁₀ to binary:
-  25 - 16 = 9 (place bit 1 at 16)
-  9 - 8 = 1   (place bit 1 at 8)
-  4 > 1       (place bit 0 at 4)
-  2 > 1       (place bit 0 at 2)
-  1 - 1 = 0   (place bit 1 at 1)
-  Result: 11001₂.
-• High-Speed Parity Shortcut:
-  Look at the Least Significant Bit (LSB / rightmost bit):
-  - If LSB = 1, the number is always ODD.
-  - If LSB = 0, the number is always EVEN.
+• The "At-Least-One" Miracle Shortcut:
+Calculating "at least one head" in multiple coin tosses usually requires adding lots of branches. Don't waste 3 minutes!
+⚡ [SPEED SHORTCUT]: Always calculate the chance of getting ZERO (none), and subtract it from 1:
+📐 [FORMULA]: P(At least one) = 1 - P(None)
+Example: Toss a fair coin 3 times. What is the probability of getting at least one head?
+- P(No heads at all) = P(Tail, Tail, Tail) = (1/2) × (1/2) × (1/2) = 1/8.
+- P(At least 1 Head) = 1 - 1/8 = 7/8! (Done in 5 seconds!).
 
-5.3 Functions & Algebraic Systems
-• Function Evaluation:
-  To evaluate f(a), substitute the quantity 'a' everywhere variable 'x' appears.
-  Example: If f(x) = 3x² - 5x + 2, evaluate f(-2):
-  f(-2) = 3(-2)² - 5(-2) + 2 = 3(4) + 10 + 2 = 12 + 10 + 2 = 24.
-  Watch Out: (-2)² = +4, but -2² = -4. Squaring a negative inside parentheses always yields a positive number!
-• Domain Restrictions (Undefined Points):
-  1. Denominators cannot equal zero: f(x) = 5 / (x - 4) → Domain: x ≠ 4.
-  2. Values beneath an even radical cannot be negative: f(x) = √(x - 3) → Domain: x ≥ 3.
-• Difference of Two Squares:
-  x² - y² = (x - y)(x + y).
-  If x² - y² = 96 and x - y = 8, then 8(x + y) = 96 → x + y = 12.
-  Solving for y: (x + y) - (x - y) = 12 - 8 → 2y = 4 → y = 2.
+• The Handshake Party Formula:
+If n aircraft mechanics meet in a hangar and everyone shakes hands with everyone else once:
+📐 [FORMULA]: Handshakes = n(n - 1) / 2
+Example: 6 mechanics meet for morning inspection: 6 × 5 / 2 = 15 handshakes!
 
-5.4 Geometry & Planar Measurements
-• Triangles:
-  - Interior angle sum is always 180°.
-  - Area = (1/2) × base × height.
-  - Right Triangle Pythagorean Theorem: a² + b² = c².
-  - Essential Pythagorean Triples: (3, 4, 5), (5, 12, 13), (7, 24, 25), (8, 15, 17).
-• Circles & Semicircles:
-  - Radius vs. Diameter Trap: Radius r = d / 2.
-  - Circle Area = πr²; Circumference = 2πr = πd.
-  - Semicircle Area = (1/2)πr².
-  - Closed Semicircle Perimeter Trap: Perimeter = πr + 2r (arc length plus straight diameter base).
-• Trapezoids:
-  Area = ((Base₁ + Base₂) / 2) × height.
+5.2 Binary Number Systems (The Light Switch Game)
+Computers and flight management systems speak in Base-2 (0 and 1). Each position represents a power of 2:
+[128] [64] [32] [16] [8] [4] [2] [1]
 
-5.5 Decimals, Fractions & Wave Frequency / Time Period
-• Fractions to Decimals:
-  Scale denominator to 10, 100, or 1000: 7/25 = (7 × 4) / (25 × 4) = 28/100 = 0.28.
-• Recurring Decimals:
-  Single recurring digit: 0.333... = 1/3; 0.777... = 7/9.
-  Double recurring digits: 0.2727... = 27/99 = 3/11.
+• Binary to Decimal Example: Convert 10110₂:
+Turn ON: 16 + 4 + 2 = 22₁₀!
+
+• Decimal to Binary Example: Convert 25₁₀:
+- 25 - 16 = 9  (Bit 1 at 16)
+- 9 - 8 = 1    (Bit 1 at 8)
+- 4 is too big (Bit 0 at 4)
+- 2 is too big (Bit 0 at 2)
+- 1 - 1 = 0    (Bit 1 at 1)
+Result: 11001₂!
+
+⚡ [SPEED SHORTCUT]: The Instant Odd/Even Parity Trick:
+Look ONLY at the very last digit (the Least Significant Bit):
+- If the last bit is 1 → The number is always ODD!
+- If the last bit is 0 → The number is always EVEN!
+
+5.3 Functions & The Parentheses Bodyguard
+• The Negative Sign Ambush:
+🚨 [TRAP ALERT]: Look at this carefully:
+(-3)² = (-3) × (-3) = +9 (Parentheses protect the minus!).
+-3² = -(3 × 3) = -9 (The minus sign stays outside!).
+When evaluating f(-2) for f(x) = 3x² - 4x + 1:
+f(-2) = 3(-2)² - 4(-2) + 1 = 3(4) + 8 + 1 = 12 + 8 + 1 = 21!
+
+• Two Golden Domain Red Lines:
+1. Division by Zero is strictly forbidden! If f(x) = 10 / (x - 7), domain is x ≠ 7.
+2. Square roots of negative numbers don't exist in real math! If f(x) = √(x - 5), then x ≥ 5.
+
+• The Difference of Two Squares:
+📐 [FORMULA]: x² - y² = (x - y)(x + y)
+If x² - y² = 80 and x - y = 8, then 8(x + y) = 80 → x + y = 10!
+Subtract equations: (x + y) - (x - y) = 10 - 8 → 2y = 2 → y = 1!
+
+5.4 Geometry: The Sneaky Semicircle & Pythagorean Triples
+• The Pythagorean Triples to Tattoo on Your Brain:
+Don't waste time squaring numbers! Memorize these classic right triangles:
+- (3, 4, 5)   [or 6, 8, 10]
+- (5, 12, 13) [or 10, 24, 26]
+- (7, 24, 25)
+- (8, 15, 17)
+
+• The Sneaky Semicircle Perimeter Trap:
+🚨 [TRAP ALERT]: Arc length of a semicircle is πr. But if the problem says "CLOSED semicircle" or shows a solid shape, you MUST add the straight bottom diameter (+ 2r)!
+📐 [FORMULA]: Closed Semicircle Perimeter = πr + 2r
+
+5.5 Decimals, Fractions & The Reciprocal Dance (f = 1 / T)
+• Quick Fraction Scaling:
+Need 7/25 as a decimal? Multiply top and bottom by 4:
+(7 × 4) / (25 × 4) = 28/100 = 0.28!
+
 • Wave Frequency (f) vs. Time Period (T):
-  Frequency (Hertz, cycles per second) is the exact mathematical reciprocal of Time Period (seconds):
-  f = 1 / T   and   T = 1 / f.
-  Example 1: If an alternating waveform has a Period T = 0.02 seconds (decimal), find its frequency:
-  f = 1 / 0.02 = 100 / 2 = 50 Hz.
-  Example 2 (Aircraft 400 Hz Electrical Power):
-  Standard commercial aircraft AC electrical systems operate at 400 Hz. What is the period?
-  T = 1 / 400 = 0.0025 seconds = 2.5 milliseconds.`
+Frequency (Hertz, cycles per second) and Period (seconds per cycle) are mathematical twins doing a reciprocal dance:
+📐 [FORMULA]: f = 1 / T    and    T = 1 / f
+Example 1: A vibration wave has Period T = 0.02 seconds. Find frequency:
+f = 1 / 0.02 = 100 / 2 = 50 Hz!
+
+✈️ [HANGAR SECRET]: Standard commercial airliners (Boeing 787, Airbus A350) use 400 Hz AC electrical systems because higher frequency allows generators and transformers to be much lighter!
+What is the period of a 400 Hz aircraft electrical wave?
+T = 1 / 400 = 0.0025 seconds = 2.5 milliseconds!
+
+🧠 [POP QUIZ]: An alternating current waveform has a time period of 0.005 seconds. What is its frequency? || 200 Hz! (f = 1 / 0.005 = 1000 / 5 = 200 Hz).`
   },
   {
     id: "part6",
     number: 6,
     title: "Part 6: Critical Reasoning & Deductive Logic",
-    shortTitle: "Part 6: Logic",
+    shortTitle: "Part 6: Logic Master 🧠",
     icon: "check-circle",
-    content: `6.1 Argument Topology
-• Premise: Factual evidence provided to establish grounds for belief.
-• Conclusion: The core claim or position asserted by the author.
-• Assumption: The unstated logical bridge connecting premise to conclusion.
+    content: `6.1 Argument Anatomy: The 3 Pieces
+• Premise: Hard evidence stated by the author (cannot be argued with).
+• Conclusion: The main opinion or claim the author is selling you.
+• Assumption: The hidden, unwritten bridge that holds the premise and conclusion together.
 
-6.2 Weakening Arguments
-To weaken an argument, identify an option that introduces a new external fact breaking the causal link between premise and conclusion.
-Example: Argument claims workplace meditation exercises enhance manufacturing throughput.
-Strongest Weakener: "Technicians participating in exercises spend equivalent non-productive minutes, yielding identical gross daily output."
+6.2 How to Destroy an Argument (Weakening Questions)
+To weaken an author's conclusion, you don't attack the premise! You introduce an alternate cause that explains the result.
+Example: Author says "Installing high-tech headsets caused technician mistakes to drop by 40%."
+Weakener: "At the exact same time, the hangar hired senior supervisors who double-checked every inspection." (The headsets didn't do it—the supervisors did!).
 
-6.3 Categorical Syllogisms & Venn Logic
-Premise 1: All engineers wear safety boots (Engineers ⊂ Safety Boot Wearers).
-Premise 2: All safety boot wearers work in the hangar (Safety Boot Wearers ⊂ Hangar Workers).
-Valid Deductions:
-- All engineers work in the hangar (TRUE).
-- All hangar workers are engineers (FALSE - other hangar personnel may exist).`
+6.3 Syllogisms & The Venn Diagram Trap
+Premise 1: All flight captains wear white shirts.
+Premise 2: Some hangar workers wear white shirts.
+🚨 [TRAP ALERT]: Does this mean some hangar workers are captains? NO! White shirt wearers is a big circle that contains many different people!
+
+🧠 [POP QUIZ]: "All jets have wings. This vehicle has wings. Therefore, it is a jet." Is this valid deduction? || False! Birds and gliders have wings too. Never reverse subset logic!`
   },
   {
     id: "part7",
@@ -238,58 +238,59 @@ Valid Deductions:
     title: "Part 7: Mechanical Reasoning, Simple Machines & Levers",
     shortTitle: "Part 7: Levers & Machines ⚙️",
     icon: "tool",
-    content: `7.1 Principle of Moments & Rotational Equilibrium
-• Rotational Torque:
-  Torque (τ) = Force × Perpendicular Distance from Fulcrum (τ = F × d).
-• Static Equilibrium:
-  Clockwise Moments = Counter-Clockwise Moments.
-  F₁ × d₁ = F₂ × d₂.
-  Example: A 20 lb weight sits 10 ft left of the fulcrum (20 × 10 = 200 ft-lb). What weight at 5 ft on the right balances it?
-  F₂ × 5 = 200 → F₂ = 40 lb.
+    content: `7.1 The Principle of Moments (Seesaw Equilibrium)
+Torque is turning force:
+📐 [FORMULA]: Torque (τ) = Force × Distance from Fulcrum
+For rotational balance: Left Moment = Right Moment:
+📐 [FORMULA]: F₁ × d₁ = F₂ × d₂
+Example: A 30 lb box sits 4 feet left of the fulcrum (30 × 4 = 120 ft-lb). What weight at 6 feet to the right balances it?
+F₂ × 6 = 120 → F₂ = 20 lbs!
 
-7.2 The Three Classes of Levers (The Unbreakable FLE Rule)
-Remember the mnemonic "F - L - E (1 - 2 - 3)" to know what resides in the MIDDLE:
-• Class 1 Lever (Fulcrum in the center):
-  Order: Load — Fulcrum — Effort.
-  Examples: Crowbar, seesaw, scissors, pliers.
-  Mechanical Advantage (MA) can be greater than, equal to, or less than 1. Changes the direction of applied effort.
-• Class 2 Lever (Load in the center):
-  Order: Fulcrum — Load — Effort.
-  Examples: Wheelbarrow, nutcracker, aircraft brake pedals.
-  Effort arm is always longer than load arm → MA is always > 1. Multiplies input force.
-• Class 3 Lever (Effort in the center):
-  Order: Fulcrum — Effort — Load.
-  Examples: Tweezers, tongs, human forearm, hydraulic cylinder retracting landing gear.
-  Load arm is longer than effort arm → MA is always < 1. Multiplies displacement and speed, but requires greater input effort.
+7.2 The Unbreakable FLE Rule (Like a Flea Jumping!)
+💡 [AHA! MOMENT]: How do you know which lever class is which? Just remember the word F - L - E (1 - 2 - 3) to know who sits right in the MIDDLE:
 
-7.3 Pulley Systems
-• Single Fixed Pulley:
-  MA = 1. Changes force direction only. Input effort equals the weight lifted.
-• Single Movable Pulley (Supported by 2 rope strands):
-  MA = 2. Halves the required effort: Effort = Load / 2.
-  To lift a 24 lb crate: Effort = 24 / 2 = 12 lbs.
-• Mechanical Advantage of Complex Pulleys:
-  MA equals the total number of rope strands directly supporting the movable load block.`
+• Class 1 Lever: FULCRUM in the middle (F - 1)
+  Layout: Effort — [Fulcrum] — Load
+  Examples: Crowbar, scissors, seesaw, pliers.
+  Superpower: Reverses force direction! Mechanical advantage can be > 1, = 1, or < 1.
+
+• Class 2 Lever: LOAD in the middle (L - 2)
+  Layout: Fulcrum — [Load] — Effort
+  Examples: Wheelbarrow, nutcracker, aircraft rudder/brake pedals.
+  Superpower: Effort arm is ALWAYS longer than load arm! Mechanical Advantage is ALWAYS > 1. Force multiplier—makes heavy loads feel feather-light!
+
+• Class 3 Lever: EFFORT in the middle (E - 3)
+  Layout: Fulcrum — [Effort] — Load
+  Examples: Tweezers, tongs, your human forearm, hydraulic cylinder retracting landing gear.
+  Superpower: Load arm is longer! Mechanical Advantage is ALWAYS < 1. It requires extra force, but multiplies speed and distance! One small cylinder stroke moves the landing gear across a huge arc!
+
+7.3 Pulley Systems: Count the Strands!
+• Single Fixed Pulley: MA = 1. Only changes pull direction. (Pull down 50 lbs to lift 50 lbs).
+• Single Movable Pulley: MA = 2. Supported by 2 rope strands. Cuts your pulling effort in half!
+⚡ [SPEED SHORTCUT]: To find the Mechanical Advantage of any block-and-tackle system, count the number of rope strands directly supporting the movable load!
+
+🧠 [POP QUIZ]: A hydraulic actuator operates a landing gear door with the effort applied between the pivot hinge and the door edge. What lever class is this? || Class 3 Lever! (Effort in the middle, multiplying sweep angle and speed).`
   },
   {
     id: "part8",
     number: 8,
     title: "Part 8: Spatial, Pattern & Diagrammatic Reasoning",
-    shortTitle: "Part 8: Spatial",
+    shortTitle: "Part 8: Spatial Reasoning 🧊",
     icon: "grid",
-    content: `8.1 Diagrammatic Matrix Reasoning
-• Latin Square Distribution:
-  Each row and column must contain every geometric primitive (e.g., circle, square, triangle) exactly once.
-• Incremental Rotations:
-  Check for uniform clockwise or counter-clockwise angular increments (45°, 90°, 180°).
-• Element Addition / Subtraction:
-  Track the count of intersection vertices, internal hatching lines, and shaded vs. hollow fills.
+    content: `8.1 Folding Cube Nets Without Losing Your Mind
+In a classic 6-square cross net:
+💡 [AHA! MOMENT]: Faces separated by exactly one intervening square fold into opposite, parallel faces! They can NEVER touch or share an edge!
+If Face A is separated from Face C by Face B, then Face A will be directly opposite Face C.
 
-8.2 3D Spatial Assembly & Block Stacking
-• Cube Nets:
-  In standard cross-shaped cube nets, faces separated by exactly one intervening square fold into opposite parallel faces.
-• Surface Contact Verification:
-  When counting block contacts, count only continuous facial contacts. Shared edges and point vertices do not count as contact surfaces.`
+8.2 Diagrammatic Matrices: The Latin Square Rule
+When looking at 3x3 symbol matrices:
+- Check Rows & Columns: Each row must contain every shape (circle, diamond, triangle) and every fill (solid, striped, clear) exactly once.
+- Check Clockwise Rotation: Look for steps of 45°, 90°, or 180°.
+
+8.3 Block Stacking & Contact Surface Counting
+🚨 [TRAP ALERT]: When an exam question asks "How many blocks touch Block X?", count ONLY flat, continuous facial contacts! Shared pointy corners (vertices) and razor edges do NOT count as surface contacts!
+
+🧠 [POP QUIZ]: If two faces on a flat cube net share a single common edge line, will they be parallel or perpendicular when folded? || Perpendicular (adjacent at 90°)! Only faces separated by another face fold to parallel sides.`
   },
   {
     id: "part9",
@@ -297,110 +298,94 @@ Remember the mnemonic "F - L - E (1 - 2 - 3)" to know what resides in the MIDDLE
     title: "Part 9: Aviation Physics, Thermodynamics, Circuits, Charges & Magnetism",
     shortTitle: "Part 9: Aviation Physics ⚡",
     icon: "activity",
-    content: `9.1 Thermodynamics & The Three Heat Transfer Mechanisms
-• Conduction:
-  Heat transfer via direct microscopic collisions of electrons and atoms within solids. Metals (copper, aluminum) are excellent thermal conductors due to free electrons.
-• Convection:
-  Heat transfer by the macroscopic bulk displacement of a fluid (liquid or gas). Hot fluid expands, density decreases, and it rises; cooler, denser fluid descends.
-• Radiation:
-  Heat transfer through electromagnetic waves (infrared photons).
-  CRITICAL EXAM TRAP: Radiation is the ONLY heat transfer mechanism that requires NO physical medium and can propagate across a complete vacuum (empty space)!
-• Temperature vs. Heat:
-  - Temperature: Physical measure of the average translational kinetic energy of molecules.
-  - Heat: Total thermal energy transferred between systems due to a temperature gradient.
-• Absolute Zero:
-  0 Kelvin = -273.15°C. All classical molecular kinetic motion ceases.
-• Aviation Gas Laws:
-  - Boyle's Law: Pressure is inversely proportional to volume at constant temperature (P₁V₁ = P₂V₂).
-  - Charles's Law: Volume is directly proportional to absolute temperature at constant pressure (V₁/T₁ = V₂/T₂).
-  - Gay-Lussac's Law: Pressure is directly proportional to absolute temperature at constant volume (P₁/T₁ = P₂/T₂).
-    Aviation Application: High-speed aircraft landing generates severe brake and tire friction. Heat transfers to the tire air chamber; because tire volume is constant, tire pressure spikes!
+    content: `9.1 Thermodynamics & The Three Heat Movers
+• Conduction: Direct microscopic bumper-cars of atoms in solids. Free electrons make metals (copper, aluminum) phenomenal heat conductors.
+• Convection: Hot stuff expands, becomes less dense, and floats upward! Bulk displacement of fluids (liquids and gases).
+• Radiation: Heat carried by infrared photons (electromagnetic waves).
+🚨 [TRAP ALERT]: Radiation is the ONLY heat transfer mechanism that requires NO physical substance and travels across a complete vacuum! That's how solar heat crosses 150 million kilometers of empty space to heat aircraft skins at 40,000 feet!
 
-9.2 Force, Mass, Dynamics & Newton's Laws
-• Newton's 1st Law (Inertia):
-  A body remains at rest or moves at constant velocity unless acted upon by a net unbalanced external force.
-• Newton's 2nd Law:
-  F_net = m · a. Acceleration is directly proportional to net force and inversely proportional to mass.
-• Newton's 3rd Law (Action-Reaction):
-  For every action force, there is an equal and opposite reaction force.
-  Examples: Jet exhaust rushing rearward exerts equal forward thrust on the turbine; high-pressure water blasting forward from a nozzle exerts an equal backward kick on the hose.
-• Invariant Mass vs. Gravitational Weight:
-  - Mass (m): Invariant scalar quantity representing the amount of matter and inertia in an object (measured in kilograms). Never changes regardless of altitude or planetary gravity!
-  - Weight (W = mg): Downward gravitational vector force (measured in Newtons or pounds). Varies with local gravitational acceleration (g).
-• Work & Power:
-  - Work = F · d · cos(θ).
-  - Zero-Work Condition: If force is applied perpendicular (90°) to motion, cos(90°) = 0, so Work = 0 Joules!
-  - Power = Work / Time = Force × Velocity (measured in Watts or Horsepower; 1 hp = 746 Watts = 550 ft-lb/s).
+• The Boeing Landing Tire Explosion Secret (Gay-Lussac's Law):
+✈️ [HANGAR SECRET]: When a 300-ton airliner touches down at 250 km/h, brake friction generates intense heat (up to 800°C).
+Why does tire pressure dangerously skyrocket?
+Because the tire volume is fixed and rigid (V = constant).
+📐 [FORMULA]: Gay-Lussac's Law: P₁ / T₁ = P₂ / T₂
+When temperature spikes under constant volume, pressure MUST spike! That's why aircraft tires use fusible safety plugs that melt to safely vent air before tires explode!
 
-9.3 Electricity: Series & Parallel Circuit Analysis
-• Ohm's Law:
-  V = I · R  (Voltage in Volts, Current in Amperes, Resistance in Ohms).
-• Electrical Power:
-  P = V · I = I²R = V² / R (Watts).
-• Series Circuits:
-  - Current is identical across all components: I_total = I₁ = I₂ = I₃.
-  - Total Voltage is additive: V_total = V₁ + V₂ + V₃.
-  - Total Resistance increases: R_total = R₁ + R₂ + R₃.
-• Parallel Circuits:
-  - Voltage is identical across all branches: V_total = V₁ = V₂ = V₃.
-  - Total Current divides: I_total = I₁ + I₂ + I₃.
-  - Total Resistance decreases: 1/R_total = 1/R₁ + 1/R₂.
-  - Two-Resistor Product-Over-Sum Shortcut:
-    R_eq = (R₁ × R₂) / (R₁ + R₂).
-    Example: Resistors of 6Ω and 3Ω in parallel:
-    R_eq = (6 × 3) / (6 + 3) = 18 / 9 = 2Ω.
-  - Fast Multiple-Choice Rule: The equivalent resistance of a parallel circuit is always strictly LESS than the smallest single branch resistor!
+9.2 Force, Mass, Dynamics & Newton's Trio
+• Newton's 1st Law: Inertia. An object at rest stays at rest unless kicked by an unbalanced net force.
+• Newton's 2nd Law: Acceleration is proportional to force:
+📐 [FORMULA]: F_net = m · a
+• Newton's 3rd Law: Action & Reaction.
+A jet turbine blasts hot exhaust gases rearward with immense force; the exhaust gas pushes the engine forward with equal force!
+• Invariant Mass vs Weight:
+Mass (kg) is the amount of matter. It NEVER changes, whether you are on Earth, the Moon, or in deep space!
+Weight (Newtons or lbs) is gravity pulling on that mass (W = mg). It changes with local gravity!
+• The Perpendicular Zero-Work Trap:
+📐 [FORMULA]: Work = Force × Distance × cos(θ)
+🚨 [TRAP ALERT]: If you carry a heavy 40 lb battery horizontally across the hangar floor, gravity pulls down (90° to your walking direction). Since cos(90°) = 0, your vertical carrying force does ZERO mechanical work!
 
-9.4 Electric Charge Properties & Aviation Static Grounding
-• Fundamental Law of Electrostatics:
-  - Like charges repel (+ and +, - and -).
-  - Opposite charges attract (+ and -).
-• Quantization of Charge:
-  Q = n · e, where elementary electron charge e = 1.602 × 10⁻¹⁹ Coulombs.
-• Coulomb's Law:
-  F = k · (|q₁ q₂| / r²).
-  Inverse-Square Law: Doubling the separation distance reduces electrostatic force to one-fourth (1/4)!
-• Aviation Static Grounding (Fuel Safety):
-  When aircraft fuel flows through delivery hoses and filter systems, fluid friction strips electrons and generates dangerous electrostatic charges. A single discharge spark can ignite volatile fuel-air mixtures. Grounding the airframe to a certified earth point safely dissipates electrostatic potential before fuel caps are opened.
+9.3 Electricity: Series vs. Parallel Circuits
+• Ohm's Magic Triangle:
+📐 [FORMULA]: V = I · R    and    Power: P = V · I = I²R
 
-9.5 Magnetism & Electromagnetism Concepts
-• Magnetic Poles:
-  Every magnet has a North and a South pole. Like poles repel; unlike poles attract.
-  No Magnetic Monopoles: Cutting a magnet in half yields two complete magnets, each with its own N and S poles.
-• Magnetic Field Lines:
-  Field lines form continuous closed loops: directed from North to South externally, and returning South to North internally.
+• Series Circuits (The Single-File Train):
+- Current is identical everywhere: I_total = I₁ = I₂.
+- Voltages add up: V_total = V₁ + V₂.
+- Resistances add up: R_total = R₁ + R₂.
+
+• Parallel Circuits (The Multi-Lane Highway):
+- Voltage is identical across all branches: V_total = V₁ = V₂.
+- Currents divide across lanes: I_total = I₁ + I₂.
+- Total resistance DROPS when you add parallel branches!
+⚡ [SPEED SHORTCUT]: Two Resistors in Parallel Product-Over-Sum:
+📐 [FORMULA]: R_eq = (R₁ × R₂) / (R₁ + R₂)
+Example: Resistors of 6Ω and 3Ω in parallel: (6 × 3) / (6 + 3) = 18 / 9 = 2Ω!
+🚨 [TRAP ALERT]: The equivalent resistance of a parallel circuit is ALWAYS strictly smaller than the smallest branch resistor! (2Ω is smaller than 3Ω).
+
+9.4 Electrostatics & Why Fuel Trucks Hold Hands with Airplanes
+• Fundamental Rule: Like charges repel (+ and +), unlike charges attract (+ and -).
+• Quantization: Q = n · e (Electron charge e = 1.602 × 10⁻¹⁹ C).
+• Coulomb's Inverse-Square Law: Doubling distance reduces force to 1/4!
+✈️ [HANGAR SECRET]: Aircraft Fuel Grounding:
+When aviation kerosene rushes through hoses, friction strips billions of electrons, charging the aircraft to thousands of volts! One static spark can ignite fuel vapor into an inferno. Technicians clamp a heavy copper grounding cable to an earth rod BEFORE opening fuel caps to safely drain static charges.
+
+9.5 Magnetism: The No-Monopole Law & Moving Charges
+• Magnetic Field Lines: Continuous closed loops! Directed North to South outside the magnet, and returning South to North inside!
+• The No-Monopole Curse: You can NEVER isolate a single North pole! Cut a magnet in two and you get two complete magnets, each with its own N and S!
 • Magnetic Force on Moving Charges:
-  F = q · v · B · sin(θ).
-  CRITICAL TRAPS:
-  - Stationary charges (v = 0) experience ZERO magnetic force!
-  - Charges moving parallel to magnetic field lines (θ = 0°) experience ZERO magnetic force!
-  - Maximum force occurs when moving perpendicular (θ = 90°) to field lines.
-• Faraday's Law of Electromagnetic Induction:
-  A changing magnetic field through a conductor induces an electromotive force (EMF / Voltage).
-  This governs the operation of aircraft AC generators, alternators, transformers, and engine ignition magnetos.`
+📐 [FORMULA]: F = q · v · B · sin(θ)
+🚨 [TRAP ALERT]:
+1. A stationary charge (v = 0) feels ZERO magnetic force!
+2. A charge moving parallel to magnetic lines (θ = 0°) feels ZERO magnetic force!
+3. Maximum force occurs when moving perpendicular (θ = 90°)!
+• Faraday's Induction: Moving magnetic fields through wire coils generate voltage. This powers aircraft engine magnetos and AC alternators!
+
+🧠 [POP QUIZ]: If a parallel circuit has three resistors of 100Ω, 50Ω, and 4Ω, will the total resistance be greater than 4Ω or less than 4Ω? || LESS than 4Ω! In parallel, the equivalent resistance is ALWAYS smaller than the smallest single branch!`
   },
   {
     id: "part10",
     number: 10,
     title: "Part 10: High-Yield Exam Traps & Rapid Recall Cheat Sheet",
-    shortTitle: "Part 10: Exam Traps 🎯",
+    shortTitle: "Part 10: Rapid Cheat Sheet 🎯",
     icon: "award",
-    content: `10.1 Quick Math Traps & Shortcuts
-1. Radius vs. Diameter: If the problem provides Diameter (d = 12 cm), immediately divide by 2 to get Radius (r = 6 cm) before applying πr².
-2. Semicircle Perimeter: Arc length is πr, but a closed semicircle also includes the straight base (+ 2r). Perimeter = πr + 2r.
-3. Negative Signs in Functions: When evaluating f(-3) for x², (-3)² = +9. Parentheses make it positive.
-4. "At Least One" Probability: Compute 1 - P(None). Never sum individual permutations.
-5. Binary Parity Check: If the last digit of a binary number is 1, it is odd; if 0, it is even.
-6. Handshakes Among n People: Use n(n - 1) / 2. (For 6 people: 6 × 5 / 2 = 15).
+    content: `10.1 Top Math Traps You Won't Fall For
+1. Radius vs. Diameter: Given d = 16 cm? Divide by 2 immediately (r = 8 cm) before calculating area πr²!
+2. Closed Semicircle Perimeter: Arc length is πr, but you MUST add the straight diameter base (+ 2r). P = πr + 2r!
+3. Negative Sign in Functions: (-4)² = +16, but -4² = -16!
+4. "At Least One" Shortcut: Calculate 1 - P(None)!
+5. Binary Parity: Last bit is 1 = ODD; last bit is 0 = EVEN!
+6. Handshakes Among n People: n(n - 1) / 2!
 
-10.2 Quick Physics Traps & Shortcuts
-1. Vacuum Heat Propagation: Only Radiation can transfer thermal energy through empty space without physical matter.
-2. Invariant Mass: Mass (kg) never changes regardless of flight altitude or gravitational field. Weight (N) changes with gravity (W = mg).
-3. Zero Mechanical Work: When applied force is perpendicular (90°) to displacement, Work done is strictly 0 Joules.
-4. Parallel Circuit Resistance: Equivalent resistance in parallel is ALWAYS smaller than the smallest branch resistor.
-5. Stationary Charges in Magnetic Fields: A stationary electric charge experiences zero magnetic force (F = qvB = 0 when v = 0).
-6. Aircraft Tire Pressure Rise: Governed by Gay-Lussac's Law (P₁/T₁ = P₂/T₂) because tire air volume remains constant while friction generates heat.
-7. Aircraft Fuel Grounding: Connected to an earth point to prevent electrostatic spark discharge from igniting fuel vapors.`
+10.2 Top Physics Traps You Won't Fall For
+1. Vacuum Heat: Only Radiation can transfer thermal energy through empty space!
+2. Invariant Mass: Mass in kg never changes with altitude; weight changes with gravity (W = mg)!
+3. Zero Mechanical Work: If applied force is at 90° perpendicular to movement, Work is strictly 0 Joules!
+4. Parallel Circuit Rule: Equivalent parallel resistance is always smaller than the smallest branch!
+5. Stationary Charges: A stationary electric charge in a magnetic field feels ZERO magnetic force (v = 0)!
+6. Aircraft Tire Pressure Rise: Governed by Gay-Lussac's Law (P₁/T₁ = P₂/T₂) because tire air volume is fixed!
+7. Aircraft Fuel Grounding: Connected to earth to prevent electrostatic spark discharge from igniting fuel vapors!
+
+🧠 [POP QUIZ]: A technician applies a 500 N force pushing against a locked hangar door for 1 hour, but the door never moves an inch. How much mechanical work was done? || EXACTLY 0 JOULES! Since displacement is 0, Work = F × d = 500 × 0 = 0 J!`
   }
 ];
 
@@ -410,4 +395,4 @@ window.AMT_NOTES_DATA = ${JSON.stringify(masterNotes, null, 2)};
 `;
 
 fs.writeFileSync('public/data/notes-data.js', jsContent);
-console.log(`Successfully generated public/data/notes-data.js with ${masterNotes.length} detailed modules!`);
+console.log(`Successfully generated public/data/notes-data.js with ${masterNotes.length} FUN, interactive modules!`);

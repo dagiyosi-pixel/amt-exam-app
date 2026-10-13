@@ -776,17 +776,71 @@
   function formatNotesText(text, query) {
     if (!text) return '';
     let escaped = escapeHtml(text);
-    
-    // Highlight headers/strategies
-    escaped = escaped.replace(/(Strategy\s+\d+:[^\n]+)/gi, '<strong class="text-sky-600 dark:text-sky-400 block mt-3 mb-1 font-bold">$1</strong>');
-    escaped = escaped.replace(/(\d+\.\d+\s+[^\n]+)/gi, '<div class="text-sm sm:text-base font-black text-slate-900 dark:text-white mt-5 mb-2 pb-1 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>$1</div>');
 
-    // Highlight traps & warnings
-    escaped = escaped.replace(/(CRITICAL EXAM TRAP:[^\n]+|CRITICAL TRAPS:[^\n]+|Watch Out:[^\n]+)/gi, '<div class="my-2.5 p-3 rounded-xl bg-amber-500/10 border-l-4 border-amber-500 text-amber-900 dark:text-amber-200 text-xs sm:text-sm font-semibold flex items-start gap-2"><span>⚠️</span><span>$1</span></div>');
+    // 1. Interactive Pop Quiz: 🧠 [POP QUIZ]: Question || Answer
+    escaped = escaped.replace(/🧠\s*\[POP QUIZ\]:\s*([^|\n]+)\|\|\s*([^\n]+)/gi, function(match, q, a) {
+      return `<div class="my-3.5 p-4 rounded-2xl bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/40 dark:to-purple-950/40 border border-indigo-200 dark:border-indigo-800 shadow-sm space-y-2.5">
+        <div class="flex items-center gap-2 text-indigo-700 dark:text-indigo-300 font-bold text-xs uppercase tracking-wider">
+          <span class="text-base">🧠</span>
+          <span>Quick Hangar Challenge</span>
+        </div>
+        <p class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100">${q.trim()}</p>
+        <details class="cursor-pointer group">
+          <summary class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 select-none flex items-center gap-1.5 transition-colors">
+            <span>👉 Tap to Reveal Verified Answer</span>
+          </summary>
+          <div class="mt-2.5 p-3 rounded-xl bg-white dark:bg-slate-900 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm font-medium text-emerald-700 dark:text-emerald-400 shadow-inner">
+            💡 <strong>Verified Answer:</strong> ${a.trim()}
+          </div>
+        </details>
+      </div>`;
+    });
 
-    // Highlight formulas and rules
-    escaped = escaped.replace(/(Formula:[^\n]+)/gi, '<code class="bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 px-2 py-0.5 rounded font-mono text-xs">$1</code>');
-    escaped = escaped.replace(/(•\s+[^:\n]+:)/g, '<strong class="text-slate-900 dark:text-slate-100 font-bold">$1</strong>');
+    // 2. 🚨 [TRAP ALERT]: text
+    escaped = escaped.replace(/🚨\s*\[TRAP ALERT\]:\s*([^\n]+)/gi, `
+      <div class="my-3 p-3.5 rounded-2xl bg-rose-500/10 border-l-4 border-rose-500 text-rose-900 dark:text-rose-200 text-xs sm:text-sm font-medium flex items-start gap-2.5">
+        <span class="text-base shrink-0">🚨</span>
+        <div><strong class="font-bold text-rose-700 dark:text-rose-400 block mb-0.5">EXAM TRAP ALERT:</strong>$1</div>
+      </div>
+    `);
+
+    // 3. ⚡ [SPEED SHORTCUT]: text
+    escaped = escaped.replace(/⚡\s*\[SPEED SHORTCUT\]:\s*([^\n]+)/gi, `
+      <div class="my-3 p-3.5 rounded-2xl bg-amber-500/10 border-l-4 border-amber-500 text-amber-900 dark:text-amber-200 text-xs sm:text-sm font-medium flex items-start gap-2.5">
+        <span class="text-base shrink-0">⚡</span>
+        <div><strong class="font-bold text-amber-700 dark:text-amber-400 block mb-0.5">SPEED SHORTCUT:</strong>$1</div>
+      </div>
+    `);
+
+    // 4. ✈️ [HANGAR SECRET]: text
+    escaped = escaped.replace(/✈️\s*\[HANGAR SECRET\]:\s*([^\n]+)/gi, `
+      <div class="my-3 p-3.5 rounded-2xl bg-sky-500/10 border-l-4 border-sky-500 text-sky-900 dark:text-sky-200 text-xs sm:text-sm font-medium flex items-start gap-2.5">
+        <span class="text-base shrink-0">✈️</span>
+        <div><strong class="font-bold text-sky-700 dark:text-sky-400 block mb-0.5">COCKPIT & HANGAR REALITY:</strong>$1</div>
+      </div>
+    `);
+
+    // 5. 💡 [AHA! MOMENT]: text
+    escaped = escaped.replace(/💡\s*\[AHA! MOMENT\]:\s*([^\n]+)/gi, `
+      <div class="my-3 p-3.5 rounded-2xl bg-emerald-500/10 border-l-4 border-emerald-500 text-emerald-900 dark:text-emerald-200 text-xs sm:text-sm font-medium flex items-start gap-2.5">
+        <span class="text-base shrink-0">💡</span>
+        <div><strong class="font-bold text-emerald-700 dark:text-emerald-400 block mb-0.5">AHA! MNEMONIC:</strong>$1</div>
+      </div>
+    `);
+
+    // 6. 📐 [FORMULA]: text
+    escaped = escaped.replace(/📐\s*\[FORMULA\]:\s*([^\n]+)/gi, `
+      <div class="my-2.5 px-3.5 py-2.5 rounded-xl bg-slate-900 dark:bg-black text-amber-300 border border-slate-700 font-mono text-xs sm:text-sm font-bold flex items-center justify-between shadow-sm">
+        <span>$1</span>
+        <span class="text-[10px] text-slate-400 font-sans uppercase font-bold tracking-wider">Formula</span>
+      </div>
+    `);
+
+    // Section subheaders: 5.1 ... or 9.2 ...
+    escaped = escaped.replace(/(\d+\.\d+\s+[^\n]+)/gi, '<div class="text-base sm:text-lg font-black text-slate-900 dark:text-white mt-6 mb-2 pb-1.5 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>$1</div>');
+
+    // Bullet headers: • Something:
+    escaped = escaped.replace(/(•\s+[^:\n]+:)/g, '<strong class="text-slate-900 dark:text-slate-100 font-bold block mt-3 mb-1">$1</strong>');
 
     return escaped;
   }
