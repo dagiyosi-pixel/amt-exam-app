@@ -754,7 +754,7 @@
     renderNotesContent();
   }
 
-  function renderNotesContent() {
+    function renderNotesContent() {
     const container = document.getElementById('notes-content-container');
     if (!container) return;
 
@@ -774,8 +774,8 @@
 
     if (partsToShow.length === 0) {
       container.innerHTML = `
-        <div class="glass-panel rounded-2xl p-8 text-center border">
-          <p class="text-sm font-semibold text-slate-500">No notes matched your search query.</p>
+        <div class="glass-panel rounded-3xl p-10 text-center border bg-white dark:bg-slate-900">
+          <p class="text-sm font-bold text-slate-500">No notes matched your search query.</p>
         </div>
       `;
       return;
@@ -786,33 +786,40 @@
       const isLocked = (!isActivated && p.number > 1);
 
       return `
-        <div class="glass-panel rounded-3xl p-6 sm:p-8 border shadow-sm transition-all hover:border-emerald-500/30">
-          <div class="flex items-center justify-between pb-4 border-b border-slate-200/80 dark:border-slate-800 mb-4">
-            <div class="flex items-center gap-3">
-              <span class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-black text-xs flex items-center justify-center border border-emerald-500/20 shadow-sm">
-                P${p.number}
+        <div class="rounded-3xl p-6 sm:p-9 border shadow-sm transition-all bg-white dark:bg-slate-900 border-slate-200/90 dark:border-slate-800/90 relative overflow-hidden">
+          <!-- Authentic Ethiopian Tri-Color Chapter Ribbon Accent -->
+          <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#00843D] via-[#FCD116] to-[#D3122A]"></div>
+
+          <div class="flex items-start justify-between pb-4 border-b border-slate-200/80 dark:border-slate-800 mb-6 gap-3">
+            <div class="flex items-center gap-3.5">
+              <span class="w-11 h-11 rounded-2xl bg-gradient-to-br from-[#00843D] to-[#00602c] text-white font-black text-sm flex items-center justify-center border border-emerald-400/30 shadow-md shadow-emerald-900/20 font-mono shrink-0">
+                M${p.number < 10 ? '0' + p.number : p.number}
               </span>
               <div>
-                <h3 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white leading-snug">
+                <h3 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white leading-snug font-display">
                   ${escapeHtml(p.title)}
                 </h3>
-                <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">${p.shortTitle || `Module ${p.number}`}</span>
+                <div class="flex flex-wrap items-center gap-2 mt-1">
+                  <span class="text-xs font-bold text-emerald-700 dark:text-emerald-400">✈️ ${p.shortTitle || `Module ${p.number}`}</span>
+                  <span class="text-slate-300 dark:text-slate-700">•</span>
+                  <span class="text-[11px] font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider font-mono">Verified EAU Curriculum</span>
+                </div>
               </div>
             </div>
-            ${isLocked ? `<span class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-amber-500/10 text-amber-600 border border-amber-500/30 flex items-center gap-1">🔒 Locked</span>` : `<span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">✓ Available</span>`}
+            ${isLocked ? `<span class="px-3 py-1.5 rounded-xl text-xs font-bold bg-amber-500/10 text-amber-700 dark:text-amber-400 border border-amber-500/30 flex items-center gap-1.5 shrink-0">🔒 Locked</span>` : `<span class="px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20 flex items-center gap-1.5 shrink-0">✓ Unlocked</span>`}
           </div>
 
           ${isLocked ? `
-            <div class="p-6 rounded-2xl bg-amber-500/5 border border-amber-500/20 text-center space-y-3">
-              <p class="text-sm text-slate-700 dark:text-slate-300 font-medium">
-                Part ${p.number} is locked in Trial Mode. Unlock Full Access (250 Birr) to access all ${state.notes.length || 10} modules of the Master Preparation Notes!
+            <div class="p-8 rounded-3xl bg-amber-500/5 border border-amber-500/20 text-center space-y-3.5">
+              <p class="text-sm text-slate-700 dark:text-slate-300 font-medium max-w-md mx-auto leading-relaxed">
+                Module ${p.number} is locked in Trial Mode. Unlock Full Access (250 Birr) to access all ${state.notes.length || 10} modules of the Master Preparation Notes!
               </p>
-              <button onclick="window.APP.openPaywallModal()" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white shadow-md transition-all">
+              <button onclick="window.APP.openPaywallModal()" class="px-6 py-2.5 rounded-xl text-xs font-bold bg-[#00843D] hover:bg-[#00602c] text-white shadow-md shadow-emerald-900/20 transition-all cursor-pointer">
                 Unlock Full Access (250 ETB)
               </button>
             </div>
           ` : `
-            <div class="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-normal whitespace-pre-line space-y-2">
+            <div class="text-sm sm:text-base text-slate-800 dark:text-slate-200 leading-relaxed font-normal space-y-3">
               ${formatNotesText(p.content, state.noteSearchQuery)}
             </div>
           `}
@@ -825,70 +832,109 @@
     if (!text) return '';
     let escaped = escapeHtml(text);
 
-    // 1. Interactive Pop Quiz: 🧠 [POP QUIZ]: Question || Answer
+    // 1. Pop Quiz: 🧠 [POP QUIZ]: Question || Answer
     escaped = escaped.replace(/🧠\s*\[POP QUIZ\]:\s*([^|\n]+)\|\|\s*([^\n]+)/gi, function(match, q, a) {
-      return `<div class="my-3.5 p-4 rounded-2xl bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/40 dark:to-purple-950/40 border border-indigo-200 dark:border-indigo-800 shadow-sm space-y-2.5">
-        <div class="flex items-center gap-2 text-indigo-700 dark:text-indigo-300 font-bold text-xs uppercase tracking-wider">
-          <span class="text-base">🧠</span>
-          <span>Quick Hangar Challenge</span>
-        </div>
-        <p class="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-100">${q.trim()}</p>
-        <details class="cursor-pointer group">
-          <summary class="text-xs font-bold text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 select-none flex items-center gap-1.5 transition-colors">
-            <span>👉 Tap to Reveal Verified Answer</span>
-          </summary>
-          <div class="mt-2.5 p-3 rounded-xl bg-white dark:bg-slate-900 border border-indigo-100 dark:border-indigo-900 text-xs sm:text-sm font-medium text-emerald-700 dark:text-emerald-400 shadow-inner">
-            💡 <strong>Verified Answer:</strong> ${a.trim()}
+      return `
+        <div class="my-4.5 p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-indigo-50/90 via-white to-purple-50/70 dark:from-slate-800/90 dark:to-slate-800/60 border border-indigo-200/90 dark:border-indigo-700/60 shadow-sm space-y-2.5">
+          <div class="flex items-center gap-2 text-indigo-800 dark:text-indigo-300 font-extrabold text-xs uppercase tracking-wider">
+            <span class="w-6 h-6 rounded-lg bg-indigo-500/10 flex items-center justify-center text-sm">🧠</span>
+            <span>Rapid Hangar Challenge</span>
           </div>
-        </details>
-      </div>`;
+          <p class="text-sm font-bold text-slate-900 dark:text-white leading-snug">${q.trim()}</p>
+          <details class="cursor-pointer group mt-2">
+            <summary class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold transition-all select-none shadow-sm active:scale-95">
+              <span>👉 Tap to Reveal Verified Answer</span>
+            </summary>
+            <div class="mt-3 p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-emerald-300 dark:border-emerald-700 text-xs sm:text-sm font-semibold text-emerald-900 dark:text-emerald-300 shadow-inner flex items-start gap-2.5">
+              <span class="text-base shrink-0">💡</span>
+              <div><strong class="font-bold text-emerald-700 dark:text-emerald-400 block mb-0.5">Verified Solution:</strong>${a.trim()}</div>
+            </div>
+          </details>
+        </div>
+      `;
     });
 
-    // 2. 🚨 [TRAP ALERT]: text
+    // 2. Formulas: 📐 [FORMULA]: formula
+    escaped = escaped.replace(/📐\s*\[FORMULA\]:\s*([^\n]+)/gi, function(match, formula) {
+      return `
+        <div class="my-3.5 p-4 rounded-2xl bg-gradient-to-r from-amber-50/90 via-white to-amber-50/60 dark:from-slate-800/90 dark:to-slate-800/60 border border-amber-300/80 dark:border-amber-700/60 shadow-sm">
+          <div class="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider text-amber-800 dark:text-amber-400 mb-1.5">
+            <span>📐</span>
+            <span>Essential Aviation Formula</span>
+          </div>
+          <div class="font-mono font-black text-sm sm:text-base text-slate-900 dark:text-amber-200 bg-white/95 dark:bg-slate-900/90 px-3.5 py-2.5 rounded-xl border border-amber-200 dark:border-slate-700 shadow-inner tracking-wide select-all">
+            ${formula.trim()}
+          </div>
+        </div>
+      `;
+    });
+
+    // 3. Trap Alerts: 🚨 [TRAP ALERT]: text
     escaped = escaped.replace(/🚨\s*\[TRAP ALERT\]:\s*([^\n]+)/gi, `
-      <div class="my-3 p-3.5 rounded-2xl bg-rose-500/10 border-l-4 border-rose-500 text-rose-900 dark:text-rose-200 text-xs sm:text-sm font-medium flex items-start gap-2.5">
-        <span class="text-base shrink-0">🚨</span>
-        <div><strong class="font-bold text-rose-700 dark:text-rose-400 block mb-0.5">EXAM TRAP ALERT:</strong>$1</div>
+      <div class="my-3 p-4 rounded-2xl bg-rose-50/90 dark:bg-slate-800/80 border-l-4 border-rose-500 border-t border-r border-b border-rose-200/80 dark:border-rose-900/60 shadow-sm flex items-start gap-3">
+        <span class="text-lg shrink-0">🚨</span>
+        <div class="text-xs sm:text-sm text-slate-900 dark:text-slate-100 leading-relaxed"><strong class="font-extrabold text-rose-700 dark:text-rose-400 block mb-0.5">EXAM TRAP ALERT:</strong>$1</div>
       </div>
     `);
 
-    // 3. ⚡ [SPEED SHORTCUT]: text
+    // 4. Speed Shortcuts: ⚡ [SPEED SHORTCUT]: text
     escaped = escaped.replace(/⚡\s*\[SPEED SHORTCUT\]:\s*([^\n]+)/gi, `
-      <div class="my-3 p-3.5 rounded-2xl bg-amber-500/10 border-l-4 border-amber-500 text-amber-900 dark:text-amber-200 text-xs sm:text-sm font-medium flex items-start gap-2.5">
-        <span class="text-base shrink-0">⚡</span>
-        <div><strong class="font-bold text-amber-700 dark:text-amber-400 block mb-0.5">SPEED SHORTCUT:</strong>$1</div>
+      <div class="my-3 p-4 rounded-2xl bg-amber-50/90 dark:bg-slate-800/80 border-l-4 border-amber-500 border-t border-r border-b border-amber-200/80 dark:border-amber-900/60 shadow-sm flex items-start gap-3">
+        <span class="text-lg shrink-0">⚡</span>
+        <div class="text-xs sm:text-sm text-slate-900 dark:text-slate-100 leading-relaxed"><strong class="font-extrabold text-amber-700 dark:text-amber-400 block mb-0.5">SPEED SHORTCUT:</strong>$1</div>
       </div>
     `);
 
-    // 4. ✈️ [HANGAR SECRET]: text
+    // 5. Hangar Secrets: ✈️ [HANGAR SECRET]: text
     escaped = escaped.replace(/✈️\s*\[HANGAR SECRET\]:\s*([^\n]+)/gi, `
-      <div class="my-3 p-3.5 rounded-2xl bg-sky-500/10 border-l-4 border-sky-500 text-sky-900 dark:text-sky-200 text-xs sm:text-sm font-medium flex items-start gap-2.5">
-        <span class="text-base shrink-0">✈️</span>
-        <div><strong class="font-bold text-sky-700 dark:text-sky-400 block mb-0.5">COCKPIT & HANGAR REALITY:</strong>$1</div>
+      <div class="my-3 p-4 rounded-2xl bg-sky-50/90 dark:bg-slate-800/80 border-l-4 border-sky-500 border-t border-r border-b border-sky-200/80 dark:border-sky-900/60 shadow-sm flex items-start gap-3">
+        <span class="text-lg shrink-0">✈️</span>
+        <div class="text-xs sm:text-sm text-slate-900 dark:text-slate-100 leading-relaxed"><strong class="font-extrabold text-sky-700 dark:text-sky-400 block mb-0.5">COCKPIT & HANGAR REALITY:</strong>$1</div>
       </div>
     `);
 
-    // 5. 💡 [AHA! MOMENT]: text
+    // 6. Aha! Moment: 💡 [AHA! MOMENT]: text
     escaped = escaped.replace(/💡\s*\[AHA! MOMENT\]:\s*([^\n]+)/gi, `
-      <div class="my-3 p-3.5 rounded-2xl bg-emerald-500/10 border-l-4 border-emerald-500 text-emerald-900 dark:text-emerald-200 text-xs sm:text-sm font-medium flex items-start gap-2.5">
-        <span class="text-base shrink-0">💡</span>
-        <div><strong class="font-bold text-emerald-700 dark:text-emerald-400 block mb-0.5">AHA! MNEMONIC:</strong>$1</div>
+      <div class="my-3 p-4 rounded-2xl bg-emerald-50/90 dark:bg-slate-800/80 border-l-4 border-emerald-500 border-t border-r border-b border-emerald-200/80 dark:border-emerald-900/60 shadow-sm flex items-start gap-3">
+        <span class="text-lg shrink-0">💡</span>
+        <div class="text-xs sm:text-sm text-slate-900 dark:text-slate-100 leading-relaxed"><strong class="font-extrabold text-emerald-700 dark:text-emerald-400 block mb-0.5">AHA! MNEMONIC:</strong>$1</div>
       </div>
     `);
 
-    // 6. 📐 [FORMULA]: text
-    escaped = escaped.replace(/📐\s*\[FORMULA\]:\s*([^\n]+)/gi, `
-      <div class="my-2.5 px-3.5 py-2.5 rounded-xl bg-slate-900 dark:bg-black text-amber-300 border border-slate-700 font-mono text-xs sm:text-sm font-bold flex items-center justify-between shadow-sm">
+    // 7. Section Headers: "10.1 Top Math Traps..." or "5.1 Probability..."
+    escaped = escaped.replace(/^([0-9]+\.[0-9]+)\s+([^\n]+)/gm, `
+      <div class="mt-8 mb-3.5 pt-4 border-t border-slate-200/80 dark:border-slate-800 first:mt-0 first:pt-0 first:border-0 flex items-center gap-2.5">
+        <span class="px-2.5 py-1 rounded-lg text-xs font-mono font-black bg-emerald-600 text-white shadow-sm shrink-0">§ $1</span>
+        <h4 class="text-base sm:text-lg font-black text-slate-900 dark:text-white tracking-tight">$2</h4>
+      </div>
+    `);
+
+    // 8. Numbered Reference Items: "1. Title: Description"
+    escaped = escaped.replace(/^([0-9]+)\.\s+([^:\n]+):\s*([^\n]+)/gm, `
+      <div class="my-2.5 p-3.5 rounded-2xl bg-slate-50/70 dark:bg-slate-800/70 border border-slate-200/90 dark:border-slate-700/80 shadow-sm flex items-start gap-3 hover:border-emerald-400/50 transition-all">
+        <span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-700 dark:text-emerald-300 font-mono font-black text-xs flex items-center justify-center shrink-0 border border-emerald-500/20">$1</span>
+        <div class="flex-1 text-xs sm:text-sm leading-relaxed">
+          <strong class="font-extrabold text-slate-900 dark:text-white">$2:</strong>
+          <span class="text-slate-700 dark:text-slate-300 ml-1">$3</span>
+        </div>
+      </div>
+    `);
+
+    // 9. Bullet Sub-Headings: "• Subheading:"
+    escaped = escaped.replace(/^•\s*([^:\n]+):/gm, `
+      <div class="mt-4 mb-2 flex items-center gap-2 font-extrabold text-xs sm:text-sm text-slate-900 dark:text-white">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+        <span>$1:</span>
+      </div>
+    `);
+
+    // 10. Dash list items: "- Step or - Item"
+    escaped = escaped.replace(/^-\s+([^\n]+)/gm, `
+      <div class="ml-4 my-1 flex items-start gap-2 text-xs sm:text-sm text-slate-700 dark:text-slate-300">
+        <span class="text-emerald-500 font-bold shrink-0">•</span>
         <span>$1</span>
-        <span class="text-[10px] text-slate-400 font-sans uppercase font-bold tracking-wider">Formula</span>
       </div>
     `);
-
-    // Section subheaders: 5.1 ... or 9.2 ...
-    escaped = escaped.replace(/(\d+\.\d+\s+[^\n]+)/gi, '<div class="text-base sm:text-lg font-black text-slate-900 dark:text-white mt-6 mb-2 pb-1.5 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500 shrink-0"></span>$1</div>');
-
-    // Bullet headers: • Something:
-    escaped = escaped.replace(/(•\s+[^:\n]+:)/g, '<strong class="text-slate-900 dark:text-slate-100 font-bold block mt-3 mb-1">$1</strong>');
 
     return escaped;
   }
