@@ -1,13 +1,17 @@
-/* Ethiopian AMT Exam Master Stylesheet */
+/* Ethiopian Airlines AMT Exam Master - Professional Avionics Stylesheet */
 
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap');
 
 :root {
-  --primary: #0284c7;
-  --primary-dark: #0369a1;
+  --primary: #00843D;
+  --primary-dark: #00602c;
+  --ethiopian-green: #00843D;
+  --ethiopian-gold: #FCD116;
+  --ethiopian-red: #D3122A;
   --accent: #f59e0b;
   --success: #10b981;
   --danger: #ef4444;
+  --font-display: 'Outfit', sans-serif;
   --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 }
@@ -20,8 +24,17 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-display);
+}
+
 body {
   background-color: #f8fafc;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(0, 132, 61, 0.04) 0px, transparent 40%),
+    radial-gradient(at 100% 0%, rgba(2, 132, 199, 0.04) 0px, transparent 40%),
+    radial-gradient(at 50% 100%, rgba(252, 209, 22, 0.03) 0px, transparent 50%);
+  background-attachment: fixed;
   color: #0f172a;
   min-height: 100vh;
   display: flex;
@@ -29,45 +42,104 @@ body {
 }
 
 .dark body {
-  background-color: #090d16;
+  background-color: #060913;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(0, 132, 61, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 10%, rgba(2, 132, 199, 0.08) 0px, transparent 50%),
+    radial-gradient(at 50% 100%, rgba(211, 18, 42, 0.04) 0px, transparent 50%);
+  background-attachment: fixed;
   color: #f1f5f9;
 }
 
-/* Glassmorphism & Cards */
+/* Ethiopian Airlines Iconic Tri-Color Ribbon Bar */
+.ethiopian-ribbon-bar {
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(
+    90deg, 
+    #00843D 0%, 
+    #00843D 33.3%, 
+    #FCD116 33.3%, 
+    #FCD116 66.6%, 
+    #D3122A 66.6%, 
+    #D3122A 100%
+  );
+}
+
+/* Glassmorphism & High-Tier Cards */
 .glass-panel {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
 }
 
 .dark .glass-panel {
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(51, 65, 85, 0.6);
+  background: rgba(13, 19, 33, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.4), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Exam Dashboard Cards */
+.exam-card {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.exam-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #00843D, #FCD116, #D3122A);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.exam-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 35px -10px rgba(0, 132, 61, 0.12), 0 0 0 1px rgba(0, 132, 61, 0.3);
+}
+
+.dark .exam-card:hover {
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 200, 83, 0.35);
+}
+
+.exam-card:hover::before {
+  opacity: 1;
 }
 
 /* Option Buttons */
 .option-btn {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
-  border: 2px solid #e2e8f0;
+  border: 1.5px solid #e2e8f0;
   background-color: #ffffff;
+  position: relative;
 }
 
 .dark .option-btn {
   border-color: #1e293b;
-  background-color: #0f172a;
+  background-color: #0c1222;
 }
 
 .option-btn:hover:not(.locked) {
-  border-color: #0284c7;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08);
+  border-color: #00843D;
+  background-color: #f0fdf4;
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 18px rgba(0, 132, 61, 0.12);
 }
 
 .dark .option-btn:hover:not(.locked) {
-  border-color: #38bdf8;
-  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.1);
+  border-color: #00C853;
+  background-color: rgba(0, 200, 83, 0.08);
+  box-shadow: 0 6px 18px rgba(0, 200, 83, 0.12);
 }
 
 /* Option States */
@@ -75,24 +147,40 @@ body {
   border-color: #10b981 !important;
   background-color: #ecfdf5 !important;
   color: #065f46 !important;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.18) !important;
+  animation: popSuccess 0.3s ease forwards;
 }
 
 .dark .option-btn.correct {
   border-color: #10b981 !important;
-  background-color: rgba(16, 185, 129, 0.15) !important;
-  color: #6ee7b7 !important;
+  background-color: rgba(16, 185, 129, 0.18) !important;
+  color: #a7f3d0 !important;
+  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.25) !important;
 }
 
 .option-btn.incorrect {
   border-color: #ef4444 !important;
   background-color: #fef2f2 !important;
   color: #991b1b !important;
+  animation: shakeError 0.35s ease;
 }
 
 .dark .option-btn.incorrect {
   border-color: #ef4444 !important;
-  background-color: rgba(239, 68, 68, 0.15) !important;
-  color: #fca5a5 !important;
+  background-color: rgba(239, 68, 68, 0.18) !important;
+  color: #fecaca !important;
+}
+
+@keyframes popSuccess {
+  0% { transform: scale(0.99); }
+  50% { transform: scale(1.015); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shakeError {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-4px); }
+  40%, 80% { transform: translateX(4px); }
 }
 
 /* Explanation Accordion */
@@ -100,11 +188,11 @@ body {
   max-height: 0;
   opacity: 0;
   overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, margin 0.3s ease;
+  transition: max-height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease, margin 0.3s ease;
 }
 
 .explanation-drawer.open {
-  max-height: 1200px;
+  max-height: 1600px;
   opacity: 1;
   margin-top: 1rem;
 }
@@ -114,7 +202,7 @@ body {
 }
 
 .transition-transform {
-  transition: transform 0.25s ease-in-out;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* Code badge */
@@ -123,41 +211,48 @@ body {
   letter-spacing: 0.05em;
 }
 
+/* Shimmer Progress Effect */
+.shimmer-progress {
+  background-size: 200% 100%;
+  animation: shimmerAnim 2.5s infinite linear;
+}
+
+@keyframes shimmerAnim {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 /* Custom scrollbars */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 4px;
+  border-radius: 9999px;
 }
 .dark ::-webkit-scrollbar-thumb {
+  background: #1e293b;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
   background: #334155;
 }
 
 /* Pulsing highlight */
 @keyframes pulse-ring {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  50% { transform: scale(1.05); opacity: 0.4; }
-  100% { transform: scale(0.95); opacity: 0.8; }
+  0% { transform: scale(0.96); opacity: 0.85; }
+  50% { transform: scale(1.04); opacity: 0.45; }
+  100% { transform: scale(0.96); opacity: 0.85; }
 }
 
 .pulse-badge {
-  animation: pulse-ring 2s infinite ease-in-out;
-}
-
-/* Curriculum card micro-interactions */
-.curriculum-item {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.curriculum-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px -2px rgba(14, 165, 233, 0.12);
+  animation: pulse-ring 2.4s infinite ease-in-out;
 }
 
 /* Smooth transitions */
@@ -165,3 +260,19 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Custom Glass Glow Utilities */
+.glow-green {
+  box-shadow: 0 0 25px -5px rgba(0, 132, 61, 0.35);
+}
+
+.glow-gold {
+  box-shadow: 0 0 25px -5px rgba(252, 209, 22, 0.35);
+}
+
+/* Details arrow animation */
+details > summary {
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}

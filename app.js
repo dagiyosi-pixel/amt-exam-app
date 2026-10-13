@@ -159,8 +159,8 @@
   }
 
   // TAB NAVIGATION: EXAMS VS NOTES
-  const TAB_ACTIVE_CLS = "w-full sm:w-auto px-3 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-sky-600 text-white shadow-sm flex items-center justify-center gap-1.5 transition-all";
-  const TAB_INACTIVE_CLS = "w-full sm:w-auto px-3 sm:px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors flex items-center justify-center gap-1.5";
+  const TAB_ACTIVE_CLS = "w-full sm:w-auto px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-black bg-[#00843D] text-white shadow-md shadow-emerald-900/20 flex items-center justify-center gap-2 transition-all cursor-pointer";
+  const TAB_INACTIVE_CLS = "w-full sm:w-auto px-4 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-slate-800/60 transition-all flex items-center justify-center gap-2 cursor-pointer";
 
   function showExamsTab() {
     state.currentTab = 'exams';
@@ -195,35 +195,68 @@
     const container = document.getElementById('exam-cards-grid');
     if (!container) return;
 
+    const examIcons = {
+      'exam1': '✈️',
+      'model': '📐',
+      'exam3': '⚡',
+      'practice': '⚙️',
+      'exam2': '🧪'
+    };
+
     container.innerHTML = state.exams.map(exam => {
       const savedScore = localStorage.getItem(`score_${exam.id}`);
+      const icon = examIcons[exam.id] || '📝';
+      
+      let scoreBadge = `<span class="text-[11px] font-medium text-slate-400 dark:text-slate-500 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>Not attempted yet</span>`;
+      if (savedScore !== null) {
+        const numScore = parseInt(savedScore, 10);
+        if (numScore >= 75) {
+          scoreBadge = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 font-mono">🏆 Best: ${numScore}% (PASS)</span>`;
+        } else {
+          scoreBadge = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 font-mono">📊 Best: ${numScore}%</span>`;
+        }
+      }
+
       return `
-        <div class="exam-card glass-panel rounded-2xl p-6 transition-all duration-300 hover:shadow-xl hover:scale-[1.01] border relative flex flex-col justify-between">
+        <div class="exam-card glass-panel rounded-3xl p-6 sm:p-7 border transition-all duration-300 relative flex flex-col justify-between group">
           <div>
-            <div class="flex items-start justify-between mb-4">
-              <span class="px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider bg-${exam.color}-500/10 text-${exam.color}-600 dark:text-${exam.color}-400 border border-${exam.color}-500/20">
-                ${exam.id.toUpperCase()}
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+                <span>${icon}</span>
+                <span>${exam.id.toUpperCase()}</span>
               </span>
-              <span class="text-xs font-semibold text-slate-500 dark:text-slate-400">
+              <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700/60 font-mono">
                 ${exam.totalQuestions} Questions
               </span>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 leading-snug">
+            
+            <h3 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white mb-2 leading-snug group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
               ${exam.title}
             </h3>
-            <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
               ${exam.subject}
             </p>
           </div>
 
-          <div class="pt-4 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between gap-3">
+          <div class="pt-4 border-t border-slate-200/80 dark:border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div>
-              ${savedScore ? `<span class="text-xs font-medium text-emerald-600 dark:text-emerald-400 font-mono">Best Score: ${savedScore}%</span>` : `<span class="text-xs text-slate-400">Not attempted yet</span>`}
+              ${scoreBadge}
             </div>
             <div class="flex items-center gap-2">
-              <button onclick="window.APP.selectExam('${exam.id}', true)" class="px-4 py-2 rounded-xl text-sm font-semibold bg-slate-900 text-white hover:bg-sky-600 dark:bg-sky-600 dark:hover:bg-sky-500 transition-colors shadow-sm flex items-center gap-1.5">
-                Practice Mode
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              <button 
+                onclick="window.APP.selectExam('${exam.id}', true)" 
+                class="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#00843D] hover:bg-[#00602c] text-white transition-all shadow-md shadow-emerald-900/20 flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer"
+                title="Practice mode with instant answer explanations"
+              >
+                <span>⚡ Practice</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+              </button>
+              <button 
+                onclick="window.APP.selectExam('${exam.id}', false)" 
+                class="flex-1 sm:flex-initial px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer"
+                title="60-minute timed entrance exam simulation"
+              >
+                <span>⏱️ Timed</span>
               </button>
             </div>
           </div>
@@ -339,25 +372,25 @@
     // Options HTML
     const optionsHtml = q.options.map(opt => {
       let stateClass = "";
-      let iconHtml = `<span class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700">${opt.key}</span>`;
+      let iconHtml = `<span class="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shrink-0 font-mono transition-transform group-hover:scale-105">${opt.key}</span>`;
 
       if (hasAnswered) {
         if (opt.key === q.correctAnswer) {
           stateClass = "correct";
-          iconHtml = `<span class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-emerald-500 text-white shadow-sm">✓</span>`;
+          iconHtml = `<span class="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-sm bg-emerald-500 text-white shadow-md shadow-emerald-500/30 shrink-0 font-mono">✓</span>`;
         } else if (opt.key === userAnswer) {
           stateClass = "incorrect";
-          iconHtml = `<span class="w-7 h-7 rounded-lg flex items-center justify-center font-bold text-xs bg-red-500 text-white shadow-sm">✕</span>`;
+          iconHtml = `<span class="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-sm bg-rose-500 text-white shadow-md shadow-rose-500/30 shrink-0 font-mono">✕</span>`;
         }
       }
 
       return `
         <button 
           onclick="window.APP.selectAnswer('${q.id}', '${opt.key}')" 
-          class="option-btn w-full p-4 rounded-2xl flex items-center gap-4 text-left font-medium text-slate-800 dark:text-slate-100 transition-all ${stateClass} ${hasAnswered ? 'locked' : ''}"
+          class="option-btn w-full p-4 rounded-2xl flex items-center gap-3.5 sm:gap-4 text-left font-medium text-slate-800 dark:text-slate-100 transition-all ${stateClass} ${hasAnswered ? 'locked' : ''} group active:scale-[0.99]"
         >
           ${iconHtml}
-          <span class="flex-1 text-base leading-relaxed">${escapeHtml(opt.text)}</span>
+          <span class="flex-1 text-sm sm:text-base leading-relaxed font-semibold">${escapeHtml(opt.text)}</span>
         </button>
       `;
     }).join('');
@@ -366,11 +399,14 @@
     container.innerHTML = `
       <div class="glass-panel rounded-3xl p-6 sm:p-8 border shadow-sm transition-all duration-200">
         <!-- Badge & Category -->
-        <div class="flex items-center justify-between mb-4">
-          <span class="px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
-            ${escapeHtml(q.category || 'Aviation Exam')}
-          </span>
-          <span class="text-xs font-mono text-slate-400">ID: ${escapeHtml(q.id)}</span>
+        <div class="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-200/60 dark:border-slate-800/80">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+              ✈️ ${escapeHtml(q.category || 'Aviation Exam')}
+            </span>
+            <span class="text-xs font-mono text-slate-400 dark:text-slate-500">ID: ${escapeHtml(q.id)}</span>
+          </div>
+          <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Official Past Paper</span>
         </div>
 
         <!-- Question Stem -->
@@ -391,14 +427,14 @@
               <button 
                 id="explanation-toggle-btn" 
                 onclick="window.APP.toggleExplanation()"
-                class="w-full flex items-center justify-between p-4 rounded-2xl bg-sky-500/10 hover:bg-sky-500/20 text-sky-700 dark:text-sky-300 font-semibold border border-sky-500/20 transition-all group"
+                class="w-full flex items-center justify-between p-4 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 font-bold border border-emerald-500/25 transition-all group cursor-pointer"
               >
                 <div class="flex items-center gap-2.5">
-                  <svg class="w-5 h-5 text-sky-500 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                  <span class="font-bold">Step-by-Step Derivation & Explanation</span>
+                  <span class="text-lg">💡</span>
+                  <span class="font-bold text-sm sm:text-base">Step-by-Step Derivation & Explanation</span>
                 </div>
                 <!-- DOWN ARROW REQUESTED BY USER -->
-                <div class="flex items-center gap-2 text-xs font-semibold px-3 py-1.5 rounded-xl bg-sky-500/15 group-hover:bg-sky-500/25 border border-sky-500/20 transition-all">
+                <div class="flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-800 dark:text-emerald-200 border border-emerald-500/30 group-hover:border-emerald-500/50 transition-all">
                   <span id="explanation-reveal-label">Click down arrow to reveal solution 🔽</span>
                   <svg id="explanation-arrow-icon" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
                 </div>
@@ -654,7 +690,7 @@
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-  // NOTES VIEWER LOGIC
+    // NOTES VIEWER LOGIC
   function renderNotesPills() {
     const container = document.getElementById('notes-part-pills');
     if (!container) return;
@@ -662,19 +698,19 @@
     let html = `
       <button 
         onclick="window.APP.selectNotePart('all')" 
-        class="px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${state.selectedNotePartId === 'all' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'}"
+        class="px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${state.selectedNotePartId === 'all' ? 'bg-[#00843D] text-white shadow-md shadow-emerald-900/30 border border-emerald-400/40' : 'bg-white/70 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700/80 hover:bg-slate-100 dark:hover:bg-slate-700/80'}"
       >
-        All ${state.notes.length || 10} Modules
+        <span>📚 All Modules (10)</span>
       </button>
     `;
 
     state.notes.forEach(p => {
       const isSelected = (state.selectedNotePartId === p.id);
-      const label = p.shortTitle || `Part ${p.number}`;
+      const label = `M${p.number}: ${p.shortTitle || `Part ${p.number}`}`;
       html += `
         <button 
           onclick="window.APP.selectNotePart('${p.id}')" 
-          class="px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${isSelected ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'}"
+          class="px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${isSelected ? 'bg-[#00843D] text-white shadow-md shadow-emerald-900/30 border border-emerald-400/40' : 'bg-white/70 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700/80 hover:bg-slate-100 dark:hover:bg-slate-700/80'}"
         >
           ${label}
         </button>
