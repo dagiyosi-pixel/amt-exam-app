@@ -1,0 +1,45 @@
+import fs from 'fs';
+import path from 'path';
+
+const iconDir = 'public/icons';
+if (!fs.existsSync(iconDir)) fs.mkdirSync(iconDir, { recursive: true });
+
+// Ethiopian Airlines Styled SVG Icon
+const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#062e17" />
+      <stop offset="50%" stop-color="#0f172a" />
+      <stop offset="100%" stop-color="#1e1b4b" />
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.45" />
+    </filter>
+  </defs>
+  <!-- Background with rounded corners -->
+  <rect width="512" height="512" rx="128" fill="url(#bg)" />
+  <circle cx="256" cy="256" r="220" fill="none" stroke="#FCD116" stroke-width="6" stroke-opacity="0.3" stroke-dasharray="16 16" />
+  
+  <!-- Ethiopian Airlines Iconic Soaring Ribbons -->
+  <!-- Green Ribbon -->
+  <path d="M100 190 C 180 120, 310 110, 420 145 C 330 180, 230 195, 130 210 Z" fill="#00843D" filter="url(#shadow)" />
+  <!-- Gold Ribbon -->
+  <path d="M115 245 C 195 180, 330 170, 435 210 C 345 245, 240 260, 145 275 Z" fill="#FCD116" filter="url(#shadow)" />
+  <!-- Red Ribbon -->
+  <path d="M135 305 C 210 250, 340 240, 445 280 C 355 315, 255 330, 165 340 Z" fill="#D3122A" filter="url(#shadow)" />
+
+  <!-- Soaring Aircraft Profile -->
+  <g filter="url(#shadow)">
+    <path d="M280 100 L300 190 L400 220 L300 245 L275 350 L250 255 L160 230 L250 200 Z" fill="#FFFFFF" />
+  </g>
+  
+  <!-- App Label -->
+  <text x="256" y="420" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="28" font-weight="900" fill="#00843D" letter-spacing="4">ETHIOPIAN</text>
+  <text x="256" y="462" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="34" font-weight="900" fill="#FCD116" letter-spacing="3">AMT MASTER</text>
+</svg>`;
+
+fs.writeFileSync(path.join(iconDir, 'icon.svg'), svgIcon, 'utf8');
+fs.writeFileSync(path.join(iconDir, 'icon-192.svg'), svgIcon, 'utf8');
+fs.writeFileSync(path.join(iconDir, 'icon-512.svg'), svgIcon, 'utf8');
+
+console.log('Ethiopian Airlines style app icons generated in public/icons/');

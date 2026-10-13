@@ -661,20 +661,21 @@
     let html = `
       <button 
         onclick="window.APP.selectNotePart('all')" 
-        class="px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${state.selectedNotePartId === 'all' ? 'bg-sky-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'}"
+        class="px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${state.selectedNotePartId === 'all' ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'}"
       >
-        All 9 Parts
+        All ${state.notes.length || 10} Modules
       </button>
     `;
 
     state.notes.forEach(p => {
       const isSelected = (state.selectedNotePartId === p.id);
+      const label = p.shortTitle || `Part ${p.number}`;
       html += `
         <button 
           onclick="window.APP.selectNotePart('${p.id}')" 
-          class="px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${isSelected ? 'bg-sky-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'}"
+          class="px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${isSelected ? 'bg-emerald-600 text-white shadow-sm' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'}"
         >
-          Part ${p.number}
+          ${label}
         </button>
       `;
     });
@@ -733,19 +734,22 @@
     }
 
     container.innerHTML = partsToShow.map(p => {
-      // In trial mode, only part 1 is open, parts 2-9 are locked with paywall button
+      // In trial mode, only part 1 is open, parts 2-10 are locked with paywall button
       const isLocked = (!isActivated && p.number > 1);
 
       return `
-        <div class="glass-panel rounded-3xl p-6 sm:p-8 border shadow-sm transition-all">
+        <div class="glass-panel rounded-3xl p-6 sm:p-8 border shadow-sm transition-all hover:border-emerald-500/30">
           <div class="flex items-center justify-between pb-4 border-b border-slate-200/80 dark:border-slate-800 mb-4">
             <div class="flex items-center gap-3">
-              <span class="w-8 h-8 rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400 font-bold text-xs flex items-center justify-center border border-sky-500/20">
+              <span class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-black text-xs flex items-center justify-center border border-emerald-500/20 shadow-sm">
                 P${p.number}
               </span>
-              <h3 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white leading-snug">
-                ${escapeHtml(p.title)}
-              </h3>
+              <div>
+                <h3 class="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white leading-snug">
+                  ${escapeHtml(p.title)}
+                </h3>
+                <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">${p.shortTitle || `Module ${p.number}`}</span>
+              </div>
             </div>
             ${isLocked ? `<span class="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-amber-500/10 text-amber-600 border border-amber-500/30 flex items-center gap-1">🔒 Locked</span>` : `<span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 flex items-center gap-1">✓ Available</span>`}
           </div>
@@ -753,7 +757,7 @@
           ${isLocked ? `
             <div class="p-6 rounded-2xl bg-amber-500/5 border border-amber-500/20 text-center space-y-3">
               <p class="text-sm text-slate-700 dark:text-slate-300 font-medium">
-                Part ${p.number} is locked in Trial Mode. Unlock Full Access (250 Birr) to access all 9 parts of the Master Preparation Notes!
+                Part ${p.number} is locked in Trial Mode. Unlock Full Access (250 Birr) to access all ${state.notes.length || 10} modules of the Master Preparation Notes!
               </p>
               <button onclick="window.APP.openPaywallModal()" class="px-5 py-2.5 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white shadow-md transition-all">
                 Unlock Full Access (250 ETB)
@@ -775,10 +779,14 @@
     
     // Highlight headers/strategies
     escaped = escaped.replace(/(Strategy\s+\d+:[^\n]+)/gi, '<strong class="text-sky-600 dark:text-sky-400 block mt-3 mb-1 font-bold">$1</strong>');
-    escaped = escaped.replace(/(\d+\.\d+\s+[^\n]+)/gi, '<strong class="text-slate-900 dark:text-white block mt-4 mb-1 text-base font-bold">$1</strong>');
+    escaped = escaped.replace(/(\d+\.\d+\s+[^\n]+)/gi, '<div class="text-sm sm:text-base font-black text-slate-900 dark:text-white mt-5 mb-2 pb-1 border-b border-slate-200 dark:border-slate-800 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-500"></span>$1</div>');
+
+    // Highlight traps & warnings
+    escaped = escaped.replace(/(CRITICAL EXAM TRAP:[^\n]+|CRITICAL TRAPS:[^\n]+|Watch Out:[^\n]+)/gi, '<div class="my-2.5 p-3 rounded-xl bg-amber-500/10 border-l-4 border-amber-500 text-amber-900 dark:text-amber-200 text-xs sm:text-sm font-semibold flex items-start gap-2"><span>⚠️</span><span>$1</span></div>');
 
     // Highlight formulas and rules
     escaped = escaped.replace(/(Formula:[^\n]+)/gi, '<code class="bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 px-2 py-0.5 rounded font-mono text-xs">$1</code>');
+    escaped = escaped.replace(/(•\s+[^:\n]+:)/g, '<strong class="text-slate-900 dark:text-slate-100 font-bold">$1</strong>');
 
     return escaped;
   }
