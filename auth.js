@@ -73,7 +73,74 @@ const AMT_AUTH = (function() {
   const STORAGE_KEY_PERMANENT_DEVICE = "amt_device_activated_forever";
   const STORAGE_KEY_PERMANENT_TOKEN = "amt_device_activation_token";
   const STORAGE_KEY_VIP_DEVICES = "amt_vip_devices_list";
+  const STORAGE_KEY_RATE_LIMIT = "amt_sec_rate_limit";
   const MAX_VIP_DEVICES = 2;
+
+  // Active ephemeral admin session
+  let activeAdminToken = null;
+  let adminSessionExpiresAt = 0;
+
+  // Multi-Storage Persistent Rate Limiting
+  function getRateLimits() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY_RATE_LIMIT);
+      if (data) return JSON.parse(data);
+    } catch(e) {}
+    return { adminFails: 0, adminLockUntil: 0, codeFails: 0, codeLockUntil: 0 };
+  }
+
+  function saveRateLimits(rl) {
+    try {
+      localStorage.setItem(STORAGE_KEY_RATE_LIMIT, JSON.stringify(rl));
+    } catch(e) {}
+  }
+
+  function checkRateLimit(type) {
+    const rl = getRateLimits();
+    const now = Date.now();
+    const lockUntil = (type === 'admin') ? rl.adminLockUntil : rl.codeLockUntil;
+    if (now < lockUntil) {
+      const waitSec = Math.ceil((lockUntil - now) / 1000);
+      return { locked: true, waitSeconds: waitSec };
+    }
+    return { locked: false, waitSeconds: 0 };
+  }
+
+  function recordRateLimitFailure(type) {
+    const rl = getRateLimits();
+    const now = Date.now();
+    if (type === 'admin') {
+      rl.adminFails = (rl.adminFails || 0) + 1;
+      if (rl.adminFails >= 5) {
+        rl.adminLockUntil = now + 600000; // 10 minutes lockout
+      } else if (rl.adminFails >= 3) {
+        rl.adminLockUntil = now + 60000;  // 1 minute lockout
+      }
+    } else {
+      rl.codeFails = (rl.codeFails || 0) + 1;
+      if (rl.codeFails >= 6) {
+        rl.codeLockUntil = now + 300000;  // 5 minutes lockout
+      } else if (rl.codeFails >= 4) {
+        rl.codeLockUntil = now + 60000;   // 1 minute lockout
+      } else if (rl.codeFails >= 3) {
+        rl.codeLockUntil = now + 20000;   // 20 seconds lockout
+      }
+    }
+    saveRateLimits(rl);
+    return rl;
+  }
+
+  function clearRateLimit(type) {
+    const rl = getRateLimits();
+    if (type === 'admin') {
+      rl.adminFails = 0;
+      rl.adminLockUntil = 0;
+    } else {
+      rl.codeFails = 0;
+      rl.codeLockUntil = 0;
+    }
+    saveRateLimits(rl);
+  }
 
   // Default settings
   const DEFAULT_SETTINGS = {
@@ -140,7 +207,38 @@ const AMT_AUTH = (function() {
     if (!clean) return false;
     const hashed = sha256(clean);
     const expectedHash = getSettings().adminPinHash || ADMIN_PIN_HASH;
-    return hashed === expectedHash;
+    if (hashed === expectedHash) {
+      adminSessionExpiresAt = Date.now() + 20 * 60 * 1000;
+      activeAdminToken = sha256(`AMT_ADMIN_SESSION_${clean}_${adminSessionExpiresAt}_${SECRET_SALT}`);
+      return { success: true, token: activeAdminToken };
+    }
+    return false;
+  }
+
+  function logoutAdmin() {
+    activeAdminToken = null;
+    adminSessionExpiresAt = 0;
+  }
+
+  function generateHardwareSeed() {
+    try {
+      const parts = [
+        typeof navigator !== 'undefined' ? (navigator.userAgent || '') : '',
+        typeof navigator !== 'undefined' ? (navigator.hardwareConcurrency || 4) : 4,
+        typeof screen !== 'undefined' ? `${screen.width}x${screen.height}x${screen.colorDepth}` : '1920x1080x24',
+        typeof Intl !== 'undefined' ? (Intl.DateTimeFormat().resolvedOptions().timeZone || '') : '',
+        new Date().getTimezoneOffset()
+      ];
+      let seed = 0;
+      const str = parts.join('|');
+      for (let i = 0; i < str.length; i++) {
+        seed = ((seed << 5) - seed) + str.charCodeAt(i);
+        seed |= 0;
+      }
+      return String(Math.abs(seed) % 9000 + 1000);
+    } catch(e) {
+      return "2026";
+    }
   }
 
   function getOrCreateDeviceId() {
@@ -153,8 +251,7 @@ const AMT_AUTH = (function() {
         } catch (e) {}
       }
       if (!devId) {
-        const rand = Math.floor(1000 + Math.random() * 9000);
-        devId = String(rand);
+        devId = generateHardwareSeed();
       }
       localStorage.setItem(STORAGE_KEY_DEVICE, devId);
       if (typeof document !== 'undefined' && document.cookie) {
@@ -250,8 +347,12 @@ const AMT_AUTH = (function() {
     return `${str.slice(0, 3)}-${str.slice(3)}`;
   }
 
-  // Generates 6-digit code for student (Callable when Admin is authenticated)
-  function generateActivationCode(identifier) {
+  // Generates 6-digit code for student (Requires valid active Admin Session Token)
+  function generateActivationCode(identifier, adminToken) {
+    if (!activeAdminToken || !adminToken || adminToken !== activeAdminToken || Date.now() > adminSessionExpiresAt) {
+      console.warn("⛔ Security Alert: Unauthorized code generation attempt blocked. Valid admin session token required.");
+      return null;
+    }
     return internalGenerateCode(identifier);
   }
 
@@ -467,10 +568,11 @@ const AMT_AUTH = (function() {
     } catch(e) {}
   }
 
-  return {
+  const exportedAuth = {
     getSettings,
     saveSettings,
     verifyAdminPin,
+    logoutAdmin,
     generateStudentId,
     generateActivationCode,
     verifyCode,
@@ -484,11 +586,30 @@ const AMT_AUTH = (function() {
     getVipSlotsStatus,
     resetVipSlots,
     isVipCode,
+    checkRateLimit,
+    recordRateLimitFailure,
+    clearRateLimit,
     get VIP_DISPLAY() {
       return getSettings().vipKey || "AMT-VIP-2026";
     }
   };
+
+  // Cryptographically lock and freeze API surface against runtime tampering
+  Object.freeze(exportedAuth);
+
+  return exportedAuth;
 })();
 
-if (typeof window !== 'undefined') window.AMT_AUTH = AMT_AUTH;
+if (typeof window !== 'undefined') {
+  try {
+    Object.defineProperty(window, 'AMT_AUTH', {
+      value: AMT_AUTH,
+      writable: false,
+      configurable: false,
+      enumerable: true
+    });
+  } catch (e) {
+    window.AMT_AUTH = AMT_AUTH;
+  }
+}
 if (typeof module !== 'undefined') module.exports = AMT_AUTH;

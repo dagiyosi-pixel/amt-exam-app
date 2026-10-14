@@ -23,6 +23,7 @@
     theme: 'light',
     userSession: null,
     adminUnlocked: false,
+    adminSessionToken: null,
     currentTab: 'exams', // 'exams' | 'notes'
     selectedNotePartId: 'all',
     noteSearchQuery: '',
@@ -1413,15 +1414,11 @@
     showToast(`📋 Copied "${id}" to clipboard! Opening Telegram DM with @${cleanUsername}...`, "success");
   }
 
-  let codeAttempts = 0;
-  let codeLockoutUntil = 0;
-
   function submitActivationCode() {
-    const now = Date.now();
-    if (now < codeLockoutUntil) {
-      const waitSec = Math.ceil((codeLockoutUntil - now) / 1000);
+    const check = AMT_AUTH.checkRateLimit('code');
+    if (check.locked) {
       audioContext.playIncorrect();
-      showToast(`⛔ Please wait ${waitSec}s before trying another code.`, "danger");
+      showToast(`⛔ Please wait ${check.waitSeconds}s before trying another code.`, "danger");
       return;
     }
 
@@ -1438,7 +1435,7 @@
 
     const res = AMT_AUTH.activateUser(code, name, studentId);
     if (res.success) {
-      codeAttempts = 0;
+      AMT_AUTH.clearRateLimit('code');
       audioContext.playCorrect();
       showToast("🎉 Full Access Successfully Activated! Welcome!", "success");
       closePaywallModal();
@@ -1447,22 +1444,49 @@
       if (state.currentTab === 'notes') renderNotesContent();
       if (state.currentExamId) renderCurrentQuestion();
     } else {
-      codeAttempts++;
+      AMT_AUTH.recordRateLimitFailure('code');
       audioContext.playIncorrect();
-      if (codeAttempts >= 5) {
-        codeLockoutUntil = Date.now() + 60000;
-        showToast("⛔ Too many failed attempts. Locked for 60 seconds.", "danger");
+      const newCheck = AMT_AUTH.checkRateLimit('code');
+      if (newCheck.locked) {
+        showToast(`⛔ Too many failed attempts. Locked for ${newCheck.waitSeconds}s.`, "danger");
       } else {
         showToast(res.error || "❌ Invalid code. Please check with Admin on Telegram.", "danger");
       }
     }
   }
 
-  // Global hidden shortcuts (Ctrl+Shift+A or Alt+A) & #admin hash
+  // Anti-Intrusion Shield: Block casual source inspection while keeping Admin shortcuts
   window.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') || (e.altKey && e.key.toLowerCase() === 'a')) {
+    // Hidden Admin Shortcuts: Alt+A or Ctrl+Shift+A
+    if ((e.altKey && e.key.toLowerCase() === 'a') || (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a')) {
       e.preventDefault();
       openAdminModal();
+      return;
+    }
+
+    // Block F12 DevTools
+    if (e.key === 'F12' || e.keyCode === 123) {
+      e.preventDefault();
+      return false;
+    }
+
+    // Block Ctrl+Shift+I (Inspector), Ctrl+Shift+J (Console), Ctrl+Shift+C (Element Picker)
+    if (e.ctrlKey && e.shiftKey && ['i', 'j', 'c'].includes(e.key.toLowerCase())) {
+      e.preventDefault();
+      return false;
+    }
+
+    // Block Ctrl+U (View Source)
+    if (e.ctrlKey && e.key.toLowerCase() === 'u') {
+      e.preventDefault();
+      return false;
+    }
+  }, { capture: true });
+
+  // Deter right-click context menu scraping on exam questions and flashcards
+  document.addEventListener('contextmenu', (e) => {
+    if (e.target.closest('#exam-view') || e.target.closest('#flashcards-view-container')) {
+      e.preventDefault();
     }
   });
 
@@ -1486,19 +1510,30 @@
     modal.classList.remove('hidden');
   }
 
-  function closeAdminModal() {
-    document.getElementById('admin-modal').classList.add('hidden');
+  let adminInactivityTimer = null;
+  function resetAdminInactivityTimer() {
+    clearTimeout(adminInactivityTimer);
+    adminInactivityTimer = setTimeout(() => {
+      if (state.adminUnlocked) {
+        closeAdminModal();
+        showToast("🔒 Admin session locked due to inactivity.", "info");
+      }
+    }, 15 * 60 * 1000); // 15-minute auto-lock
   }
 
-  let adminAttempts = 0;
-  let adminLockoutUntil = 0;
+  function closeAdminModal() {
+    document.getElementById('admin-modal').classList.add('hidden');
+    state.adminUnlocked = false;
+    state.adminSessionToken = null;
+    AMT_AUTH.logoutAdmin();
+    clearTimeout(adminInactivityTimer);
+  }
 
   function verifyAdminPin() {
-    const now = Date.now();
-    if (now < adminLockoutUntil) {
-      const waitSec = Math.ceil((adminLockoutUntil - now) / 1000);
+    const check = AMT_AUTH.checkRateLimit('admin');
+    if (check.locked) {
       audioContext.playIncorrect();
-      showToast(`⛔ Locked out! Too many attempts. Try again in ${waitSec}s`, "danger");
+      showToast(`⛔ Locked out! Too many attempts. Try again in ${check.waitSeconds}s`, "danger");
       return;
     }
 
@@ -1510,23 +1545,24 @@
       return;
     }
 
-    if (AMT_AUTH.verifyAdminPin(pin)) {
-      adminAttempts = 0;
+    const authRes = AMT_AUTH.verifyAdminPin(pin);
+    if (authRes && authRes.success) {
+      AMT_AUTH.clearRateLimit('admin');
       audioContext.playCorrect();
       state.adminUnlocked = true;
+      state.adminSessionToken = authRes.token;
       if (input) input.value = '';
       showAdminDashboard();
+      resetAdminInactivityTimer();
     } else {
-      adminAttempts++;
+      AMT_AUTH.recordRateLimitFailure('admin');
       audioContext.playIncorrect();
-      if (adminAttempts >= 5) {
-        adminLockoutUntil = Date.now() + 300000; // 5 min lockout
-        showToast("⛔ Maximum attempts exceeded. Locked for 5 minutes.", "danger");
-      } else if (adminAttempts >= 3) {
-        adminLockoutUntil = Date.now() + 60000; // 1 min lockout
-        showToast("⛔ 3 failed attempts. Locked for 60 seconds.", "danger");
+      const newCheck = AMT_AUTH.checkRateLimit('admin');
+      if (newCheck.locked) {
+        showToast(`⛔ Maximum attempts exceeded. Locked for ${newCheck.waitSeconds}s.`, "danger");
       } else {
-        showToast(`❌ Incorrect Admin Password (${3 - adminAttempts} attempts left)`, "danger");
+        const rl = (AMT_AUTH.recordRateLimitFailure ? null : null);
+        showToast(`❌ Incorrect Admin Password. Please try again.`, "danger");
       }
     }
   }
@@ -1562,8 +1598,13 @@
     }
   }
 
-  // 1-Click Code Generation for Dagi
+  // 1-Click Code Generation for Dagi (Guarded with Admin Session Token)
   function adminGenerateCode() {
+    if (!state.adminUnlocked || !state.adminSessionToken) {
+      showToast("⛔ Admin session expired. Please re-authenticate.", "danger");
+      return;
+    }
+
     const input = document.getElementById('admin-student-input');
     const query = input?.value?.trim();
     if (!query) {
@@ -1571,17 +1612,23 @@
       return;
     }
 
-    const code = AMT_AUTH.generateActivationCode(query);
+    const code = AMT_AUTH.generateActivationCode(query, state.adminSessionToken);
+    if (!code) {
+      showToast("⛔ Authorization error generating code. Please log in again.", "danger");
+      return;
+    }
+
     const resultBox = document.getElementById('admin-generated-code-box');
     const codeDisplay = document.getElementById('admin-generated-code');
     const replyText = document.getElementById('admin-tg-reply-text');
 
     codeDisplay.textContent = code;
     const currentPrice = AMT_AUTH.getSettings().priceBirr || 250;
-    const msg = `✅ Hello ${query}! Your payment of ${currentPrice} ETB is approved.\nYour Activation Code: ${code}\nEnter this code in the app to unlock all 5 exams permanently.\nGood luck on your AMT exam! ✈️`;
+    const msg = `✅ Hello ${query}! Your payment of ${currentPrice} ETB is approved.\nYour Activation Code: ${code}\nEnter this code in the app to unlock all 8 exams & 11 study modules permanently.\nGood luck on your AMT exam! ✈️`;
     replyText.value = msg;
     resultBox.classList.remove('hidden');
     audioContext.playCorrect();
+    resetAdminInactivityTimer();
   }
 
   function copyTgReply() {
