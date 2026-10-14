@@ -79,9 +79,16 @@ window.AMT_NOTES_DATA = [
     "shortTitle": "Part 10: Rapid Cheat Sheet 🎯",
     "icon": "award",
     "content": "10.1 Top Math Traps You Won't Fall For\n1. Radius vs. Diameter: Given d = 16 cm? Divide by 2 immediately (r = 8 cm) before calculating area πr²!\n2. Closed Semicircle Perimeter: Arc length is πr, but you MUST add the straight diameter base (+ 2r). P = πr + 2r!\n3. Negative Sign in Functions: (-4)² = +16, but -4² = -16!\n4. \"At Least One\" Shortcut: Calculate 1 - P(None)!\n5. Binary Parity: Last bit is 1 = ODD; last bit is 0 = EVEN!\n6. Handshakes Among n People: n(n - 1) / 2!\n\n10.2 Top Physics Traps You Won't Fall For\n1. Vacuum Heat: Only Radiation can transfer thermal energy through empty space!\n2. Invariant Mass: Mass in kg never changes with altitude; weight changes with gravity (W = mg)!\n3. Zero Mechanical Work: If applied force is at 90° perpendicular to movement, Work is strictly 0 Joules!\n4. Parallel Circuit Rule: Equivalent parallel resistance is always smaller than the smallest branch!\n5. Stationary Charges: A stationary electric charge in a magnetic field feels ZERO magnetic force (v = 0)!\n6. Aircraft Tire Pressure Rise: Governed by Gay-Lussac's Law (P₁/T₁ = P₂/T₂) because tire air volume is fixed!\n7. Aircraft Fuel Grounding: Connected to earth to prevent electrostatic spark discharge from igniting fuel vapors!\n\n🧠 [POP QUIZ]: A technician applies a 500 N force pushing against a locked hangar door for 1 hour, but the door never moves an inch. How much mechanical work was done? || EXACTLY 0 JOULES! Since displacement is 0, Work = F × d = 500 × 0 = 0 J!"
+  },
+  {
+    "id": "part11",
+    "number": 11,
+    "title": "Part 11: Master English Verb Tenses & Aviation Grammar",
+    "shortTitle": "Part 11: Verb Tenses ⏳",
+    "icon": "clock",
+    "content": "11.1 The Complete 12-Tense Aviation Timeline Matrix\nEvery single verb tense in technical English is built at the intersection of TIME (Past, Present, Future) and ASPECT (Simple, Progressive, Perfect, Perfect Progressive).\n\n• Simple Aspect (The Fact & Habit Engine):\n- Present Simple (V1 / V1+s): Expresses universal physical truths, regular maintenance habits, and scheduled flight operations.\n  \"The Boeing 787 cruises at Mach 0.85; Flight ET 500 departs at 08:00 UTC.\"\n- Past Simple (V2 / verb+ed): A completed historical action with an explicit or understood past timestamp.\n  \"The technician replaced the fuel control unit yesterday.\"\n- Future Simple (will + V1): Instant decisions, predictions, and future commitments.\n  \"Hydraulic pressure is dropping; I will shut down the pump immediately.\"\n\n• Progressive / Continuous Aspect (The Action-in-Motion Engine):\n- Present Progressive (am/is/are + V-ing): Action taking place right at this exact moment.\n  \"Technicians are calibrating the weather radar right now.\"\n- Past Progressive (was/were + V-ing): Ongoing past action interrupted by a sudden past simple event.\n  \"We were inspecting the engine cowling when the hangar siren sounded.\"\n- Future Progressive (will be + V-ing): Action in continuous motion at a specific future benchmark.\n  \"At 10:00 AM tomorrow, the inspectors will be evaluating turbine clearances.\"\n\n• Perfect Aspect (The Bridge to the Present & Past Deadlines):\n- Present Perfect (have/has + V3 past participle): Action completed before now with direct relevance to the current situation. Never pair with specific past timestamps like 'yesterday'!\n  \"The ground crew has completed the pre-flight checklist [so the aircraft is ready right now].\"\n- Past Perfect (had + V3): The 'Past of the Past'! Occurred strictly before another past action.\n  \"The mechanics had completed the pressure test before the inspector arrived.\"\n- Future Perfect (will have + V3): Guaranteed completion before a specific future deadline.\n  \"By Friday afternoon, the engineering shop will have overhauled five landing gear assemblies.\"\n\n• Perfect Progressive Aspect (The Duration & Stamina Engine):\n- Present Perfect Progressive (have/has been + V-ing): Began in the past and continues right now into the present.\n  \"She has been logging aircraft telemetry data for four consecutive hours.\"\n- Past Perfect Progressive (had been + V-ing): Past ongoing duration leading up to another past event.\n  \"The generator had been vibrating erratically for thirty minutes before it tripped the circuit breaker.\"\n- Future Perfect Progressive (will have been + V-ing): Ongoing duration measured at a future milestone.\n  \"By December, the chief avionics engineer will have been serving Ethiopian Airlines for 25 years.\"\n\n11.2 The Past Participle (V3) Vault & Irregular Verbs\n📐 Regular verbs add -ed (inspected, calibrated, torqued).\nIrregular verbs use special forms ending in -en, -n, -t, or vowel shifts:\n• write → wrote → written\n• fly → flew → flown\n• drive → drove → driven\n• break → broke → broken\n• freeze → froze → frozen\n• rise → rose → risen\n• run → ran → run\n\n11.3 Top 4 Exam Tense Traps (Deliberately Placed in EAU & Ethiopian Papers)\n🚨 [TRAP 1: The 'Since / For' Timestamp Trap]:\nWith 'since' (point in time) or 'for' (duration), ALWAYS use Present Perfect or Present Perfect Progressive—NEVER Present Simple!\n- ❌ Wrong: \"I work at Ethiopian Airlines since 2018.\"\n- ✅ Right: \"I have worked / have been working at Ethiopian Airlines since 2018.\"\n\n🚨 [TRAP 2: The Specific Past Timestamp Ambush]:\nWhen a sentence specifies a closed past time ('yesterday', 'in 1995', 'three hours ago'), you MUST use Past Simple (V2), NOT Present Perfect!\n- ❌ Wrong: \"The inspector has signed the logbook yesterday.\"\n- ✅ Right: \"The inspector signed the logbook yesterday.\"\n\n🚨 [TRAP 3: The 'By the time...' Past Perfect Anchor]:\n\"By the time + Past Simple clause, the main clause MUST be Past Perfect (had + V3)!\"\n- \"By the time the tug arrived, the pilot had already started the auxiliary power unit.\"\n\n🚨 [TRAP 4: The 'By next...' Future Perfect Anchor]:\n\"By [future time], Subject + will have + V3!\"\n- \"By next month, the academy will have certified thirty new AMT apprentices.\"\n\n11.4 Hangar Reality: Aircraft Maintenance Logs & Operational Concord\n✈️ [HANGAR SECRET]: Why does the Ethiopian Civil Aviation Authority mandate exact verb tenses in aircraft technical logs?\n• Closed Defects: Written strictly in Past Simple (V2): \"Removed and replaced No. 1 hydraulic servo actuator. Operational check carried out satisfactory.\"\n• Open Deferrals (MEL): Written in Present Perfect: \"Right generator has been deferred under Minimum Equipment List Item 24-20-01.\"\n• Active Maintenance: Written in Present Progressive: \"Line crew currently troubleshooting cabin pressurization controller.\"\n\n🧠 [POP QUIZ 1]: \"By the time the Boeing 787 touched down, the ramp agents ___ (staged / had staged) the passenger stairs.\" || HAD STAGED! ('By the time + past action' requires Past Perfect for the earlier event).\n🧠 [POP QUIZ 2]: \"The lead avionics technician ___ (works / has been working) on this radar issue since 7:00 AM.\" || HAS BEEN WORKING! (Actions beginning in the past and continuing through present with 'since' require Present Perfect Progressive).\n🧠 [POP QUIZ 3]: \"By 18:00 UTC tomorrow, the maintenance team ___ (will finish / will have finished) the A-Check.\" || WILL HAVE FINISHED! ('By + future deadline' requires Future Perfect 'will have + V3')."
   }
 ];
-
 
 // Ethiopian AMT Exam Master - High-Yield Flashcards Dataset
 window.AMT_FLASHCARDS = [
@@ -733,6 +740,136 @@ window.AMT_FLASHCARDS = [
     "front": "What are the Top 5 most frequently misspelled words on the Ethiopian AMT exam?",
     "back": "🚨 Top 5 Spelling Traps:\n\n1. Maintenance (m-a-i-n-t-e-n-a-n-c-e) → ends in -ANCE, never -ence!\n2. Gauge (g-a-u-g-e) → 'a' comes before 'u'!\n3. Satellite (s-a-t-e-l-l-i-t-e) → One 't', double 'l'!\n4. Occurrence (o-c-c-u-r-r-e-n-c-e) → Double 'c', double 'r', ends in -ence!\n5. Independent (i-n-d-e-p-e-n-d-e-n-t) → ends in -ENT, never -ant!",
     "formula": "Maintenance | Gauge | Satellite | Occurrence | Independent",
+    "badgeColor": "rose"
+  },
+  {
+    "id": "fc-51",
+    "num": 51,
+    "module": 11,
+    "category": "english",
+    "categoryLabel": "12 Verb Tenses",
+    "icon": "⏳",
+    "type": "📐 Formula Master",
+    "front": "What are the core formulas for the 4 English Aspect Families (Simple, Progressive, Perfect, Perfect Progressive)?",
+    "back": "⏳ The 4 Aspect Formula Keys:\n\n1. Simple: V1 (Present) | V2 (Past) | will + V1 (Future)\n2. Progressive: am/is/are/was/were/will be + V-ing\n3. Perfect: have/has/had/will have + V3 (Past Participle)\n4. Perfect Progressive: have/has/had/will have + been + V-ing\n\nAspect indicates whether an action is a factual habit, in continuous motion, completed before a benchmark, or an ongoing duration!",
+    "formula": "Simple: V | Progressive: be + V-ing | Perfect: have + V3 | Perf-Prog: have been + V-ing",
+    "badgeColor": "emerald"
+  },
+  {
+    "id": "fc-52",
+    "num": 52,
+    "module": 11,
+    "category": "english",
+    "categoryLabel": "Verb Tenses & Concord",
+    "icon": "⏳",
+    "type": "💡 Aha! Mnemonic",
+    "front": "The 'Past of the Past' Anchor: When two events occurred in the past, how do you decide between Past Simple and Past Perfect?",
+    "back": "💡 The Earlier Event ALWAYS gets Past Perfect (had + V3)!\n\n• Event 1 (Earlier): had + V3\n• Event 2 (Later): V2 (Past Simple)\n\nExample: 'The aircraft had already departed before the passenger arrived at the gate.'\n(Departed = Event 1 → had departed; Arrived = Event 2 → arrived).",
+    "formula": "Earlier Past = had + V3 | Later Past = V2",
+    "badgeColor": "sky"
+  },
+  {
+    "id": "fc-53",
+    "num": 53,
+    "module": 11,
+    "category": "english",
+    "categoryLabel": "Verb Tenses",
+    "icon": "⏳",
+    "type": "⚡ Speed Shortcut",
+    "front": "The 'By + Future Deadline' Rule: Fill in the blank: 'By 5:00 PM tomorrow, the avionics shop ___ (will inspect / will have inspected) all 12 radar units.'",
+    "back": "⚡ Correct: 'will have inspected'!\n\nWhenever a sentence specifies 'By [future time]' (e.g., By tomorrow, By next year, By Tuesday), the action will be finished prior to that deadline.\n\n📐 Future Perfect Formula: will + have + Past Participle (V3).",
+    "formula": "By [Future Time] → will have + V3",
+    "badgeColor": "amber"
+  },
+  {
+    "id": "fc-54",
+    "num": 54,
+    "module": 11,
+    "category": "english",
+    "categoryLabel": "Verb Tenses",
+    "icon": "⏳",
+    "type": "🚨 Exam Trap Alert",
+    "front": "The Forbidden Timestamp Trap: Why is 'The mechanic has repaired the hydraulic valve yesterday' strictly WRONG on the exam?",
+    "back": "🚨 Present Perfect (has/have + V3) can NEVER be paired with a specific, finished past timestamp (yesterday, in 2015, two hours ago)!\n\n• ❌ Wrong: 'He has inspected it yesterday.'\n• ✅ Right: 'He inspected it yesterday.' (Past Simple)\n• ✅ Right: 'He has inspected it already.' (Present Perfect, unspecified time).",
+    "formula": "Specific Past Time → Past Simple (V2) ONLY",
+    "badgeColor": "rose"
+  },
+  {
+    "id": "fc-55",
+    "num": 55,
+    "module": 3,
+    "category": "english",
+    "categoryLabel": "Aviation Vocabulary",
+    "icon": "📖",
+    "type": "📖 Vocab Vault",
+    "front": "What is the technical definition and antonym of the official exam vocabulary word SATURNINE?",
+    "back": "📖 SATURNINE:\n• Meaning: Gloomy, dark, sullen, morose, sluggish, taciturn in temperament.\n  (e.g., 'The supervisor had a saturnine disposition during crisis audits').\n\n• Direct Antonyms (Opposites): JOVIAL, cheerful, lively, sanguine, optimistic.",
+    "formula": "SATURNINE (Sullen/Gloomy) ↔ JOVIAL (Cheerful)",
+    "badgeColor": "purple"
+  },
+  {
+    "id": "fc-56",
+    "num": 56,
+    "module": 3,
+    "category": "english",
+    "categoryLabel": "Aviation Vocabulary",
+    "icon": "📖",
+    "type": "📖 Vocab Vault",
+    "front": "What is the technical definition and antonym of the official exam vocabulary word OSTENSIBLE?",
+    "back": "📖 OSTENSIBLE:\n• Meaning: Stated or appearing to be true on the surface, but not necessarily so; apparent, outwardly professed.\n  (e.g., 'The ostensible reason for the flight diversion was weather, though a fuel valve failed').\n\n• Direct Antonyms (Opposites): GENUINE, actual, real, hidden, authentic.",
+    "formula": "OSTENSIBLE (Apparent/Surface) ↔ GENUINE / ACTUAL",
+    "badgeColor": "amber"
+  },
+  {
+    "id": "fc-57",
+    "num": 57,
+    "module": 3,
+    "category": "english",
+    "categoryLabel": "Aviation Vocabulary",
+    "icon": "📖",
+    "type": "📖 Vocab Vault",
+    "front": "What is the technical definition and antonym of the official exam vocabulary word VILIFY?",
+    "back": "📖 VILIFY:\n• Meaning: To speak ill of, defame, slander, malign, denigrate, or disparage maliciously.\n  (e.g., 'Do not vilify a technician for self-reporting an honest procedural deviation').\n\n• Direct Antonyms (Opposites): PRAISE, commend, extol, laud, eulogize.",
+    "formula": "VILIFY (Slander/Defame) ↔ PRAISE / COMMEND",
+    "badgeColor": "rose"
+  },
+  {
+    "id": "fc-58",
+    "num": 58,
+    "module": 9,
+    "category": "physics",
+    "categoryLabel": "Kinematics & Motion",
+    "icon": "⚡",
+    "type": "🚨 Exam Trap Alert",
+    "front": "A runner completes one full 400-meter oval lap in 80 seconds, returning to the exact starting line. What is their average speed vs. average velocity?",
+    "back": "🚨 The Closed-Loop Displacement Trap:\n\n• Average Speed = Total Distance / Time = 400 m / 80 s = 5.0 m/s!\n• Average Velocity = Net Displacement / Time = 0 m / 80 s = 0 m/s!\n\n💡 Why? Velocity depends on net change in position (Δx). If you start and end at the same spot, Δx = 0, so average velocity is strictly 0!",
+    "formula": "v_avg = Δx / Δt = 0 (on any closed loop)",
+    "badgeColor": "sky"
+  },
+  {
+    "id": "fc-59",
+    "num": 59,
+    "module": 9,
+    "category": "physics",
+    "categoryLabel": "Dynamics & Pulleys",
+    "icon": "⚡",
+    "type": "📐 Formula Master",
+    "front": "Atwood Machine: Two masses m1 (400 N) and m2 (600 N) hang over a frictionless pulley. What is the acceleration of the system?",
+    "back": "📐 The Atwood Machine Formula:\n\n📐 a = g × (m₂ - m₁) / (m₁ + m₂)\n\n• Since Weight W = mg, the ratio of masses equals the ratio of weights:\n  a = 9.8 × (600 - 400) / (600 + 400) = 9.8 × (200 / 1000) = 9.8 × 0.2 = 1.96 m/s²!\n\n💡 System accelerates towards the heavier mass with fraction (Δm / M_total) of gravity.",
+    "formula": "a = g(m₂ - m₁) / (m₁ + m₂)",
+    "badgeColor": "emerald"
+  },
+  {
+    "id": "fc-60",
+    "num": 60,
+    "module": 5,
+    "category": "math",
+    "categoryLabel": "Applied Math & Physics",
+    "icon": "📐",
+    "type": "🚨 Exam Trap Alert",
+    "front": "Round-Trip Average Speed Trap: A drone flies to an outpost at 40 km/h and returns along the same route at 60 km/h. Is the average speed 50 km/h?",
+    "back": "🚨 NO! It is NOT (40 + 60)/2 = 50 km/h! The drone spends more time flying at the slower speed!\n\n⚡ Round-Trip Harmonic Mean Formula:\n📐 v_avg = 2 · v₁ · v₂ / (v₁ + v₂)\n\n• v_avg = 2(40)(60) / (40 + 60) = 4800 / 100 = 48 km/h!\n\nRule: When distances are equal, average speed is always the harmonic mean, which is strictly less than the arithmetic mean!",
+    "formula": "v_avg = 2 v₁ v₂ / (v₁ + v₂)",
     "badgeColor": "rose"
   }
 ];

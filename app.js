@@ -226,7 +226,10 @@
       'model': '📐',
       'exam3': '⚡',
       'practice': '⚙️',
-      'exam2': '🧪'
+      'exam2': '🧪',
+      'exam4': '⚡',
+      'exam5': '📖',
+      'exam6': '📐'
     };
 
     container.innerHTML = state.exams.map(exam => {
