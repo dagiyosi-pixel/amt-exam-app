@@ -1,0 +1,23 @@
+{
+  "name": "amt-exam-app",
+  "version": "1.0.0",
+  "description": "Ethiopian Airlines & EAU AMT Exam Master Web Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo \"Static web application ready for Vercel\"",
+    "bundle": "node build_single_file_app.mjs && node build_exe.mjs"
+  },
+  "keywords": ["amt", "ethiopian airlines", "exam prep", "aviation maintenance"],
+  "author": "Dagi",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "canvas": "^3.2.3",
+    "mammoth": "^1.13.0",
+    "mupdf": "^1.28.1",
+    "pdf-parse": "^1.1.1",
+    "pdfjs-dist": "^6.4.299",
+    "tesseract.js": "^7.0.0"
+  }
+}
