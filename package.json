@@ -9,7 +9,7 @@
     "bundle": "node build_single_file_app.mjs && node build_exe.mjs"
   },
   "keywords": ["amt", "ethiopian airlines", "exam prep", "aviation maintenance"],
-  "author": "Dagi",
+  "author": "AMT Admissions Prep Team",
   "license": "ISC",
   "type": "commonjs",
   "devDependencies": {

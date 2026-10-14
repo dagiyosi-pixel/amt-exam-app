@@ -66,7 +66,7 @@ const AMT_AUTH = (function() {
   const ADMIN_PIN_HASH = "17f8072c75acd1a2893bad0549c633a58b18e40db54cf72688908f91e056eafd"; // SHA-256 of Admin Password (171717)
   const LEGACY_ADMIN_PIN_HASH = "e34cbe62069c1d32eda54b2b6296fa78873309e28a91a7d203862b9377ceb7c2";
   const MASTER_KEY_HASH = "6fd5165cf610789da472aecef450746377d8dc49c7931b22b415ff1460d1aed7"; // SHA-256 of VIP Key (AMTVIP2026)
-  const SECRET_SALT = "AMT_ETHIOPIAN_AIRLINES_2026_SECRET_DAGI";
+  const SECRET_SALT = "AMT_ADMISSIONS_PREP_2026_PORTAL_SALT";
   const STORAGE_KEY_USER = "amt_user_session";
   const STORAGE_KEY_SETTINGS = "amt_admin_settings";
   const STORAGE_KEY_DEVICE = "amt_device_id";
@@ -145,16 +145,14 @@ const AMT_AUTH = (function() {
   // Storage Keys
   const STORAGE_KEY_PENDING_RECEIPT = 'amt_pending_receipt';
 
-  // Default settings
+  // Default settings (Anonymous, Telebirr Only)
   const DEFAULT_SETTINGS = {
     priceBirr: 250,
     telebirrNumber: "0907862027",
-    telebirrName: "Dagi",
-    cbeAccount: "1000649624481",
-    cbeName: "Dagi",
+    telebirrName: "AMT Portal",
     phoneContact: "0907862027",
     telegramUsername: "Mountxhua",
-    adminNotice: "NOTICE FROM DAGI (ADMIN): If Telegram shows 'mutual contacts only', send your 250 ETB payment via Telebirr (0907862027) or CBE (1000649624481) and SMS or Call 0907862027 with your Student ID to receive your 6-digit code in 2 minutes!",
+    adminNotice: "NOTICE FROM ADMIN SUPPORT: If Telegram shows 'mutual contacts only', send your 250 ETB payment via Telebirr (0907862027), then SMS or Call 0907862027 with your Student ID to receive your 6-digit code in 2 minutes!",
     freePreviewCount: 5,
     adminPinHash: ADMIN_PIN_HASH,
     vipKey: "AMT-VIP-2026",
@@ -167,9 +165,18 @@ const AMT_AUTH = (function() {
       const saved = localStorage.getItem(STORAGE_KEY_SETTINGS);
       if (saved) {
         const parsed = JSON.parse(saved);
-        // Sanitize: Purge any legacy plaintext adminPin
+        // Sanitize: Purge any legacy plaintext adminPin & removed CBE accounts
         if (parsed.adminPin) {
           delete parsed.adminPin;
+        }
+        if (parsed.cbeAccount) {
+          delete parsed.cbeAccount;
+        }
+        if (parsed.cbeName) {
+          delete parsed.cbeName;
+        }
+        if (!parsed.telebirrName || parsed.telebirrName !== 'AMT Portal') {
+          parsed.telebirrName = 'AMT Portal';
         }
         if (!parsed.adminPinHash || parsed.adminPinHash === LEGACY_ADMIN_PIN_HASH) {
           parsed.adminPinHash = ADMIN_PIN_HASH;
