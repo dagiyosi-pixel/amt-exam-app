@@ -1008,13 +1008,34 @@ details > summary::-webkit-details-marker {
           </div>
         </div>
 
-        <!-- Master VIP Bypass Key -->
-        <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 flex items-center justify-between">
-          <div>
-            <h5 class="text-xs font-bold text-amber-800 dark:text-amber-300">Master VIP Bypass Key</h5>
-            <p class="text-[11px] text-amber-600 dark:text-amber-400">Instant unlock code for yourself or any device</p>
+        <!-- VIP Access Control (Strict Max 2 Slots) -->
+        <div class="p-5 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 space-y-3">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                <h5 class="text-sm font-bold text-amber-900 dark:text-amber-300">Master VIP Key (Max 2 Devices Limit)</h5>
+              </div>
+              <p class="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
+                Strict quota: Only 2 people/devices can ever activate using this key.
+              </p>
+            </div>
+            <!-- VIP Slots Status Pill -->
+            <div id="admin-vip-slots-status" class="px-3 py-1.5 rounded-xl font-mono text-xs font-bold bg-amber-500/20 text-amber-900 dark:text-amber-200 border border-amber-500/30 flex items-center gap-1.5">
+              <span>🎟️ Slots: 0 / 2 Used</span>
+            </div>
           </div>
-          <span id="admin-vip-key-display" class="font-mono font-bold text-sm px-3 py-1 bg-white dark:bg-slate-800 rounded-lg border border-amber-300 dark:border-amber-700">AMT-VIP-2026</span>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2 border-t border-amber-200/80 dark:border-amber-800">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-slate-600 dark:text-slate-400">Current Key:</span>
+              <span id="admin-vip-key-display" class="font-mono font-black text-sm px-3 py-1.5 bg-white dark:bg-slate-900 text-amber-900 dark:text-amber-200 rounded-xl border border-amber-300 dark:border-amber-700 shadow-sm select-all">AMT-VIP-2026</span>
+            </div>
+            <button onclick="window.APP.resetVipSlots()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white shadow-sm transition-all cursor-pointer flex items-center justify-center gap-1">
+              <span>↺</span>
+              <span>Reset VIP Slots (0/2)</span>
+            </button>
+          </div>
         </div>
 
         <!-- Settings Form -->
@@ -1046,8 +1067,12 @@ details > summary::-webkit-details-marker {
               <input id="admin-set-price" type="number" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
             </div>
             <div>
-              <label class="font-semibold text-slate-500">Admin PIN</label>
-              <input id="admin-set-pin" type="text" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+              <label class="font-semibold text-slate-500">Change Admin Password</label>
+              <input id="admin-set-pin" type="text" placeholder="Leave blank to keep current" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+            </div>
+            <div>
+              <label class="font-semibold text-slate-500">Change VIP Password / Key</label>
+              <input id="admin-set-vip" type="text" placeholder="Leave blank to keep current" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium font-mono">
             </div>
           </div>
 
@@ -9283,6 +9308,8 @@ const AMT_AUTH = (function() {
   const STORAGE_KEY_DEVICE = "amt_device_id";
   const STORAGE_KEY_PERMANENT_DEVICE = "amt_device_activated_forever";
   const STORAGE_KEY_PERMANENT_TOKEN = "amt_device_activation_token";
+  const STORAGE_KEY_VIP_DEVICES = "amt_vip_devices_list";
+  const MAX_VIP_DEVICES = 2;
 
   // Default settings
   const DEFAULT_SETTINGS = {
@@ -9293,7 +9320,10 @@ const AMT_AUTH = (function() {
     cbeName: "Dagi",
     telegramUsername: "Mountxhua",
     freePreviewCount: 5,
-    adminPinHash: ADMIN_PIN_HASH
+    adminPinHash: ADMIN_PIN_HASH,
+    vipKey: "AMT-VIP-2026",
+    vipKeyHash: MASTER_KEY_HASH,
+    maxVipDevices: 2
   };
 
   function getSettings() {
@@ -9321,12 +9351,20 @@ const AMT_AUTH = (function() {
   function saveSettings(newSettings) {
     const current = getSettings();
     const updated = Object.assign({}, current, newSettings);
-    // Always purge plaintext pin
+    // Always hash and purge plaintext adminPin if provided
     if (updated.adminPin) {
       if (updated.adminPin.trim()) {
         updated.adminPinHash = sha256(updated.adminPin.trim());
       }
       delete updated.adminPin;
+    }
+    // Update VIP Key and its Hash if provided
+    if (updated.vipKey) {
+      const cleanVip = updated.vipKey.trim().toUpperCase().replace(/[\s\-]/g, '');
+      if (cleanVip) {
+        updated.vipKey = updated.vipKey.trim().toUpperCase();
+        updated.vipKeyHash = sha256(cleanVip);
+      }
     }
     localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(updated));
     return updated;
@@ -9366,6 +9404,64 @@ const AMT_AUTH = (function() {
     }
   }
 
+
+  // VIP Usage Tracker: Strictly enforces max 2 VIP devices/users
+  function getVipDevices() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY_VIP_DEVICES);
+      if (data) {
+        const parsed = JSON.parse(data);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch(e) {}
+    if (typeof document !== 'undefined' && document.cookie) {
+      try {
+        const match = document.cookie.match(/(?:^|;\s*)amt_vip_devices=([^;]+)/);
+        if (match && match[1]) {
+          const list = JSON.parse(decodeURIComponent(match[1]));
+          if (Array.isArray(list)) return list;
+        }
+      } catch(e) {}
+    }
+    return [];
+  }
+
+  function saveVipDevices(list) {
+    try {
+      const json = JSON.stringify(list);
+      localStorage.setItem(STORAGE_KEY_VIP_DEVICES, json);
+      if (typeof document !== 'undefined' && document.cookie) {
+        document.cookie = `amt_vip_devices=${encodeURIComponent(json)}; path=/; max-age=315360000; SameSite=Lax`;
+      }
+    } catch(e) {}
+  }
+
+  function getVipSlotsStatus() {
+    const list = getVipDevices();
+    const max = getSettings().maxVipDevices || MAX_VIP_DEVICES;
+    return {
+      used: list.length,
+      max: max,
+      remaining: Math.max(0, max - list.length),
+      devices: list,
+      isFull: list.length >= max
+    };
+  }
+
+  function resetVipSlots() {
+    saveVipDevices([]);
+    return getVipSlotsStatus();
+  }
+
+  function isVipCode(code) {
+    if (!code) return false;
+    const cleanCode = code.trim().toUpperCase().replace(/[\s\-]/g, '');
+    const settings = getSettings();
+    const currentVipKey = (settings.vipKey || "AMT-VIP-2026").trim().toUpperCase().replace(/[\s\-]/g, '');
+    const currentVipHash = settings.vipKeyHash || MASTER_KEY_HASH;
+    return (sha256(cleanCode) === currentVipHash || cleanCode === currentVipKey);
+  }
+
   function generateStudentId(name) {
     const devId = getOrCreateDeviceId();
     const clean = (name || "STUDENT").trim().toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8) || "STUDENT";
@@ -9400,8 +9496,15 @@ const AMT_AUTH = (function() {
     if (!enteredCode) return false;
     const cleanCode = enteredCode.trim().toUpperCase().replace(/[\s\-]/g, '');
 
-    // Check VIP Key Hash
-    if (sha256(cleanCode) === MASTER_KEY_HASH) return true;
+    // Check VIP Key with Strict Max 2 Device Limit
+    if (isVipCode(cleanCode)) {
+      const devId = getOrCreateDeviceId();
+      const vipDevices = getVipDevices();
+      const max = getSettings().maxVipDevices || MAX_VIP_DEVICES;
+      if (vipDevices.includes(devId)) return true;
+      if (vipDevices.length >= max) return false;
+      return true;
+    }
 
     // Check against userName
     const expectedFromName = internalGenerateCode(userName)?.replace(/[\s\-]/g, '');
@@ -9486,6 +9589,26 @@ const AMT_AUTH = (function() {
   }
 
   function activateUser(code, name, studentId) {
+    if (!code) return { success: false, error: "Please enter your activation code." };
+    const cleanCode = code.trim().toUpperCase().replace(/[\s\-]/g, '');
+    const devId = getOrCreateDeviceId();
+
+    // Check if VIP limit has been reached
+    if (isVipCode(cleanCode)) {
+      const vipDevices = getVipDevices();
+      const max = getSettings().maxVipDevices || MAX_VIP_DEVICES;
+      if (!vipDevices.includes(devId) && vipDevices.length >= max) {
+        return {
+          success: false,
+          error: `⛔ VIP Limit Reached! Maximum ${max} VIP devices allowed. Please use your standard activation code.`
+        };
+      }
+      if (!vipDevices.includes(devId)) {
+        vipDevices.push(devId);
+        saveVipDevices(vipDevices);
+      }
+    }
+
     const isValid = verifyCode(code, name, studentId);
     if (isValid) {
       const cleanName = name || "Student";
@@ -9594,7 +9717,12 @@ const AMT_AUTH = (function() {
     restoreFromVault,
     syncToVault,
     sha256,
-    VIP_DISPLAY: "AMT-VIP-2026"
+    getVipSlotsStatus,
+    resetVipSlots,
+    isVipCode,
+    get VIP_DISPLAY() {
+      return getSettings().vipKey || "AMT-VIP-2026";
+    }
   };
 })();
 
@@ -11162,7 +11290,22 @@ if (typeof module !== 'undefined') module.exports = AMT_AUTH;
     document.getElementById('admin-set-price').value = settings.priceBirr;
     document.getElementById('admin-set-pin').value = '';
     document.getElementById('admin-set-pin').placeholder = 'Leave blank to keep current PIN';
+    const vipInput = document.getElementById('admin-set-vip');
+    if (vipInput) {
+      vipInput.value = '';
+      vipInput.placeholder = 'Leave blank to keep current key';
+    }
     document.getElementById('admin-vip-key-display').textContent = AMT_AUTH.VIP_DISPLAY;
+
+    // Update VIP slots status pill
+    const vipStatus = AMT_AUTH.getVipSlotsStatus();
+    const vipStatusEl = document.getElementById('admin-vip-slots-status');
+    if (vipStatusEl) {
+      vipStatusEl.innerHTML = '<span>🎟️ Slots: ' + vipStatus.used + ' / ' + vipStatus.max + ' Used</span>';
+      vipStatusEl.className = vipStatus.isFull
+        ? "px-3 py-1.5 rounded-xl font-mono text-xs font-bold bg-rose-500/20 text-rose-900 dark:text-rose-200 border border-rose-500/30 flex items-center gap-1.5"
+        : "px-3 py-1.5 rounded-xl font-mono text-xs font-bold bg-amber-500/20 text-amber-900 dark:text-amber-200 border border-amber-500/30 flex items-center gap-1.5";
+    }
   }
 
   // 1-Click Code Generation for Dagi
@@ -11195,8 +11338,16 @@ if (typeof module !== 'undefined') module.exports = AMT_AUTH;
     showToast("📋 Message copied! Now paste it on Telegram.", "success");
   }
 
+  function resetVipSlots() {
+    audioContext.playClick();
+    AMT_AUTH.resetVipSlots();
+    showAdminDashboard();
+    showToast("↺ VIP slots reset! 2 new activations available.", "success");
+  }
+
   function saveAdminSettings() {
     const rawPin = document.getElementById('admin-set-pin').value.trim();
+    const rawVip = document.getElementById('admin-set-vip')?.value?.trim();
     const newSettings = {
       telebirrNumber: document.getElementById('admin-set-telebirr-num').value.trim(),
       telebirrName: document.getElementById('admin-set-telebirr-name').value.trim(),
@@ -11208,10 +11359,14 @@ if (typeof module !== 'undefined') module.exports = AMT_AUTH;
     if (rawPin) {
       newSettings.adminPin = rawPin;
     }
+    if (rawVip) {
+      newSettings.vipKey = rawVip;
+    }
 
     AMT_AUTH.saveSettings(newSettings);
+    showAdminDashboard();
     audioContext.playCorrect();
-    showToast("Settings saved successfully!", "success");
+    showToast("✅ Settings, Admin Password & VIP Key saved successfully!", "success");
   }
 
   // Fallback Copy helper for older mobile browsers
@@ -11509,6 +11664,7 @@ if (typeof module !== 'undefined') module.exports = AMT_AUTH;
     verifyAdminPin,
     adminGenerateCode,
     copyTgReply,
+    resetVipSlots,
     saveAdminSettings,
     copyText,
     toggleTheme,

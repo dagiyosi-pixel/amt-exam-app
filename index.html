@@ -694,13 +694,34 @@
           </div>
         </div>
 
-        <!-- Master VIP Bypass Key -->
-        <div class="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 flex items-center justify-between">
-          <div>
-            <h5 class="text-xs font-bold text-amber-800 dark:text-amber-300">Master VIP Bypass Key</h5>
-            <p class="text-[11px] text-amber-600 dark:text-amber-400">Instant unlock code for yourself or any device</p>
+        <!-- VIP Access Control (Strict Max 2 Slots) -->
+        <div class="p-5 rounded-2xl bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 space-y-3">
+          <div class="flex items-center justify-between flex-wrap gap-2">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+                <h5 class="text-sm font-bold text-amber-900 dark:text-amber-300">Master VIP Key (Max 2 Devices Limit)</h5>
+              </div>
+              <p class="text-xs text-amber-700 dark:text-amber-400 mt-0.5">
+                Strict quota: Only 2 people/devices can ever activate using this key.
+              </p>
+            </div>
+            <!-- VIP Slots Status Pill -->
+            <div id="admin-vip-slots-status" class="px-3 py-1.5 rounded-xl font-mono text-xs font-bold bg-amber-500/20 text-amber-900 dark:text-amber-200 border border-amber-500/30 flex items-center gap-1.5">
+              <span>🎟️ Slots: 0 / 2 Used</span>
+            </div>
           </div>
-          <span id="admin-vip-key-display" class="font-mono font-bold text-sm px-3 py-1 bg-white dark:bg-slate-800 rounded-lg border border-amber-300 dark:border-amber-700">AMT-VIP-2026</span>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2 border-t border-amber-200/80 dark:border-amber-800">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-slate-600 dark:text-slate-400">Current Key:</span>
+              <span id="admin-vip-key-display" class="font-mono font-black text-sm px-3 py-1.5 bg-white dark:bg-slate-900 text-amber-900 dark:text-amber-200 rounded-xl border border-amber-300 dark:border-amber-700 shadow-sm select-all">AMT-VIP-2026</span>
+            </div>
+            <button onclick="window.APP.resetVipSlots()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-amber-600 hover:bg-amber-500 text-white shadow-sm transition-all cursor-pointer flex items-center justify-center gap-1">
+              <span>↺</span>
+              <span>Reset VIP Slots (0/2)</span>
+            </button>
+          </div>
         </div>
 
         <!-- Settings Form -->
@@ -732,8 +753,12 @@
               <input id="admin-set-price" type="number" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
             </div>
             <div>
-              <label class="font-semibold text-slate-500">Admin PIN</label>
-              <input id="admin-set-pin" type="text" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+              <label class="font-semibold text-slate-500">Change Admin Password</label>
+              <input id="admin-set-pin" type="text" placeholder="Leave blank to keep current" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+            </div>
+            <div>
+              <label class="font-semibold text-slate-500">Change VIP Password / Key</label>
+              <input id="admin-set-vip" type="text" placeholder="Leave blank to keep current" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium font-mono">
             </div>
           </div>
 

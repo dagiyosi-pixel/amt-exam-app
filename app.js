@@ -1558,7 +1558,22 @@
     document.getElementById('admin-set-price').value = settings.priceBirr;
     document.getElementById('admin-set-pin').value = '';
     document.getElementById('admin-set-pin').placeholder = 'Leave blank to keep current PIN';
+    const vipInput = document.getElementById('admin-set-vip');
+    if (vipInput) {
+      vipInput.value = '';
+      vipInput.placeholder = 'Leave blank to keep current key';
+    }
     document.getElementById('admin-vip-key-display').textContent = AMT_AUTH.VIP_DISPLAY;
+
+    // Update VIP slots status pill
+    const vipStatus = AMT_AUTH.getVipSlotsStatus();
+    const vipStatusEl = document.getElementById('admin-vip-slots-status');
+    if (vipStatusEl) {
+      vipStatusEl.innerHTML = '<span>🎟️ Slots: ' + vipStatus.used + ' / ' + vipStatus.max + ' Used</span>';
+      vipStatusEl.className = vipStatus.isFull
+        ? "px-3 py-1.5 rounded-xl font-mono text-xs font-bold bg-rose-500/20 text-rose-900 dark:text-rose-200 border border-rose-500/30 flex items-center gap-1.5"
+        : "px-3 py-1.5 rounded-xl font-mono text-xs font-bold bg-amber-500/20 text-amber-900 dark:text-amber-200 border border-amber-500/30 flex items-center gap-1.5";
+    }
   }
 
   // 1-Click Code Generation for Dagi
@@ -1591,8 +1606,16 @@
     showToast("📋 Message copied! Now paste it on Telegram.", "success");
   }
 
+  function resetVipSlots() {
+    audioContext.playClick();
+    AMT_AUTH.resetVipSlots();
+    showAdminDashboard();
+    showToast("↺ VIP slots reset! 2 new activations available.", "success");
+  }
+
   function saveAdminSettings() {
     const rawPin = document.getElementById('admin-set-pin').value.trim();
+    const rawVip = document.getElementById('admin-set-vip')?.value?.trim();
     const newSettings = {
       telebirrNumber: document.getElementById('admin-set-telebirr-num').value.trim(),
       telebirrName: document.getElementById('admin-set-telebirr-name').value.trim(),
@@ -1604,10 +1627,14 @@
     if (rawPin) {
       newSettings.adminPin = rawPin;
     }
+    if (rawVip) {
+      newSettings.vipKey = rawVip;
+    }
 
     AMT_AUTH.saveSettings(newSettings);
+    showAdminDashboard();
     audioContext.playCorrect();
-    showToast("Settings saved successfully!", "success");
+    showToast("✅ Settings, Admin Password & VIP Key saved successfully!", "success");
   }
 
   // Fallback Copy helper for older mobile browsers
@@ -1905,6 +1932,7 @@
     verifyAdminPin,
     adminGenerateCode,
     copyTgReply,
+    resetVipSlots,
     saveAdminSettings,
     copyText,
     toggleTheme,

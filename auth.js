@@ -71,6 +71,8 @@ const AMT_AUTH = (function() {
   const STORAGE_KEY_DEVICE = "amt_device_id";
   const STORAGE_KEY_PERMANENT_DEVICE = "amt_device_activated_forever";
   const STORAGE_KEY_PERMANENT_TOKEN = "amt_device_activation_token";
+  const STORAGE_KEY_VIP_DEVICES = "amt_vip_devices_list";
+  const MAX_VIP_DEVICES = 2;
 
   // Default settings
   const DEFAULT_SETTINGS = {
@@ -81,7 +83,10 @@ const AMT_AUTH = (function() {
     cbeName: "Dagi",
     telegramUsername: "Mountxhua",
     freePreviewCount: 5,
-    adminPinHash: ADMIN_PIN_HASH
+    adminPinHash: ADMIN_PIN_HASH,
+    vipKey: "AMT-VIP-2026",
+    vipKeyHash: MASTER_KEY_HASH,
+    maxVipDevices: 2
   };
 
   function getSettings() {
@@ -109,12 +114,20 @@ const AMT_AUTH = (function() {
   function saveSettings(newSettings) {
     const current = getSettings();
     const updated = Object.assign({}, current, newSettings);
-    // Always purge plaintext pin
+    // Always hash and purge plaintext adminPin if provided
     if (updated.adminPin) {
       if (updated.adminPin.trim()) {
         updated.adminPinHash = sha256(updated.adminPin.trim());
       }
       delete updated.adminPin;
+    }
+    // Update VIP Key and its Hash if provided
+    if (updated.vipKey) {
+      const cleanVip = updated.vipKey.trim().toUpperCase().replace(/[\s\-]/g, '');
+      if (cleanVip) {
+        updated.vipKey = updated.vipKey.trim().toUpperCase();
+        updated.vipKeyHash = sha256(cleanVip);
+      }
     }
     localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(updated));
     return updated;
@@ -154,6 +167,64 @@ const AMT_AUTH = (function() {
     }
   }
 
+
+  // VIP Usage Tracker: Strictly enforces max 2 VIP devices/users
+  function getVipDevices() {
+    try {
+      const data = localStorage.getItem(STORAGE_KEY_VIP_DEVICES);
+      if (data) {
+        const parsed = JSON.parse(data);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch(e) {}
+    if (typeof document !== 'undefined' && document.cookie) {
+      try {
+        const match = document.cookie.match(/(?:^|;\s*)amt_vip_devices=([^;]+)/);
+        if (match && match[1]) {
+          const list = JSON.parse(decodeURIComponent(match[1]));
+          if (Array.isArray(list)) return list;
+        }
+      } catch(e) {}
+    }
+    return [];
+  }
+
+  function saveVipDevices(list) {
+    try {
+      const json = JSON.stringify(list);
+      localStorage.setItem(STORAGE_KEY_VIP_DEVICES, json);
+      if (typeof document !== 'undefined' && document.cookie) {
+        document.cookie = `amt_vip_devices=${encodeURIComponent(json)}; path=/; max-age=315360000; SameSite=Lax`;
+      }
+    } catch(e) {}
+  }
+
+  function getVipSlotsStatus() {
+    const list = getVipDevices();
+    const max = getSettings().maxVipDevices || MAX_VIP_DEVICES;
+    return {
+      used: list.length,
+      max: max,
+      remaining: Math.max(0, max - list.length),
+      devices: list,
+      isFull: list.length >= max
+    };
+  }
+
+  function resetVipSlots() {
+    saveVipDevices([]);
+    return getVipSlotsStatus();
+  }
+
+  function isVipCode(code) {
+    if (!code) return false;
+    const cleanCode = code.trim().toUpperCase().replace(/[\s\-]/g, '');
+    const settings = getSettings();
+    const currentVipKey = (settings.vipKey || "AMT-VIP-2026").trim().toUpperCase().replace(/[\s\-]/g, '');
+    const currentVipHash = settings.vipKeyHash || MASTER_KEY_HASH;
+    return (sha256(cleanCode) === currentVipHash || cleanCode === currentVipKey);
+  }
+
   function generateStudentId(name) {
     const devId = getOrCreateDeviceId();
     const clean = (name || "STUDENT").trim().toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8) || "STUDENT";
@@ -188,8 +259,15 @@ const AMT_AUTH = (function() {
     if (!enteredCode) return false;
     const cleanCode = enteredCode.trim().toUpperCase().replace(/[\s\-]/g, '');
 
-    // Check VIP Key Hash
-    if (sha256(cleanCode) === MASTER_KEY_HASH) return true;
+    // Check VIP Key with Strict Max 2 Device Limit
+    if (isVipCode(cleanCode)) {
+      const devId = getOrCreateDeviceId();
+      const vipDevices = getVipDevices();
+      const max = getSettings().maxVipDevices || MAX_VIP_DEVICES;
+      if (vipDevices.includes(devId)) return true;
+      if (vipDevices.length >= max) return false;
+      return true;
+    }
 
     // Check against userName
     const expectedFromName = internalGenerateCode(userName)?.replace(/[\s\-]/g, '');
@@ -274,6 +352,26 @@ const AMT_AUTH = (function() {
   }
 
   function activateUser(code, name, studentId) {
+    if (!code) return { success: false, error: "Please enter your activation code." };
+    const cleanCode = code.trim().toUpperCase().replace(/[\s\-]/g, '');
+    const devId = getOrCreateDeviceId();
+
+    // Check if VIP limit has been reached
+    if (isVipCode(cleanCode)) {
+      const vipDevices = getVipDevices();
+      const max = getSettings().maxVipDevices || MAX_VIP_DEVICES;
+      if (!vipDevices.includes(devId) && vipDevices.length >= max) {
+        return {
+          success: false,
+          error: `⛔ VIP Limit Reached! Maximum ${max} VIP devices allowed. Please use your standard activation code.`
+        };
+      }
+      if (!vipDevices.includes(devId)) {
+        vipDevices.push(devId);
+        saveVipDevices(vipDevices);
+      }
+    }
+
     const isValid = verifyCode(code, name, studentId);
     if (isValid) {
       const cleanName = name || "Student";
@@ -382,7 +480,12 @@ const AMT_AUTH = (function() {
     restoreFromVault,
     syncToVault,
     sha256,
-    VIP_DISPLAY: "AMT-VIP-2026"
+    getVipSlotsStatus,
+    resetVipSlots,
+    isVipCode,
+    get VIP_DISPLAY() {
+      return getSettings().vipKey || "AMT-VIP-2026";
+    }
   };
 })();
 
