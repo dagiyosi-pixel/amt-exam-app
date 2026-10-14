@@ -248,34 +248,34 @@
       }
 
       return `
-        <div class="exam-card glass-panel rounded-3xl p-6 sm:p-7 border transition-all duration-300 relative flex flex-col justify-between group">
+        <div class="exam-card glass-panel rounded-2xl sm:rounded-3xl p-4 sm:p-6 border transition-all duration-300 relative flex flex-col justify-between group">
           <div>
-            <div class="flex items-center justify-between gap-2 mb-4">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-black uppercase tracking-wider bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+            <div class="flex items-center justify-between gap-2 mb-3 sm:mb-4">
+              <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl text-xs font-black uppercase tracking-wider bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
                 <span>${icon}</span>
                 <span>${exam.id.toUpperCase()}</span>
               </span>
-              <span class="text-xs font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700/60 font-mono">
+              <span class="text-xs font-bold px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800/80 text-slate-600 dark:text-slate-300 border border-slate-200/80 dark:border-slate-700/60 font-mono">
                 ${exam.totalQuestions} Questions
               </span>
             </div>
             
-            <h3 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white mb-2 leading-snug group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+            <h3 class="text-base sm:text-xl font-black text-slate-900 dark:text-white mb-1.5 sm:mb-2 leading-snug group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
               ${exam.title}
             </h3>
-            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-6 leading-relaxed">
+            <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-4 sm:mb-6 leading-relaxed">
               ${exam.subject}
             </p>
           </div>
 
-          <div class="pt-4 border-t border-slate-200/80 dark:border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div class="pt-3 sm:pt-4 border-t border-slate-200/80 dark:border-slate-800/80 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3">
             <div>
               ${scoreBadge}
             </div>
             <div class="flex items-center gap-2">
               <button 
                 onclick="window.APP.selectExam('${exam.id}', true)" 
-                class="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#00843D] hover:bg-[#00602c] text-white transition-all shadow-md shadow-emerald-900/20 flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer"
+                class="flex-1 sm:flex-initial px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-[#00843D] hover:bg-[#00602c] text-white transition-all shadow-md shadow-emerald-900/20 flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer"
                 title="Practice mode with instant answer explanations"
               >
                 <span>⚡ Practice</span>
@@ -283,7 +283,7 @@
               </button>
               <button 
                 onclick="window.APP.selectExam('${exam.id}', false)" 
-                class="flex-1 sm:flex-initial px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer"
+                class="flex-1 sm:flex-initial px-3 sm:px-3.5 py-2 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 transition-all flex items-center justify-center gap-1.5 active:scale-95 cursor-pointer"
                 title="60-minute timed entrance exam simulation"
               >
                 <span>⏱️ Timed</span>
@@ -402,84 +402,84 @@
     // Options HTML
     const optionsHtml = q.options.map(opt => {
       let stateClass = "";
-      let iconHtml = `<span class="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shrink-0 font-mono transition-transform group-hover:scale-105">${opt.key}</span>`;
+      let iconHtml = `<span class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl flex items-center justify-center font-bold text-xs sm:text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-300 dark:border-slate-700 shrink-0 font-mono transition-transform group-hover:scale-105">${opt.key}</span>`;
 
       if (hasAnswered) {
         if (opt.key === q.correctAnswer) {
           stateClass = "correct";
-          iconHtml = `<span class="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-sm bg-emerald-500 text-white shadow-md shadow-emerald-500/30 shrink-0 font-mono">✓</span>`;
+          iconHtml = `<span class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl flex items-center justify-center font-bold text-xs sm:text-sm bg-emerald-500 text-white shadow-md shadow-emerald-500/30 shrink-0 font-mono">✓</span>`;
         } else if (opt.key === userAnswer) {
           stateClass = "incorrect";
-          iconHtml = `<span class="w-8 h-8 rounded-xl flex items-center justify-center font-bold text-sm bg-rose-500 text-white shadow-md shadow-rose-500/30 shrink-0 font-mono">✕</span>`;
+          iconHtml = `<span class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg sm:rounded-xl flex items-center justify-center font-bold text-xs sm:text-sm bg-rose-500 text-white shadow-md shadow-rose-500/30 shrink-0 font-mono">✕</span>`;
         }
       }
 
       return `
         <button 
           onclick="window.APP.selectAnswer('${q.id}', '${opt.key}')" 
-          class="option-btn w-full p-4 rounded-2xl flex items-center gap-3.5 sm:gap-4 text-left font-medium text-slate-800 dark:text-slate-100 transition-all ${stateClass} ${hasAnswered ? 'locked' : ''} group active:scale-[0.99]"
+          class="option-btn w-full p-2.5 sm:p-4 rounded-xl sm:rounded-2xl flex items-center gap-2.5 sm:gap-4 text-left font-medium text-slate-800 dark:text-slate-100 transition-all ${stateClass} ${hasAnswered ? 'locked' : ''} group active:scale-[0.99]"
         >
           ${iconHtml}
-          <span class="flex-1 text-sm sm:text-base leading-relaxed font-semibold">${escapeHtml(opt.text)}</span>
+          <span class="flex-1 text-xs sm:text-base leading-snug sm:leading-relaxed font-semibold">${escapeHtml(opt.text)}</span>
         </button>
       `;
     }).join('');
 
     // Question Container HTML
     container.innerHTML = `
-      <div class="glass-panel rounded-3xl p-6 sm:p-8 border shadow-sm transition-all duration-200">
+      <div class="glass-panel rounded-2xl sm:rounded-3xl p-4 sm:p-8 border shadow-sm transition-all duration-200">
         <!-- Badge & Category -->
-        <div class="flex items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-200/60 dark:border-slate-800/80">
-          <div class="flex items-center gap-2">
-            <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
+        <div class="flex items-center justify-between gap-2 mb-3 pb-2.5 sm:mb-4 sm:pb-3 border-b border-slate-200/60 dark:border-slate-800/80">
+          <div class="flex items-center gap-1.5 sm:gap-2">
+            <span class="px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[11px] sm:text-xs font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border border-emerald-500/20">
               ✈️ ${escapeHtml(q.category || 'Aviation Exam')}
             </span>
-            <span class="text-xs font-mono text-slate-400 dark:text-slate-500">ID: ${escapeHtml(q.id)}</span>
+            <span class="text-[11px] sm:text-xs font-mono text-slate-400 dark:text-slate-500">ID: ${escapeHtml(q.id)}</span>
           </div>
           <span class="text-[10px] uppercase font-bold tracking-widest text-slate-400">Official Past Paper</span>
         </div>
 
         <!-- Question Stem -->
-        <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white mb-6 leading-relaxed">
+        <h2 class="text-base sm:text-xl font-bold text-slate-900 dark:text-white mb-4 sm:mb-6 leading-snug sm:leading-relaxed">
           ${escapeHtml(q.question)}
         </h2>
 
         <!-- Options List -->
-        <div class="space-y-3 mb-6">
+        <div class="space-y-2 sm:space-y-3 mb-4 sm:mb-6">
           ${optionsHtml}
         </div>
 
         <!-- Pop-Out Explanation Trigger (LOCKED UNTIL USER ANSWERS) -->
-        <div id="explanation-container" class="mt-4">
+        <div id="explanation-container" class="mt-3 sm:mt-4">
           ${hasAnswered ? `
-            <div class="border-t border-slate-200/80 dark:border-slate-800 pt-5">
+            <div class="border-t border-slate-200/80 dark:border-slate-800 pt-4 sm:pt-5">
               <!-- Explanation Down Arrow Accordion Trigger -->
               <button 
                 id="explanation-toggle-btn" 
                 onclick="window.APP.toggleExplanation()"
-                class="w-full flex items-center justify-between p-4 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 font-bold border border-emerald-500/25 transition-all group cursor-pointer"
+                class="w-full flex items-center justify-between p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-800 dark:text-emerald-300 font-bold border border-emerald-500/25 transition-all group cursor-pointer"
               >
-                <div class="flex items-center gap-2.5">
-                  <span class="text-lg">💡</span>
-                  <span class="font-bold text-sm sm:text-base">Step-by-Step Derivation & Explanation</span>
+                <div class="flex items-center gap-2 sm:gap-2.5">
+                  <span class="text-base sm:text-lg">💡</span>
+                  <span class="font-bold text-xs sm:text-base">Step-by-Step Explanation</span>
                 </div>
                 <!-- DOWN ARROW REQUESTED BY USER -->
-                <div class="flex items-center gap-2 text-xs font-bold px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-800 dark:text-emerald-200 border border-emerald-500/30 group-hover:border-emerald-500/50 transition-all">
+                <div class="flex items-center gap-1.5 text-[11px] sm:text-xs font-bold px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-lg sm:rounded-xl bg-emerald-500/20 text-emerald-800 dark:text-emerald-200 border border-emerald-500/30 group-hover:border-emerald-500/50 transition-all">
                   <span id="explanation-reveal-label">Click down arrow to reveal solution 🔽</span>
-                  <svg id="explanation-arrow-icon" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+                  <svg id="explanation-arrow-icon" class="w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
                 </div>
               </button>
 
               <!-- Collapsible Explanation Drawer -->
               <div id="explanation-drawer" class="explanation-drawer">
-                <div class="p-5 sm:p-6 rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
-                  <div class="flex items-center gap-2 mb-3">
-                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-                    <h4 class="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
+                <div class="p-3.5 sm:p-6 rounded-xl sm:rounded-2xl bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+                  <div class="flex items-center gap-2 mb-2 sm:mb-3">
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-500"></span>
+                    <h4 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wider">
                       Correct Answer: Option ${escapeHtml(q.correctAnswer)}
                     </h4>
                   </div>
-                  <p class="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line font-medium">
+                  <p class="text-xs sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed whitespace-pre-line font-medium">
                     ${escapeHtml(q.explanation)}
                   </p>
                 </div>
@@ -976,61 +976,61 @@
         <div 
           id="active-flashcard-inner" 
           onclick="window.APP.flipCurrentFlashcard()" 
-          class="flashcard-inner rounded-3xl cursor-pointer ${isFlipped ? 'is-flipped' : ''}"
+          class="flashcard-inner rounded-2xl sm:rounded-3xl cursor-pointer ${isFlipped ? 'is-flipped' : ''}"
         >
           <!-- FRONT FACE (QUESTION / PROMPT) -->
-          <div class="flashcard-face rounded-3xl p-6 sm:p-9 bg-white dark:bg-slate-900 border-2 border-slate-200/90 dark:border-slate-800 shadow-md relative overflow-hidden flex flex-col justify-between select-none">
+          <div class="flashcard-face rounded-2xl sm:rounded-3xl p-4 sm:p-8 bg-white dark:bg-slate-900 border-2 border-slate-200/90 dark:border-slate-800 shadow-md relative overflow-hidden flex flex-col justify-between select-none">
             <!-- Top Ethiopian Ribbon Accent -->
             <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#00843D] via-[#FCD116] to-[#D3122A]"></div>
 
             <!-- Card Top Bar -->
             <div>
-              <div class="flex items-center justify-between gap-3 mb-5">
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20">
+              <div class="flex items-center justify-between gap-3 mb-3 sm:mb-5">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[11px] sm:text-xs font-bold bg-emerald-500/10 text-emerald-800 dark:text-emerald-300 border border-emerald-500/20">
                   <span>${card.icon}</span>
                   <span>${card.type}</span>
                 </div>
-                <span class="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest">
+                <span class="text-[11px] sm:text-xs font-mono font-bold text-slate-400 uppercase tracking-widest">
                   Question Side
                 </span>
               </div>
 
               <!-- Question Heading -->
-              <h3 class="text-lg sm:text-2xl font-black text-slate-900 dark:text-white leading-relaxed font-display">
+              <h3 class="text-base sm:text-2xl font-black text-slate-900 dark:text-white leading-snug sm:leading-relaxed font-display">
                 ${escapeHtml(card.front)}
               </h3>
             </div>
 
             <!-- Tap to Flip Prompt Banner -->
-            <div class="pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="pt-3.5 sm:pt-6 border-t border-slate-100 dark:border-slate-800/80 mt-3 sm:mt-6 flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-3">
               <div class="flex items-center gap-2 text-xs font-bold text-emerald-700 dark:text-emerald-400">
-                <span class="w-6 h-6 rounded-lg bg-emerald-500/15 flex items-center justify-center text-sm">🔄</span>
-                <span>Tap Card or Press Spacebar to Reveal Solution</span>
+                <span class="w-5 h-5 sm:w-6 sm:h-6 rounded-lg bg-emerald-500/15 flex items-center justify-center text-xs sm:text-sm">🔄</span>
+                <span>Tap Card or Spacebar to Reveal Solution</span>
               </div>
-              <span class="text-[11px] font-mono text-slate-400 font-semibold">Verified EAU Syllabus</span>
+              <span class="text-[10px] sm:text-[11px] font-mono text-slate-400 font-semibold">Verified EAU Syllabus</span>
             </div>
           </div>
 
           <!-- BACK FACE (VERIFIED ANSWER & DERIVATION) -->
-          <div class="flashcard-face flashcard-face-back rounded-3xl p-6 sm:p-9 bg-gradient-to-br from-emerald-50/90 via-white to-amber-50/50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 border-2 border-emerald-500/50 dark:border-emerald-600/50 shadow-xl relative overflow-hidden flex flex-col justify-between select-none">
+          <div class="flashcard-face flashcard-face-back rounded-2xl sm:rounded-3xl p-4 sm:p-8 bg-gradient-to-br from-emerald-50/90 via-white to-amber-50/50 dark:from-slate-900 dark:via-slate-900 dark:to-slate-800 border-2 border-emerald-500/50 dark:border-emerald-600/50 shadow-xl relative overflow-hidden flex flex-col justify-between select-none">
             <!-- Top Ethiopian Ribbon Accent -->
             <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#00843D] via-[#FCD116] to-[#D3122A]"></div>
 
             <!-- Back Header -->
             <div>
-              <div class="flex items-center justify-between gap-3 mb-4">
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-600 text-white shadow-sm">
+              <div class="flex items-center justify-between gap-3 mb-2.5 sm:mb-4">
+                <div class="inline-flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full text-[11px] sm:text-xs font-bold bg-emerald-600 text-white shadow-sm">
                   <span>✓</span>
                   <span>Verified Solution & Derivation</span>
                 </div>
-                <span class="text-xs font-mono font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-widest">
+                <span class="text-[11px] sm:text-xs font-mono font-bold text-emerald-800 dark:text-emerald-400 uppercase tracking-widest">
                   Answer Side
                 </span>
               </div>
 
               <!-- Formula Box if Available -->
               ${card.formula ? `
-                <div class="my-3 px-4 py-3 rounded-2xl bg-white dark:bg-slate-950 border border-emerald-300 dark:border-emerald-800 font-mono font-black text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 shadow-sm flex items-center justify-between">
+                <div class="my-2.5 px-3.5 py-2.5 rounded-xl sm:rounded-2xl bg-white dark:bg-slate-950 border border-emerald-300 dark:border-emerald-800 font-mono font-black text-xs sm:text-sm text-emerald-900 dark:text-emerald-200 shadow-sm flex items-center justify-between">
                   <span>${card.formula}</span>
                   <span class="text-[10px] font-sans font-extrabold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">Formula</span>
                 </div>
@@ -1043,24 +1043,24 @@
             </div>
 
             <!-- Flip Back CTA -->
-            <div class="pt-5 border-t border-emerald-200/60 dark:border-slate-800 mt-5 flex items-center justify-between">
+            <div class="pt-3.5 sm:pt-5 border-t border-emerald-200/60 dark:border-slate-800 mt-3 sm:mt-5 flex items-center justify-between">
               <span class="text-xs font-bold text-emerald-800 dark:text-emerald-300 flex items-center gap-1.5">
                 <span>🔄</span>
                 <span>Tap to flip back to question</span>
               </span>
-              <span class="text-xs font-mono text-slate-500 dark:text-slate-400 font-bold">100% Verified</span>
+              <span class="text-[11px] sm:text-xs font-mono text-slate-500 dark:text-slate-400 font-bold">100% Verified</span>
             </div>
           </div>
         </div>
       </div>
 
       <!-- DECK NAVIGATION BAR -->
-      <div class="max-w-3xl mx-auto flex items-center justify-between gap-3 pt-3">
+      <div class="max-w-3xl mx-auto flex items-center justify-between gap-2 sm:gap-3 pt-3">
         <button 
           id="prev-flashcard-btn" 
           onclick="window.APP.prevFlashcard()" 
           ${currentIndex === 0 ? 'disabled' : ''} 
-          class="flex-1 sm:flex-initial px-5 py-3 rounded-2xl font-bold text-xs sm:text-sm bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm cursor-pointer"
+          class="flex-1 sm:flex-initial px-3.5 sm:px-5 py-2.5 sm:py-3 rounded-xl sm:rounded-2xl font-bold text-xs sm:text-sm bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-300 dark:border-slate-700 transition-all disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
           <span>Previous</span>
