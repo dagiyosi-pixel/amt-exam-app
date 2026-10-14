@@ -63,7 +63,8 @@ const AMT_AUTH = (function() {
   }
 
   // Cryptographic Hashes (NO plaintext secrets in source code)
-  const ADMIN_PIN_HASH = "e34cbe62069c1d32eda54b2b6296fa78873309e28a91a7d203862b9377ceb7c2"; // SHA-256 of Admin Password
+  const ADMIN_PIN_HASH = "17f8072c75acd1a2893bad0549c633a58b18e40db54cf72688908f91e056eafd"; // SHA-256 of Admin Password (171717)
+  const LEGACY_ADMIN_PIN_HASH = "e34cbe62069c1d32eda54b2b6296fa78873309e28a91a7d203862b9377ceb7c2";
   const MASTER_KEY_HASH = "6fd5165cf610789da472aecef450746377d8dc49c7931b22b415ff1460d1aed7"; // SHA-256 of VIP Key (AMTVIP2026)
   const SECRET_SALT = "AMT_ETHIOPIAN_AIRLINES_2026_SECRET_DAGI";
   const STORAGE_KEY_USER = "amt_user_session";
@@ -98,7 +99,7 @@ const AMT_AUTH = (function() {
         if (parsed.adminPin) {
           delete parsed.adminPin;
         }
-        if (!parsed.adminPinHash) {
+        if (!parsed.adminPinHash || parsed.adminPinHash === LEGACY_ADMIN_PIN_HASH) {
           parsed.adminPinHash = ADMIN_PIN_HASH;
         }
         if (!parsed.priceBirr || parsed.priceBirr === 300) {
@@ -489,4 +490,5 @@ const AMT_AUTH = (function() {
   };
 })();
 
+if (typeof window !== 'undefined') window.AMT_AUTH = AMT_AUTH;
 if (typeof module !== 'undefined') module.exports = AMT_AUTH;
