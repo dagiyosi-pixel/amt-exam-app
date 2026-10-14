@@ -1458,23 +1458,6 @@
     }
   }
 
-  // Hidden Secret Triggers for Dagi
-  let logoClickCount = 0;
-  let logoClickTimer = null;
-  function handleSecretLogoClick(e) {
-    if (e) e.stopPropagation();
-    logoClickCount++;
-    clearTimeout(logoClickTimer);
-    if (logoClickCount >= 3) {
-      logoClickCount = 0;
-      openAdminModal();
-    } else {
-      logoClickTimer = setTimeout(() => {
-        logoClickCount = 0;
-      }, 1200);
-    }
-  }
-
   // Global hidden shortcuts (Ctrl+Shift+A or Alt+A) & #admin hash
   window.addEventListener('keydown', (e) => {
     if ((e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'a') || (e.altKey && e.key.toLowerCase() === 'a')) {
@@ -1931,7 +1914,6 @@
     submitActivationCode,
     openAdminModal,
     closeAdminModal,
-    handleSecretLogoClick,
     verifyAdminPin,
     adminGenerateCode,
     copyTgReply,
