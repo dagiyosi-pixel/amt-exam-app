@@ -1346,10 +1346,17 @@
     document.getElementById('paywall-cbe-acc').textContent = settings.cbeAccount;
     document.getElementById('paywall-cbe-name').textContent = settings.cbeName;
 
+    // Load custom in-app admin notice if present
+    const noticeEl = document.getElementById('paywall-admin-notice-text');
+    if (noticeEl && settings.adminNotice) {
+      noticeEl.textContent = settings.adminNotice;
+    }
+
     // Prefill name & student ID
     const nameInput = document.getElementById('paywall-input-name');
     if (nameInput) nameInput.value = session.name || '';
     updatePaywallStudentId();
+    renderPendingReceiptTicket();
 
     modal.classList.remove('hidden');
   }
@@ -1365,14 +1372,92 @@
     const display = document.getElementById('paywall-student-id-display');
     if (display) display.textContent = id;
 
-    // Update Telegram Link with pre-filled message draft
     const settings = AMT_AUTH.getSettings();
+    const phone = settings.phoneContact || settings.telebirrNumber || '0907862027';
+
+    // 1. Direct SMS Link with Pre-filled draft
+    const smsBtn = document.getElementById('paywall-sms-link');
+    if (smsBtn) {
+      const smsBody = `Hi Dagi! I made the ${settings.priceBirr} ETB payment for the Ethiopian Airlines AMT Exam App.\n\n👤 Name/Phone: ${name}\n🆔 Student ID: ${id}\n💰 Txn Ref: [PASTE_TRANSACTION_ID_HERE]\n\nPlease send my 6-digit unlock code!`;
+      smsBtn.href = `sms:${phone}?body=${encodeURIComponent(smsBody)}`;
+    }
+
+    // 2. Direct Call Link
+    const callBtn = document.getElementById('paywall-call-link');
+    if (callBtn) {
+      callBtn.href = `tel:${phone}`;
+    }
+
+    // 3. Update Telegram Link with pre-filled message draft
     const tgBtn = document.getElementById('paywall-tg-link');
     if (tgBtn) {
-      const draftMessage = `Hi Dagi! I made the ${settings.priceBirr} ETB payment for the Ethiopian Airlines AMT Exam App.\n\n👤 Name / Username: ${name}\n🆔 Student ID: ${id}\n\nHere is my payment receipt screenshot:`;
+      const draftMessage = `Hi Dagi! I made the ${settings.priceBirr} ETB payment for the Ethiopian Airlines AMT Exam App.\n\n👤 Name / Phone: ${name}\n🆔 Student ID: ${id}\n\nHere is my payment receipt screenshot:`;
       const cleanUsername = (settings.telegramUsername || 'Mountxhua').replace('@', '').trim();
       tgBtn.href = `https://t.me/${cleanUsername}?text=${encodeURIComponent(draftMessage)}`;
     }
+  }
+
+  // Submit and register receipt inside the app
+  function submitReceiptInApp() {
+    const nameInput = document.getElementById('paywall-input-name');
+    const name = nameInput?.value?.trim() || 'Student';
+    const id = AMT_AUTH.generateStudentId(name);
+    const txnInput = document.getElementById('paywall-txn-input');
+    const phoneInput = document.getElementById('paywall-phone-input');
+    const txn = txnInput?.value?.trim();
+    const phone = phoneInput?.value?.trim();
+
+    if (!txn) {
+      showToast("⚠️ Please enter your Telebirr or CBE Transaction ID / SMS text.", "danger");
+      return;
+    }
+
+    const receipt = {
+      studentId: id,
+      name: name,
+      phone: phone || name,
+      txnId: txn,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      status: 'pending'
+    };
+
+    AMT_AUTH.savePendingReceipt(receipt);
+    renderPendingReceiptTicket();
+    showToast("✅ Receipt registered in app! Click 'Send via SMS' to notify Dagi instantly.", "success");
+    if (audioContext?.playCorrect) audioContext.playCorrect();
+  }
+
+  function renderPendingReceiptTicket() {
+    const ticketBox = document.getElementById('paywall-receipt-ticket');
+    const detailsEl = document.getElementById('paywall-ticket-details');
+    const smsBtn = document.getElementById('paywall-ticket-sms-btn');
+    if (!ticketBox || !detailsEl) return;
+
+    const receipt = AMT_AUTH.getPendingReceipt();
+    if (!receipt) {
+      ticketBox.classList.add('hidden');
+      return;
+    }
+
+    const settings = AMT_AUTH.getSettings();
+    const phone = settings.phoneContact || settings.telebirrNumber || '0907862027';
+    detailsEl.innerHTML = `<strong>Student ID:</strong> ${escapeHtml(receipt.studentId)}<br/><strong>Txn Ref:</strong> ${escapeHtml(receipt.txnId)}<br/><strong>Contact:</strong> ${escapeHtml(receipt.phone || 'N/A')} (${receipt.timestamp})`;
+    
+    if (smsBtn) {
+      const smsBody = `Hi Dagi! I registered my payment in the AMT app.\n\nStudent ID: ${receipt.studentId}\nTxn Ref: ${receipt.txnId}\nContact: ${receipt.phone}\n\nPlease send my 6-digit activation code!`;
+      smsBtn.href = `sms:${phone}?body=${encodeURIComponent(smsBody)}`;
+    }
+    ticketBox.classList.remove('hidden');
+  }
+
+  function copyReceiptSummary() {
+    const receipt = AMT_AUTH.getPendingReceipt();
+    if (!receipt) {
+      showToast("No submitted receipt found.", "danger");
+      return;
+    }
+    const text = `📋 Ethiopian Airlines AMT Payment Receipt\n👤 Name: ${receipt.name}\n🆔 Student ID: ${receipt.studentId}\n💰 Txn ID: ${receipt.txnId}\n📞 Phone: ${receipt.phone}\n⏳ Status: Pending Verification`;
+    copyText(text, "Payment Receipt Summary");
   }
 
   // Copy username & Student ID specifically to clipboard
@@ -1381,8 +1466,8 @@
     const name = nameInput?.value?.trim() || 'Student';
     const id = AMT_AUTH.generateStudentId(name);
     const settings = AMT_AUTH.getSettings();
-    const textToCopy = `👤 Name / Username: ${name}\n🆔 Student ID: ${id}\n💰 Payment: ${settings.priceBirr} ETB`;
-    copyText(textToCopy, "Username & Student ID");
+    const textToCopy = `👤 Name / Phone: ${name}\n🆔 Student ID: ${id}\n💰 Payment: ${settings.priceBirr} ETB`;
+    copyText(textToCopy, "Student ID & Payment Details");
   }
 
   // When clicking Telegram account link: copies username & ID to clipboard and drafts message in DM
@@ -1398,10 +1483,10 @@
     const cleanUsername = (settings.telegramUsername || 'Mountxhua').replace('@', '').trim();
 
     // Full draft message with username & student ID
-    const draftMessage = `Hi Dagi! I made the ${settings.priceBirr} ETB payment for the Ethiopian Airlines AMT Exam App.\n\n👤 Name / Username: ${name}\n🆔 Student ID: ${id}\n\nHere is my payment receipt screenshot:`;
+    const draftMessage = `Hi Dagi! I made the ${settings.priceBirr} ETB payment for the Ethiopian Airlines AMT Exam App.\n\n👤 Name / Phone: ${name}\n🆔 Student ID: ${id}\n\nHere is my payment receipt screenshot:`;
 
     // 1. Copy immediately to clipboard
-    copyText(draftMessage, `Username (${name}) & Student ID (${id})`);
+    copyText(draftMessage, `Student ID (${id})`);
 
     // 2. Prepare pre-filled draft URL
     const encoded = encodeURIComponent(draftMessage);
@@ -1567,6 +1652,9 @@
     }
   }
 
+  let lastGeneratedStudentQuery = '';
+  let lastGeneratedCodeVal = '';
+
   function showAdminDashboard() {
     document.getElementById('admin-login-view').classList.add('hidden');
     document.getElementById('admin-dashboard-view').classList.remove('hidden');
@@ -1576,8 +1664,12 @@
     document.getElementById('admin-set-telebirr-name').value = settings.telebirrName;
     document.getElementById('admin-set-cbe-acc').value = settings.cbeAccount;
     document.getElementById('admin-set-cbe-name').value = settings.cbeName;
+    const phoneInput = document.getElementById('admin-set-phone');
+    if (phoneInput) phoneInput.value = settings.phoneContact || settings.telebirrNumber || '0907862027';
     document.getElementById('admin-set-tg-user').value = settings.telegramUsername;
     document.getElementById('admin-set-price').value = settings.priceBirr;
+    const noticeInput = document.getElementById('admin-set-notice');
+    if (noticeInput) noticeInput.value = settings.adminNotice || '';
     document.getElementById('admin-set-pin').value = '';
     document.getElementById('admin-set-pin').placeholder = 'Leave blank to keep current PIN';
     const vipInput = document.getElementById('admin-set-vip');
@@ -1618,17 +1710,33 @@
       return;
     }
 
+    lastGeneratedStudentQuery = query;
+    lastGeneratedCodeVal = code;
+
     const resultBox = document.getElementById('admin-generated-code-box');
     const codeDisplay = document.getElementById('admin-generated-code');
     const replyText = document.getElementById('admin-tg-reply-text');
 
     codeDisplay.textContent = code;
     const currentPrice = AMT_AUTH.getSettings().priceBirr || 250;
-    const msg = `✅ Hello ${query}! Your payment of ${currentPrice} ETB is approved.\nYour Activation Code: ${code}\nEnter this code in the app to unlock all 8 exams & 11 study modules permanently.\nGood luck on your AMT exam! ✈️`;
+    const msg = `✅ Hello ${query}! Your payment of ${currentPrice} ETB is approved.\nYour Activation Code: ${code}\nEnter this code in Step 4 of the app to unlock all 8 exams & 11 study modules permanently.\nGood luck on your AMT exam! ✈️`;
     replyText.value = msg;
     resultBox.classList.remove('hidden');
     audioContext.playCorrect();
     resetAdminInactivityTimer();
+  }
+
+  function sendSmsReply() {
+    if (!lastGeneratedCodeVal) {
+      showToast("Generate a code first.", "danger");
+      return;
+    }
+    const digitsOnly = (lastGeneratedStudentQuery || '').replace(/\D/g, '');
+    const targetPhone = (digitsOnly.length >= 9) ? digitsOnly : '';
+    const currentPrice = AMT_AUTH.getSettings().priceBirr || 250;
+    const msg = `✅ Ethiopian Airlines AMT Exam App Approved!\nActivation Code: ${lastGeneratedCodeVal}\nEnter this in Step 4 of the app to unlock all 361 questions & 11 modules!`;
+    window.open(`sms:${targetPhone}?body=${encodeURIComponent(msg)}`);
+    showToast("Opening SMS draft...", "success");
   }
 
   function copyTgReply() {
@@ -1649,6 +1757,9 @@
   function saveAdminSettings() {
     const rawPin = document.getElementById('admin-set-pin').value.trim();
     const rawVip = document.getElementById('admin-set-vip')?.value?.trim();
+    const phoneInput = document.getElementById('admin-set-phone');
+    const noticeInput = document.getElementById('admin-set-notice');
+
     const newSettings = {
       telebirrNumber: document.getElementById('admin-set-telebirr-num').value.trim(),
       telebirrName: document.getElementById('admin-set-telebirr-name').value.trim(),
@@ -1657,6 +1768,12 @@
       telegramUsername: document.getElementById('admin-set-tg-user').value.trim(),
       priceBirr: parseInt(document.getElementById('admin-set-price').value) || 250
     };
+    if (phoneInput && phoneInput.value.trim()) {
+      newSettings.phoneContact = phoneInput.value.trim();
+    }
+    if (noticeInput) {
+      newSettings.adminNotice = noticeInput.value.trim();
+    }
     if (rawPin) {
       newSettings.adminPin = rawPin;
     }
@@ -1667,7 +1784,7 @@
     AMT_AUTH.saveSettings(newSettings);
     showAdminDashboard();
     audioContext.playCorrect();
-    showToast("✅ Settings, Admin Password & VIP Key saved successfully!", "success");
+    showToast("✅ Settings, Admin Password, Notice & VIP Key saved successfully!", "success");
   }
 
   // Fallback Copy helper for older mobile browsers
@@ -1976,7 +2093,11 @@
     shareApp,
     shareScoreOnTelegram,
     copyStudentDetails,
-    handleTelegramPaymentClick
+    handleTelegramPaymentClick,
+    submitReceiptInApp,
+    renderPendingReceiptTicket,
+    copyReceiptSummary,
+    sendSmsReply
   };
 
   document.addEventListener('DOMContentLoaded', () => {

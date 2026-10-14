@@ -142,6 +142,9 @@ const AMT_AUTH = (function() {
     saveRateLimits(rl);
   }
 
+  // Storage Keys
+  const STORAGE_KEY_PENDING_RECEIPT = 'amt_pending_receipt';
+
   // Default settings
   const DEFAULT_SETTINGS = {
     priceBirr: 250,
@@ -149,7 +152,9 @@ const AMT_AUTH = (function() {
     telebirrName: "Dagi",
     cbeAccount: "1000649624481",
     cbeName: "Dagi",
+    phoneContact: "0907862027",
     telegramUsername: "Mountxhua",
+    adminNotice: "NOTICE FROM DAGI (ADMIN): If Telegram shows 'mutual contacts only', send your 250 ETB payment via Telebirr (0907862027) or CBE (1000649624481) and SMS or Call 0907862027 with your Student ID to receive your 6-digit code in 2 minutes!",
     freePreviewCount: 5,
     adminPinHash: ADMIN_PIN_HASH,
     vipKey: "AMT-VIP-2026",
@@ -509,7 +514,32 @@ const AMT_AUTH = (function() {
 
       return { success: true, session };
     }
-    return { success: false, error: "Invalid activation code. Please check with Admin on Telegram @Mountxhua" };
+    return { success: false, error: "Invalid activation code. Please SMS or call Admin at 0907862027 or Telegram @Mountxhua" };
+  }
+
+  // Pending Receipt Storage
+  function savePendingReceipt(data) {
+    try {
+      localStorage.setItem(STORAGE_KEY_PENDING_RECEIPT, JSON.stringify(data));
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function getPendingReceipt() {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY_PENDING_RECEIPT);
+      return saved ? JSON.parse(saved) : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function clearPendingReceipt() {
+    try {
+      localStorage.removeItem(STORAGE_KEY_PENDING_RECEIPT);
+    } catch (e) {}
   }
 
   // Layer 3 Vault Storage Implementation
@@ -589,6 +619,9 @@ const AMT_AUTH = (function() {
     checkRateLimit,
     recordRateLimitFailure,
     clearRateLimit,
+    getPendingReceipt,
+    savePendingReceipt,
+    clearPendingReceipt,
     get VIP_DISPLAY() {
       return getSettings().vipKey || "AMT-VIP-2026";
     }

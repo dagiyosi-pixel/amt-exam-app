@@ -142,6 +142,12 @@
           <svg class="w-4 h-4 sm:w-5 sm:h-5 hidden dark:block text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
         </button>
 
+        <!-- Contact Admin / Unlock Button -->
+        <button onclick="window.APP.openPaywallModal()" class="px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-xs font-bold text-amber-900 dark:text-amber-200 bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/30 flex items-center gap-1 transition-colors whitespace-nowrap cursor-pointer active:scale-95" title="Contact Admin & Unlock Full Access">
+          <span>💬</span>
+          <span class="hidden sm:inline">Contact</span><span>Admin</span>
+        </button>
+
         <!-- Download Center Button -->
         <button onclick="window.APP.openDownloadModal()" class="px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl text-[11px] sm:text-xs font-bold text-emerald-700 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-100 dark:hover:bg-emerald-900/60 border border-emerald-300 dark:border-emerald-800 flex items-center gap-1 transition-colors whitespace-nowrap" title="Download Options">
           <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path></svg>
@@ -523,92 +529,211 @@
         </div>
       </div>
 
+      <!-- Official Admin Message Notice Box -->
+      <div id="paywall-admin-notice-box" class="p-3 sm:p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-900 dark:text-amber-200 text-xs flex items-start gap-2.5">
+        <span class="text-base shrink-0">📢</span>
+        <div class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="font-extrabold uppercase tracking-wider text-[10px] text-amber-700 dark:text-amber-400">Notice From Admin (Dagi)</span>
+            <span class="px-1.5 py-0.5 rounded text-[9px] font-bold bg-amber-500/20 text-amber-800 dark:text-amber-300">Important</span>
+          </div>
+          <p id="paywall-admin-notice-text" class="leading-relaxed font-medium">
+            Telegram direct messages may be restricted for non-contacts! Send your 250 ETB payment via Telebirr or CBE, then SMS or Call 0907862027 with your Student ID to receive your 6-digit code in 2 minutes!
+          </p>
+        </div>
+      </div>
+
       <!-- Step 1: Student Information -->
       <div class="space-y-2">
         <div class="flex items-center justify-between">
-          <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Step 1: Your Name / Telegram Username</label>
-          <span class="text-[10px] text-sky-500 font-semibold">For Instant Activation</span>
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">Step 1: Your Phone Number or Name</label>
+          <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold">Auto-Generates Your ID</span>
         </div>
         <input 
           id="paywall-input-name" 
           type="text" 
           oninput="window.APP.updatePaywallStudentId()" 
-          placeholder="Enter your name or Telegram username (e.g. @Abebe or Kebede)" 
-          class="w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-sky-500 outline-none transition-all text-sm"
+          placeholder="Enter your phone number or name (e.g. 0912345678 or Abebe)" 
+          class="w-full px-4 py-2.5 sm:py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-emerald-500 outline-none transition-all text-sm"
         >
-        <div class="p-3 rounded-xl bg-sky-50/70 dark:bg-sky-950/30 border border-sky-200/60 dark:border-sky-800/60 flex items-center justify-between text-xs text-slate-700 dark:text-slate-200">
+        <div class="p-2.5 sm:p-3 rounded-xl bg-emerald-50/70 dark:bg-emerald-950/30 border border-emerald-200/60 dark:border-emerald-800/60 flex items-center justify-between text-xs text-slate-700 dark:text-slate-200">
           <div>
-            <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Your Unique Student ID</span>
-            <span id="paywall-student-id-display" class="font-mono font-bold text-sky-600 dark:text-sky-400 text-sm">AMT-STUDENT-1000</span>
+            <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Your Student ID (Give this to Dagi)</span>
+            <span id="paywall-student-id-display" class="font-mono font-black text-emerald-700 dark:text-emerald-400 text-sm sm:text-base">AMT-STUDENT-1000</span>
           </div>
-          <button type="button" onclick="window.APP.copyStudentDetails()" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-800 text-sky-600 dark:text-sky-400 border border-sky-200 dark:border-sky-800 shadow-sm hover:bg-sky-50 dark:hover:bg-slate-700 flex items-center gap-1.5 transition-all">
+          <button type="button" onclick="window.APP.copyStudentDetails()" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-800 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-700 shadow-sm hover:bg-emerald-50 dark:hover:bg-slate-700 flex items-center gap-1.5 transition-all cursor-pointer">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
             <span>Copy ID</span>
           </button>
         </div>
       </div>
 
-      <!-- Step 2: Payment Instructions -->
-      <div class="space-y-3">
-        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Step 2: Transfer 250 Birr</label>
+      <!-- Step 2: Payment Accounts -->
+      <div class="space-y-2.5">
+        <div class="flex items-center justify-between">
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">Step 2: Transfer 250 Birr (Choose Telebirr or CBE)</label>
+          <span class="text-[10px] font-bold text-amber-600 dark:text-amber-400">One-Time Lifetime Fee</span>
+        </div>
         
         <!-- Telebirr Card -->
-        <div class="p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 flex items-center justify-between gap-3">
-          <div class="flex items-center gap-3">
-            <span class="w-8 h-8 rounded-xl bg-blue-500 text-white font-bold text-xs flex items-center justify-center">TB</span>
+        <div class="p-3 sm:p-3.5 rounded-2xl border-2 border-blue-400/50 dark:border-blue-600/50 bg-blue-50/40 dark:bg-blue-950/20 flex items-center justify-between gap-3 shadow-sm">
+          <div class="flex items-center gap-2.5 sm:gap-3">
+            <span class="w-9 h-9 rounded-xl bg-blue-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-sm">TB</span>
             <div>
-              <p class="text-xs font-bold text-slate-900 dark:text-white">Telebirr: <span id="paywall-telebirr-num" class="font-mono">0907862027</span></p>
-              <p class="text-[11px] text-slate-500">Account Name: <span id="paywall-telebirr-name">Dagi</span></p>
+              <div class="flex items-center gap-1.5">
+                <span class="text-[10px] uppercase font-bold text-blue-700 dark:text-blue-300">Telebirr Number:</span>
+              </div>
+              <p class="text-sm sm:text-base font-mono font-black text-slate-900 dark:text-white" id="paywall-telebirr-num">0907862027</p>
+              <p class="text-[11px] text-slate-600 dark:text-slate-400">Account Name: <strong id="paywall-telebirr-name" class="text-slate-900 dark:text-white">Dagi</strong></p>
             </div>
           </div>
-          <button onclick="window.APP.copyText(document.getElementById('paywall-telebirr-num').textContent, 'Telebirr number')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border shadow-sm hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors">
-            Copy
+          <button onclick="window.APP.copyText(document.getElementById('paywall-telebirr-num').textContent, 'Telebirr number')" class="px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs font-bold bg-blue-600 text-white hover:bg-blue-700 transition-all shadow-sm flex items-center gap-1 cursor-pointer">
+            <span>📋 Copy</span>
           </button>
         </div>
 
         <!-- CBE Card -->
-        <div class="p-3.5 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-800/50 flex items-center justify-between gap-3">
-          <div class="flex items-center gap-3">
-            <span class="w-8 h-8 rounded-xl bg-purple-600 text-white font-bold text-xs flex items-center justify-center">CBE</span>
+        <div class="p-3 sm:p-3.5 rounded-2xl border-2 border-purple-400/50 dark:border-purple-600/50 bg-purple-50/40 dark:bg-purple-950/20 flex items-center justify-between gap-3 shadow-sm">
+          <div class="flex items-center gap-2.5 sm:gap-3">
+            <span class="w-9 h-9 rounded-xl bg-purple-700 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-sm">CBE</span>
             <div>
-              <p class="text-xs font-bold text-slate-900 dark:text-white">CBE: <span id="paywall-cbe-acc" class="font-mono">1000649624481</span></p>
-              <p class="text-[11px] text-slate-500">Account Name: <span id="paywall-cbe-name">Dagi</span></p>
+              <div class="flex items-center gap-1.5">
+                <span class="text-[10px] uppercase font-bold text-purple-700 dark:text-purple-300">CBE Account Number:</span>
+              </div>
+              <p class="text-sm sm:text-base font-mono font-black text-slate-900 dark:text-white" id="paywall-cbe-acc">1000649624481</p>
+              <p class="text-[11px] text-slate-600 dark:text-slate-400">Account Name: <strong id="paywall-cbe-name" class="text-slate-900 dark:text-white">Dagi</strong></p>
             </div>
           </div>
-          <button onclick="window.APP.copyText(document.getElementById('paywall-cbe-acc').textContent, 'CBE account')" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 border shadow-sm hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors">
-            Copy
+          <button onclick="window.APP.copyText(document.getElementById('paywall-cbe-acc').textContent, 'CBE account number')" class="px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs font-bold bg-purple-700 text-white hover:bg-purple-800 transition-all shadow-sm flex items-center gap-1 cursor-pointer">
+            <span>📋 Copy</span>
           </button>
         </div>
       </div>
 
-      <!-- Step 3: Send Receipt to Telegram -->
-      <div class="space-y-2">
-        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Step 3: Send Receipt & ID to Admin</label>
-        <a id="paywall-tg-link" href="https://t.me/Mountxhua" target="_blank" onclick="window.APP.handleTelegramPaymentClick(event)" class="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white shadow-lg shadow-sky-500/25 flex items-center justify-center gap-2.5 transition-all transform active:scale-[0.99] cursor-pointer">
-          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .34z"/></svg>
-          <span id="paywall-tg-btn-text">Open @Mountxhua DM (Copies ID & Pre-fills Draft)</span>
-        </a>
-        <div class="flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 px-1">
-          <span class="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-medium">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-            Auto-copies Username & ID to clipboard
-          </span>
-          <span class="text-sky-600 dark:text-sky-400 font-semibold">⚡ Instant 2-Min Approval</span>
+      <!-- Step 3: Contact Admin (Multi-Channel to Never Get Blocked) -->
+      <div class="space-y-3 pt-1">
+        <div class="flex items-center justify-between">
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">Step 3: Contact Dagi to Get Your Code</label>
+          <span class="text-[10px] font-bold text-emerald-600 dark:text-emerald-400">⚡ 2-Min Approval</span>
+        </div>
+
+        <!-- METHOD 1: DIRECT SMS & CALL (WORKS 100% NO BANS) -->
+        <div class="p-3 sm:p-3.5 rounded-2xl bg-emerald-50/80 dark:bg-emerald-950/30 border-2 border-emerald-500/50 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span class="text-xs font-black text-emerald-900 dark:text-emerald-200 uppercase tracking-wide">Method 1: Direct SMS or Call</span>
+            </div>
+            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500 text-white">Recommended</span>
+          </div>
+          <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-relaxed">
+            Send an SMS to Dagi's direct phone (<strong class="text-slate-900 dark:text-white font-mono">0907862027</strong>) with your Student ID and transaction code. Works on all networks without Telegram restrictions!
+          </p>
+          <div class="grid grid-cols-2 gap-2 pt-1">
+            <a 
+              id="paywall-sms-link" 
+              href="sms:0907862027" 
+              class="w-full py-2.5 px-2 sm:px-3 rounded-xl font-bold text-xs bg-emerald-600 hover:bg-emerald-500 text-white shadow-md shadow-emerald-900/20 flex items-center justify-center gap-1.5 transition-all text-center cursor-pointer active:scale-95"
+            >
+              <span>📲 Send SMS to Dagi</span>
+            </a>
+            <a 
+              id="paywall-call-link" 
+              href="tel:0907862027" 
+              class="w-full py-2.5 px-2 sm:px-3 rounded-xl font-bold text-xs bg-slate-800 hover:bg-slate-700 dark:bg-slate-700 dark:hover:bg-slate-600 text-white flex items-center justify-center gap-1.5 transition-all text-center cursor-pointer active:scale-95"
+            >
+              <span>📞 Direct Call</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- METHOD 2: IN-APP RECEIPT SUBMISSION -->
+        <div class="p-3 sm:p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-2.5">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="text-sm">📨</span>
+              <span class="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wide">Method 2: Submit Receipt Inside App</span>
+            </div>
+            <span class="text-[10px] text-slate-500 font-mono">In-App Ticket</span>
+          </div>
+
+          <div class="space-y-2">
+            <input 
+              id="paywall-txn-input" 
+              type="text" 
+              placeholder="Paste Telebirr or CBE Transaction ID (e.g. FT2610...)" 
+              class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono font-medium outline-none focus:ring-2 focus:ring-emerald-500 text-slate-900 dark:text-white"
+            >
+            <input 
+              id="paywall-phone-input" 
+              type="text" 
+              placeholder="Your Phone Number (e.g. 0912345678)" 
+              class="w-full px-3 py-2 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-mono font-medium outline-none focus:ring-2 focus:ring-emerald-500 text-slate-900 dark:text-white"
+            >
+            <button 
+              type="button" 
+              onclick="window.APP.submitReceiptInApp()" 
+              class="w-full py-2.5 px-4 rounded-xl text-xs font-bold bg-[#00843D] hover:bg-[#00602c] text-white transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer active:scale-95"
+            >
+              <span>📨 Save & Register Receipt in App</span>
+            </button>
+          </div>
+
+          <!-- Pending Receipt Display Card -->
+          <div id="paywall-receipt-ticket" class="hidden p-3 rounded-xl bg-amber-50 dark:bg-amber-950/30 border border-amber-300 dark:border-amber-700 space-y-2 text-xs">
+            <div class="flex items-center justify-between">
+              <span class="font-bold text-amber-800 dark:text-amber-300 flex items-center gap-1">
+                <span>🎫</span>
+                <span>Receipt Registered in App!</span>
+              </span>
+              <span class="px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-amber-500/20 text-amber-800 dark:text-amber-200">Pending Approval</span>
+            </div>
+            <p id="paywall-ticket-details" class="font-mono text-[11px] text-slate-700 dark:text-slate-300 leading-tight"></p>
+            <div class="flex items-center gap-2 pt-1">
+              <button onclick="window.APP.copyReceiptSummary()" class="flex-1 py-1.5 px-2.5 rounded-lg text-[11px] font-bold bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 cursor-pointer">
+                📋 Copy Details
+              </button>
+              <a id="paywall-ticket-sms-btn" href="sms:0907862027" class="flex-1 py-1.5 px-2.5 rounded-lg text-[11px] font-bold bg-emerald-600 text-white text-center cursor-pointer">
+                📲 Send via SMS
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- METHOD 3: TELEGRAM LINK (WITH NOTICE) -->
+        <div class="p-3 rounded-2xl bg-sky-50/50 dark:bg-slate-800/40 border border-sky-200 dark:border-slate-700 space-y-1.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-700 dark:text-slate-300">Method 3: Telegram (@Mountxhua)</span>
+            <span class="text-[10px] text-amber-600 dark:text-amber-400 font-semibold">⚠️ May fail if Telegram blocks DMs</span>
+          </div>
+          <a 
+            id="paywall-tg-link" 
+            href="https://t.me/Mountxhua" 
+            target="_blank" 
+            onclick="window.APP.handleTelegramPaymentClick(event)" 
+            class="w-full py-2 px-3 rounded-xl font-bold text-xs bg-sky-500 hover:bg-sky-400 text-white flex items-center justify-center gap-2 transition-all cursor-pointer"
+          >
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.52 2.77-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .34z"/></svg>
+            <span id="paywall-tg-btn-text">Open @Mountxhua DM on Telegram</span>
+          </a>
         </div>
       </div>
 
       <!-- Step 4: Enter Activation Code -->
-      <div class="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-3">
-        <label class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Step 4: Enter Approval Code</label>
+      <div class="pt-3 border-t border-slate-200 dark:border-slate-800 space-y-2.5">
+        <div class="flex items-center justify-between">
+          <label class="text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300">Step 4: Enter 6-Digit Approval Code</label>
+          <span class="text-[10px] text-slate-500 font-medium">From Dagi via SMS or Telegram</span>
+        </div>
         <div class="flex gap-2">
           <input 
             id="paywall-activation-code-input" 
             type="text" 
             placeholder="e.g. 748-219 or VIP Code" 
-            class="flex-1 px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-mono font-bold tracking-widest text-center text-lg focus:ring-2 focus:ring-emerald-500 outline-none uppercase"
+            class="flex-1 px-4 py-2.5 sm:py-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-mono font-bold tracking-widest text-center text-lg focus:ring-2 focus:ring-emerald-500 outline-none uppercase"
           >
-          <button onclick="window.APP.submitActivationCode()" class="px-6 py-3 rounded-xl font-bold text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/25 transition-all">
-            Unlock
+          <button onclick="window.APP.submitActivationCode()" class="px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl font-bold text-xs sm:text-sm bg-[#00843D] hover:bg-[#00602c] text-white shadow-md shadow-emerald-900/20 transition-all cursor-pointer active:scale-95 whitespace-nowrap">
+            Unlock Full App
           </button>
         </div>
       </div>
@@ -685,10 +810,14 @@
                 <span class="text-[10px] uppercase font-bold text-slate-400">Student Activation Code</span>
                 <p id="admin-generated-code" class="text-xl font-mono font-black text-emerald-600 dark:text-emerald-400">849-215</p>
               </div>
-              <button onclick="window.APP.copyTgReply()" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm flex items-center gap-1.5 transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
-                Copy Telegram Message
-              </button>
+              <div class="flex items-center gap-1.5 sm:gap-2">
+                <button onclick="window.APP.sendSmsReply()" class="px-3 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm flex items-center gap-1 transition-colors cursor-pointer">
+                  <span>📲 Send SMS</span>
+                </button>
+                <button onclick="window.APP.copyTgReply()" class="px-3 py-2 rounded-xl text-xs font-bold bg-slate-800 hover:bg-slate-700 text-white shadow-sm flex items-center gap-1 transition-colors cursor-pointer">
+                  <span>📋 Copy Msg</span>
+                </button>
+              </div>
             </div>
             <textarea id="admin-tg-reply-text" rows="3" readonly class="w-full text-xs font-mono p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 outline-none"></textarea>
           </div>
@@ -745,6 +874,10 @@
               <input id="admin-set-cbe-name" type="text" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
             </div>
             <div>
+              <label class="font-semibold text-slate-500">Direct Phone / SMS Contact</label>
+              <input id="admin-set-phone" type="text" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
+            </div>
+            <div>
               <label class="font-semibold text-slate-500">Telegram Username</label>
               <input id="admin-set-tg-user" type="text" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
             </div>
@@ -756,9 +889,13 @@
               <label class="font-semibold text-slate-500">Change Admin Password</label>
               <input id="admin-set-pin" type="text" placeholder="Leave blank to keep current" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium">
             </div>
-            <div>
+            <div class="sm:col-span-2">
               <label class="font-semibold text-slate-500">Change VIP Password / Key</label>
               <input id="admin-set-vip" type="text" placeholder="Leave blank to keep current" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium font-mono">
+            </div>
+            <div class="sm:col-span-2">
+              <label class="font-semibold text-slate-500">In-App Broadcast Notice (Visible to All Students in Paywall)</label>
+              <textarea id="admin-set-notice" rows="2" class="w-full p-2.5 rounded-lg border dark:border-slate-700 bg-slate-50 dark:bg-slate-800 font-medium text-xs leading-relaxed"></textarea>
             </div>
           </div>
 
