@@ -548,6 +548,17 @@
         </div>
       </div>
 
+      <!-- Device Permanence Tip -->
+      <div class="p-2.5 sm:p-3 rounded-2xl bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200/60 dark:border-blue-800/60 flex items-start gap-2.5 text-xs text-blue-900 dark:text-blue-200">
+        <span class="text-sm shrink-0">💡</span>
+        <div class="space-y-0.5">
+          <span class="font-bold text-[11px] block">Tip for Telegram / Mobile Users:</span>
+          <p class="text-[11px] text-slate-600 dark:text-slate-300 leading-snug">
+            To keep your activation permanently saved, open this app in Chrome or Safari (or tap ⋮ > <strong>Open in Browser</strong>).
+          </p>
+        </div>
+      </div>
+
       <!-- Step 1: Student Information -->
       <div class="space-y-2">
         <div class="flex items-center justify-between">
@@ -1052,8 +1063,8 @@
   <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
   <!-- App Core Script -->
-  <script src="auth.js?v=2026.4.1"></script>
-  <script src="app.js?v=2026.4.1"></script>
+  <script src="auth.js?v=2026.4.2"></script>
+  <script src="app.js?v=2026.4.2"></script>
   <script>
     // Invalidate old service worker caches and force immediate refresh
     if ('serviceWorker' in navigator) {

@@ -1351,9 +1351,14 @@
       noticeEl.textContent = settings.adminNotice;
     }
 
-    // Prefill name & student ID
+    // Prefill name & student ID (auto-restore from local persistence)
     const nameInput = document.getElementById('paywall-input-name');
-    if (nameInput) nameInput.value = session.name || '';
+    const savedName = localStorage.getItem('amt_saved_student_name') || session.name || '';
+    if (nameInput) {
+      if (!nameInput.value && savedName) {
+        nameInput.value = savedName;
+      }
+    }
     updatePaywallStudentId();
     renderPendingReceiptTicket();
 
@@ -1366,7 +1371,14 @@
 
   function updatePaywallStudentId() {
     const nameInput = document.getElementById('paywall-input-name');
-    const name = nameInput?.value?.trim() || 'Student';
+    const rawVal = nameInput?.value?.trim();
+    if (rawVal) {
+      try {
+        localStorage.setItem('amt_saved_student_name', rawVal);
+      } catch(e) {}
+    }
+    const savedName = localStorage.getItem('amt_saved_student_name');
+    const name = rawVal || savedName || 'Student';
     const id = AMT_AUTH.generateStudentId(name);
     const display = document.getElementById('paywall-student-id-display');
     if (display) display.textContent = id;
@@ -1509,17 +1521,30 @@
     const codeInput = document.getElementById('paywall-activation-code-input');
     const nameInput = document.getElementById('paywall-input-name');
     const code = codeInput?.value?.trim();
-    const name = nameInput?.value?.trim() || 'Student';
-    const studentId = AMT_AUTH.generateStudentId(name);
 
     if (!code) {
       showToast("Please enter your 6-digit Activation Code", "danger");
       return;
     }
 
-    const res = AMT_AUTH.activateUser(code, name, studentId);
+    // Gather all candidate identifiers (input, saved name, pending receipt details)
+    const rawVal = nameInput?.value?.trim();
+    const savedName = localStorage.getItem('amt_saved_student_name') || '';
+    const pending = AMT_AUTH.getPendingReceipt();
+    const pendingPhone = pending?.phone || '';
+    const pendingName = pending?.name || '';
+    const pendingId = pending?.studentId || '';
+
+    const name = rawVal || savedName || pendingPhone || pendingName || 'Student';
+    const studentId = AMT_AUTH.generateStudentId(name);
+    const extraCandidates = [rawVal, savedName, pendingPhone, pendingName, pendingId, 'Student'];
+
+    const res = AMT_AUTH.activateUser(code, name, studentId, extraCandidates);
     if (res.success) {
       AMT_AUTH.clearRateLimit('code');
+      try {
+        localStorage.setItem('amt_saved_student_name', name);
+      } catch(e) {}
       audioContext.playCorrect();
       showToast("🎉 Full Access Successfully Activated! Welcome!", "success");
       closePaywallModal();
@@ -1534,7 +1559,7 @@
       if (newCheck.locked) {
         showToast(`⛔ Too many failed attempts. Locked for ${newCheck.waitSeconds}s.`, "danger");
       } else {
-        showToast(res.error || "❌ Invalid code. Please check with Admin on Telegram.", "danger");
+        showToast(res.error || "❌ Invalid code. Please check with Admin Support via SMS or Telegram.", "danger");
       }
     }
   }

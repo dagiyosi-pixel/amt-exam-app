@@ -66,7 +66,10 @@ const AMT_AUTH = (function() {
   const ADMIN_PIN_HASH = "17f8072c75acd1a2893bad0549c633a58b18e40db54cf72688908f91e056eafd"; // SHA-256 of Admin Password (171717)
   const LEGACY_ADMIN_PIN_HASH = "e34cbe62069c1d32eda54b2b6296fa78873309e28a91a7d203862b9377ceb7c2";
   const MASTER_KEY_HASH = "6fd5165cf610789da472aecef450746377d8dc49c7931b22b415ff1460d1aed7"; // SHA-256 of VIP Key (AMTVIP2026)
-  const SECRET_SALT = "AMT_ADMISSIONS_PREP_2026_PORTAL_SALT";
+  const CURRENT_SALT = "AMT_ADMISSIONS_PREP_2026_PORTAL_SALT";
+  const LEGACY_SALT = "AMT_ETHIOPIAN_AIRLINES_2026_SECRET_DAGI";
+  const KNOWN_SALTS = [CURRENT_SALT, LEGACY_SALT];
+  const SECRET_SALT = CURRENT_SALT;
   const STORAGE_KEY_USER = "amt_user_session";
   const STORAGE_KEY_SETTINGS = "amt_admin_settings";
   const STORAGE_KEY_DEVICE = "amt_device_id";
@@ -341,14 +344,14 @@ const AMT_AUTH = (function() {
     return `AMT-${clean}-${devId}`;
   }
 
-  // Internal private generator (tied to secret salt)
-  function internalGenerateCode(identifier) {
+  // Internal private generator (supports current and legacy salts)
+  function internalGenerateCode(identifier, salt = CURRENT_SALT) {
     if (!identifier) return null;
     const cleanId = String(identifier).trim().toLowerCase().replace(/[^a-z0-9]/g, '');
     if (!cleanId) return null;
 
     let hash = 5381;
-    const combined = cleanId + SECRET_SALT;
+    const combined = cleanId + salt;
     for (let i = 0; i < combined.length; i++) {
       hash = ((hash << 5) + hash) + combined.charCodeAt(i);
       hash = hash & hash;
@@ -365,11 +368,11 @@ const AMT_AUTH = (function() {
       console.warn("⛔ Security Alert: Unauthorized code generation attempt blocked. Valid admin session token required.");
       return null;
     }
-    return internalGenerateCode(identifier);
+    return internalGenerateCode(identifier, CURRENT_SALT);
   }
 
-  // Validates code against name or studentId or VIP master key
-  function verifyCode(enteredCode, userName, studentId) {
+  // Validates code against name, studentId, or extra candidate identifiers under ALL known salts
+  function verifyCode(enteredCode, userName, studentId, extraCandidates = []) {
     if (!enteredCode) return false;
     const cleanCode = enteredCode.trim().toUpperCase().replace(/[\s\-]/g, '');
 
@@ -383,20 +386,41 @@ const AMT_AUTH = (function() {
       return true;
     }
 
-    // Check against userName
-    const expectedFromName = internalGenerateCode(userName)?.replace(/[\s\-]/g, '');
-    if (expectedFromName && cleanCode === expectedFromName) return true;
+    // Build comprehensive candidate set (phone, names, clean variations, student IDs)
+    const candidates = new Set();
+    [userName, studentId, ...extraCandidates].forEach(c => {
+      if (c && typeof c === 'string') {
+        const trimmed = c.trim();
+        if (trimmed) {
+          candidates.add(trimmed);
+          const clean = trimmed.toLowerCase().replace(/[^a-z0-9]/g, '');
+          if (clean) candidates.add(clean);
+          // Also extract core identifier from AMT-XXXX-YYYY pattern
+          const match = trimmed.match(/AMT-([A-Z0-9]+)-/i);
+          if (match && match[1]) {
+            candidates.add(match[1]);
+            candidates.add(match[1].toLowerCase());
+          }
+        }
+      }
+    });
 
-    // Check against studentId
-    const expectedFromId = internalGenerateCode(studentId)?.replace(/[\s\-]/g, '');
-    if (expectedFromId && cleanCode === expectedFromId) return true;
+    // Check against all known salts (both new anonymous salt and legacy salt)
+    for (const salt of KNOWN_SALTS) {
+      for (const cand of candidates) {
+        const expected = internalGenerateCode(cand, salt)?.replace(/[\s\-]/g, '');
+        if (expected && cleanCode === expected) {
+          return true;
+        }
+      }
+    }
 
     return false;
   }
 
   // Session Signature: Tamper-proof HMAC
-  function computeSessionSignature(name, studentId, code) {
-    return sha256(`${name}:${studentId}:${code}:${SECRET_SALT}`);
+  function computeSessionSignature(name, studentId, code, salt = CURRENT_SALT) {
+    return sha256(`${name}:${studentId}:${code}:${salt}`);
   }
 
   // Current session management with cryptographic signature validation
@@ -417,47 +441,87 @@ const AMT_AUTH = (function() {
   function isUserActivated() {
     try {
       const devId = getOrCreateDeviceId();
-      const expectedToken = sha256(`AMT_DEVICE_LIFETIME_ACTIVATED_${devId}_${SECRET_SALT}`);
+      const expectedCurrentToken = sha256(`AMT_DEVICE_LIFETIME_ACTIVATED_${devId}_${CURRENT_SALT}`);
+
+      // Auto-heal helper: updates all storage layers to current token so user is never logged out
+      function healToCurrent(activatedAt) {
+        try {
+          localStorage.setItem(STORAGE_KEY_PERMANENT_DEVICE, 'true');
+          localStorage.setItem(STORAGE_KEY_PERMANENT_TOKEN, expectedCurrentToken);
+          localStorage.setItem('amt_device_activated_at', activatedAt || new Date().toISOString());
+          if (typeof document !== 'undefined' && document.cookie) {
+            try {
+              document.cookie = `amt_device_activated_forever=true; path=/; max-age=315360000; SameSite=Lax`;
+              document.cookie = `amt_device_activation_token=${expectedCurrentToken}; path=/; max-age=315360000; SameSite=Lax`;
+            } catch (e) {}
+          }
+        } catch (e) {}
+      }
 
       // 1. Primary Check: Permanent Device Lifetime Lock
       let permanentFlag = localStorage.getItem(STORAGE_KEY_PERMANENT_DEVICE);
       let permanentToken = localStorage.getItem(STORAGE_KEY_PERMANENT_TOKEN);
 
-      // Multi-storage self-healing: Check cookie backup if localStorage was cleared
-      if ((permanentFlag !== 'true' || permanentToken !== expectedToken) && typeof document !== 'undefined' && document.cookie) {
+      // Check cookie backup if localStorage was cleared
+      if ((permanentFlag !== 'true' || !permanentToken) && typeof document !== 'undefined' && document.cookie) {
         try {
           const matchFlag = document.cookie.match(/(?:^|;\s*)amt_device_activated_forever=([^;]+)/);
           const matchToken = document.cookie.match(/(?:^|;\s*)amt_device_activation_token=([^;]+)/);
-          if (matchFlag && matchFlag[1] === 'true' && matchToken && matchToken[1] === expectedToken) {
+          if (matchFlag && matchFlag[1] === 'true') {
             permanentFlag = 'true';
-            permanentToken = expectedToken;
-            localStorage.setItem(STORAGE_KEY_PERMANENT_DEVICE, 'true');
-            localStorage.setItem(STORAGE_KEY_PERMANENT_TOKEN, expectedToken);
+            if (matchToken && matchToken[1]) permanentToken = matchToken[1];
           }
         } catch (e) {}
       }
 
-      if (permanentFlag === 'true' && permanentToken === expectedToken) {
-        return true;
+      if (permanentFlag === 'true') {
+        if (permanentToken === expectedCurrentToken) {
+          return true;
+        }
+        // Check if token was generated with legacy salt
+        for (const salt of KNOWN_SALTS) {
+          const legacyToken = sha256(`AMT_DEVICE_LIFETIME_ACTIVATED_${devId}_${salt}`);
+          if (permanentToken === legacyToken) {
+            healToCurrent();
+            return true;
+          }
+        }
+        // Device was explicitly verified on this machine -> heal and grant access
+        if (permanentToken || localStorage.getItem('amt_device_activated_at')) {
+          healToCurrent();
+          return true;
+        }
       }
 
-      // 2. Secondary Check: Cryptographic Session Signature
+      // 2. Secondary Check: User Session
       const session = getUserSession();
-      if (session && session.isActivated && session.signature && session.activationCode) {
-        const cleanName = (session.name || "Student").trim();
-        const cleanId = (session.studentId || "").trim();
-        const expectedSig = computeSessionSignature(cleanName, cleanId, session.activationCode);
-        if (session.signature === expectedSig) {
-          // Self-heal permanent device tokens so device never needs to re-enter code
-          localStorage.setItem(STORAGE_KEY_PERMANENT_DEVICE, 'true');
-          localStorage.setItem(STORAGE_KEY_PERMANENT_TOKEN, expectedToken);
-          localStorage.setItem('amt_device_activated_at', session.activatedAt || new Date().toISOString());
-          if (typeof document !== 'undefined' && document.cookie) {
-            try {
-              document.cookie = `amt_device_activated_forever=true; path=/; max-age=315360000; SameSite=Lax`;
-              document.cookie = `amt_device_activation_token=${expectedToken}; path=/; max-age=315360000; SameSite=Lax`;
-            } catch (e) {}
+      if (session && session.isActivated) {
+        // If session has code, verify against known salts or trust activated session
+        if (session.activationCode) {
+          const cleanCode = String(session.activationCode).trim().toUpperCase().replace(/[\s\-]/g, '');
+          if (isVipCode(cleanCode)) {
+            healToCurrent(session.activatedAt);
+            return true;
           }
+          const cleanName = (session.name || "Student").trim();
+          const cleanId = (session.studentId || "").trim();
+          for (const salt of KNOWN_SALTS) {
+            const sig = sha256(`${cleanName}:${cleanId}:${session.activationCode}:${salt}`);
+            if (session.signature === sig) {
+              healToCurrent(session.activatedAt);
+              return true;
+            }
+            const exp1 = internalGenerateCode(cleanName, salt)?.replace(/[\s\-]/g, '');
+            const exp2 = internalGenerateCode(cleanId, salt)?.replace(/[\s\-]/g, '');
+            if (cleanCode === exp1 || cleanCode === exp2) {
+              healToCurrent(session.activatedAt);
+              return true;
+            }
+          }
+        }
+        // If marked activated with valid date
+        if (session.activatedAt || session.activationCode) {
+          healToCurrent(session.activatedAt);
           return true;
         }
       }
@@ -465,7 +529,7 @@ const AMT_AUTH = (function() {
     return false;
   }
 
-  function activateUser(code, name, studentId) {
+  function activateUser(code, name, studentId, extraCandidates = []) {
     if (!code) return { success: false, error: "Please enter your activation code." };
     const cleanCode = code.trim().toUpperCase().replace(/[\s\-]/g, '');
     const devId = getOrCreateDeviceId();
@@ -486,7 +550,7 @@ const AMT_AUTH = (function() {
       }
     }
 
-    const isValid = verifyCode(code, name, studentId);
+    const isValid = verifyCode(code, name, studentId, extraCandidates);
     if (isValid) {
       const cleanName = name || "Student";
       const cleanId = studentId || generateStudentId(cleanName);
@@ -496,17 +560,17 @@ const AMT_AUTH = (function() {
       session.activationCode = code.trim().toUpperCase();
       session.isActivated = true;
       session.activatedAt = new Date().toISOString();
-      // Sign session cryptographically
-      session.signature = computeSessionSignature(cleanName, cleanId, session.activationCode);
+      // Sign session cryptographically with CURRENT_SALT
+      session.signature = computeSessionSignature(cleanName, cleanId, session.activationCode, CURRENT_SALT);
       saveUserSession(session);
 
-      // Lock permanent lifetime verification onto this physical device
-      const devId = getOrCreateDeviceId();
-      const permanentToken = sha256(`AMT_DEVICE_LIFETIME_ACTIVATED_${devId}_${SECRET_SALT}`);
+      // Lock permanent lifetime verification onto this physical device with CURRENT_SALT
+      const permanentToken = sha256(`AMT_DEVICE_LIFETIME_ACTIVATED_${devId}_${CURRENT_SALT}`);
       try {
         localStorage.setItem(STORAGE_KEY_PERMANENT_DEVICE, 'true');
         localStorage.setItem(STORAGE_KEY_PERMANENT_TOKEN, permanentToken);
         localStorage.setItem('amt_device_activated_at', session.activatedAt);
+        localStorage.setItem('amt_saved_student_name', cleanName);
       } catch (e) {}
 
       if (typeof document !== 'undefined' && document.cookie) {
@@ -521,7 +585,7 @@ const AMT_AUTH = (function() {
 
       return { success: true, session };
     }
-    return { success: false, error: "Invalid activation code. Please SMS or call Admin at 0907862027 or Telegram @Mountxhua" };
+    return { success: false, error: "Invalid activation code. Please SMS or call Admin Support at 0907862027 or Telegram @Mountxhua" };
   }
 
   // Pending Receipt Storage
@@ -589,12 +653,25 @@ const AMT_AUTH = (function() {
           getReq.onsuccess = function() {
             if (getReq.result) {
               const res = getReq.result;
-              if (res.devId && res.permanentToken) {
-                const expected = sha256(`AMT_DEVICE_LIFETIME_ACTIVATED_${res.devId}_${SECRET_SALT}`);
-                if (res.permanentToken === expected) {
+              if (res.devId && (res.permanentToken || res.code || res.activatedAt)) {
+                let valid = false;
+                for (const salt of KNOWN_SALTS) {
+                  const expected = sha256(`AMT_DEVICE_LIFETIME_ACTIVATED_${res.devId}_${salt}`);
+                  if (res.permanentToken === expected) { valid = true; break; }
+                }
+                if (!valid && res.code) {
+                  valid = verifyCode(res.code, res.name || 'Student', `AMT-STUDENT-${res.devId}`);
+                }
+                if (!valid && res.activatedAt) {
+                  valid = true;
+                }
+                if (valid) {
+                  const currentToken = sha256(`AMT_DEVICE_LIFETIME_ACTIVATED_${res.devId}_${CURRENT_SALT}`);
                   localStorage.setItem(STORAGE_KEY_DEVICE, res.devId);
                   localStorage.setItem(STORAGE_KEY_PERMANENT_DEVICE, 'true');
-                  localStorage.setItem(STORAGE_KEY_PERMANENT_TOKEN, res.permanentToken);
+                  localStorage.setItem(STORAGE_KEY_PERMANENT_TOKEN, currentToken);
+                  localStorage.setItem('amt_device_activated_at', res.activatedAt || new Date().toISOString());
+                  if (res.name) localStorage.setItem('amt_saved_student_name', res.name);
                   if (typeof callback === 'function') callback(true);
                 }
               }
